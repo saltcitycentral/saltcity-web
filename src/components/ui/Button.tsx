@@ -1,33 +1,41 @@
 import { ButtonHTMLAttributes } from "react";
 import Link from "next/link";
 
-// Update props to include an optional href
+// 1. Added 'target' to the Props type
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: "primary" | "secondary";
   href?: string;
+  target?: string; 
 };
 
 export default function Button({
   variant = "primary",
   className = "",
   href,
+  target, // 2. Destructure target here
   children,
   ...props
 }: Props) {
   const base =
-    "inline-flex items-center justify-center rounded-full shadow-card px-8 py-3 text-sm font-semibold transition duration-300";
+    "inline-flex items-center justify-center rounded-full shadow-md px-8 py-3 text-sm font-semibold transition duration-300";
 
+  // 3. Updated colors to match your new Tredin Engineering palette
+  // Primary: Refinery Bronze (#92400E) | Secondary: Transparent with Slate ring
   const styles =
     variant === "primary"
-      ? "bg-white text-black hover:opacity-90"
-      : "bg-transparent text-white ring-1 ring-white/40 hover:ring-white/70";
+      ? "bg-[#92400E] text-white hover:bg-[#78350F]" 
+      : "bg-transparent text-[#0F172A] ring-1 ring-[#64748B]/40 hover:ring-[#64748B]";
 
   const combinedClassName = `${base} ${styles} ${className}`;
 
   // If href is provided, render a Next.js Link
   if (href) {
     return (
-      <Link href={href} className={combinedClassName}>
+      <Link 
+        href={href} 
+        target={target} // 4. Pass the target prop to the Link
+        className={combinedClassName}
+      >
         {children}
       </Link>
     );
