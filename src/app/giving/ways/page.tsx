@@ -54,8 +54,8 @@ const GIVING_TYPES = [
     items: [
       "Sound and multimedia equipment",
       "Office supplies and furniture",
-      "Books and teaching materials",
-      "Ministry program materials"
+      "Cleaning supplies",
+      
     ]
   },
   {
@@ -77,7 +77,6 @@ const GIVING_TYPES = [
       "Serve in a unit (Media, Ushering, etc.)",
       "Join a ministry team",
       "Volunteer for special events",
-      "Mentor and disciple others"
     ]
   },
 ];

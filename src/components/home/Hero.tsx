@@ -1,4 +1,5 @@
 import Container from "@/components/ui/Container";
+import Button from "@/components/ui/Button";
 
 export default function Hero() {
   return (
@@ -19,25 +20,37 @@ export default function Hero() {
             </h1>
 
             <p className="text-lg lg:text-xl text-black/75 leading-relaxed max-w-[540px] mb-8">
-GOD created you in Christ Jesus to join Him in His good work, and we are here to help you in doing so.
-     </p>
+              GOD created you in Christ Jesus to join Him in His good work, and we are here to help you in doing so.
+            </p>
 
-            <div className="max-w-[540px]">
-              <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-black/70">
-                <span className="inline-grid h-5 w-5 place-items-center rounded-full border border-black/30 text-xs">📍</span>
-                <span>Find Your Closest Location</span>
-              </div>
+            <div className="flex flex-wrap gap-4">
+              <Button 
+                href="https://www.youtube.com/@saltcitychurch"
+                target="_blank"
+                className="bg-black text-white hover:bg-black/90"
+                icon={
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                  </svg>
+                }
+              >
+                Join Us Live
+              </Button>
 
-              <select className="w-full rounded-xl border border-black/20 bg-white px-5 py-4 text-base shadow-[0_8px_20px_rgba(0,0,0,0.08)] focus:outline-none focus:ring-2 focus:ring-black/20">
-                <option value="">Choose a Location</option>
-                <optgroup label="Online">
-                  <option value="online">SaltCity Online</option>
-                </optgroup>
-                <optgroup label="Nigeria">
-                  <option value="warri">Warri</option>
-                  <option value="benin">Benin City</option>
-                </optgroup>
-              </select>
+              <Button 
+                href="/serve"
+                className="bg-transparent text-black ring-2 ring-black/20 hover:ring-black/40 hover:bg-black/5"
+                icon={
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                  </svg>
+                }
+              >
+                Join a Unit
+              </Button>
             </div>
           </div>
         </div>
