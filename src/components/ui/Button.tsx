@@ -1,26 +1,29 @@
-import { ButtonHTMLAttributes } from "react";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 import Link from "next/link";
 
-// 1. Added 'target' to the Props type
+// 1. Updated Props to include icon and iconPosition
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: "primary" | "secondary";
   href?: string;
-  target?: string; 
+  target?: string;
+  icon?: ReactNode; // Added this
+  iconPosition?: "left" | "right"; // Added this
 };
 
 export default function Button({
   variant = "primary",
   className = "",
   href,
-  target, // 2. Destructure target here
+  target,
+  icon,
+  iconPosition = "right", // Default to right
   children,
   ...props
 }: Props) {
   const base =
-    "inline-flex items-center justify-center rounded-full shadow-md px-8 py-3 text-sm font-semibold transition duration-300";
+    "inline-flex items-center justify-center gap-2 rounded-full shadow-md px-8 py-3 text-sm font-semibold transition duration-300";
 
-  // 3. Updated colors to match your new Tredin Engineering palette
-  // Primary: Refinery Bronze (#92400E) | Secondary: Transparent with Slate ring
+  // Using the Tredin Refinery Bronze and Deep Petroleum colors
   const styles =
     variant === "primary"
       ? "bg-[#92400E] text-white hover:bg-[#78350F]" 
@@ -28,23 +31,26 @@ export default function Button({
 
   const combinedClassName = `${base} ${styles} ${className}`;
 
-  // If href is provided, render a Next.js Link
+  // Helper to render the button content with icon
+  const content = (
+    <>
+      {icon && iconPosition === "left" && icon}
+      {children}
+      {icon && iconPosition === "right" && icon}
+    </>
+  );
+
   if (href) {
     return (
-      <Link 
-        href={href} 
-        target={target} // 4. Pass the target prop to the Link
-        className={combinedClassName}
-      >
-        {children}
+      <Link href={href} target={target} className={combinedClassName}>
+        {content}
       </Link>
     );
   }
 
-  // Otherwise, render a standard button
   return (
     <button className={combinedClassName} {...props}>
-      {children}
+      {content}
     </button>
   );
 }
