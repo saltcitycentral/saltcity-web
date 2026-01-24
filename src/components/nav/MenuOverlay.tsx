@@ -115,11 +115,15 @@ export default function MenuOverlay({ open, onClose }: Props) {
             {/* Mobile */}
             <div className="lg:hidden space-y-10">
               <div className="space-y-6">
-                {TOP_ITEMS.map((x) => (
+              {TOP_ITEMS.map((x) => {
+                const isExternal = x.href.startsWith("http");
+                return (
                   <Link
                     key={x.title}
                     href={x.href}
                     onClick={onClose}
+                    target={isExternal ? "_blank" : undefined}
+                    rel={isExternal ? "noopener noreferrer" : undefined}
                     className="block cursor-pointer"
                   >
                     <div className="text-sm font-bold text-sky-600 hover:underline">
@@ -127,7 +131,8 @@ export default function MenuOverlay({ open, onClose }: Props) {
                     </div>
                     <div className="text-sm text-black/70 mt-1">{x.desc}</div>
                   </Link>
-                ))}
+                );
+              })}
               </div>
 
               <div>
@@ -160,16 +165,21 @@ export default function MenuOverlay({ open, onClose }: Props) {
                       Explore
                     </div>
                     <div className="space-y-4">
-                      {TOP_ITEMS.map((x) => (
-                        <Link
-                          key={x.title}
-                          href={x.href}
-                          onClick={onClose}
-                          className="block cursor-pointer text-sky-600 font-bold hover:underline"
-                        >
-                          {x.title}
-                        </Link>
-                      ))}
+                      {TOP_ITEMS.map((x) => {
+                        const isExternal = x.href.startsWith("http");
+                        return (
+                          <Link
+                            key={x.title}
+                            href={x.href}
+                            onClick={onClose}
+                            target={isExternal ? "_blank" : undefined}
+                            rel={isExternal ? "noopener noreferrer" : undefined}
+                            className="block cursor-pointer text-sky-600 font-bold hover:underline"
+                          >
+                            {x.title}
+                          </Link>
+                        );
+                      })}
                     </div>
                   </div>
 

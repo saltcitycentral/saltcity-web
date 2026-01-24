@@ -60,18 +60,25 @@ export default function Header() {
                 <img src="/logo.svg" alt="SaltCity" className="h-8 w-auto" />
               </Link>
 
-              <ul className="hidden lg:flex items-center gap-6">
-                {MAIN_LINKS.map((item) => (
+            <ul className="hidden lg:flex items-center gap-6">
+              {MAIN_LINKS.map((item) => {
+                // Logic: if it starts with http, it's an external link
+                const isExternal = item.href.startsWith("http");
+
+                return (
                   <li key={item.label}>
                     <Link
                       href={item.href}
+                      target={isExternal ? "_blank" : undefined}
+                      rel={isExternal ? "noopener noreferrer" : undefined}
                       className="text-xs font-semibold uppercase tracking-wide text-black/50 hover:text-black transition-colors"
                     >
                       {item.label}
                     </Link>
                   </li>
-                ))}
-              </ul>
+                );
+              })}
+            </ul>
             </div>
 
             <div className="flex items-center gap-6">

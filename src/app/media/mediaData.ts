@@ -105,8 +105,8 @@ export const MEDIA_ITEMS: MediaItem[] = [
     title: "Inescapable Work",
     summary:
       "A profound study on the necessity of spiritual labour, the call to diligence in the kingdom, and the rewards of a life dedicated to God's service.",
-    heroImage: img("/images/giving-hero.jpg"),
-    cardImage: img("/place-for-you.jpg"),
+    heroImage: img("/images/inescapable-work.jpeg"),
+    cardImage: img("/images/inescapable-work.jpeg"),
     primaryCta: { label: "Watch on YouTube", href: "https://youtube.com/..." },
     secondaryCta: { label: "Listen on Telegram", href: "https://t.me/..." },
     episodes: [
@@ -115,33 +115,26 @@ export const MEDIA_ITEMS: MediaItem[] = [
         title: "The Call to Labour",
         part: "PART 1",
         duration: "45:00",
-        image: img("/new-here.jpg"),
-        youtubeID: "hWCCIDPmUEs",
+        image: img("/images/inescapable-work.jpeg"),
+        youtubeID: "aTJFP-TDhHM",
       },
       {
         slug: "part-2-diligence-in-the-spirit",
         title: "Diligence in the Spirit",
         part: "PART 2",
         duration: "48:15",
-        image: img("/images/giving-phone.jpg"),
-        youtubeID: "dQw4w9WgXcQ",
+        image: img("/images/inescapable-work.jpeg"),
+        youtubeID: "9IY9i3rvBew",
       },
       {
         slug: "part-3-the-fruit-of-service",
         title: "The Fruit of Service",
         part: "PART 3",
         duration: "42:10",
-        image: img("/place-for-you.jpg"),
-        youtubeID: "dQw4w9WgXcQ",
+        image: img("/images/inescapable-work.jpeg"),
+        youtubeID: "hWCCIDPmUEs",
       },
-      {
-        slug: "part-4-finishing-the-course",
-        title: "Finishing the Course",
-        part: "PART 4",
-        duration: "50:05",
-        image: img("/images/giving-hero.jpg"),
-        youtubeID: "dQw4w9WgXcQ"
-      },
+
     ],
     tags: ["work", "service", "diligence"],
   },
@@ -153,8 +146,8 @@ export const MEDIA_ITEMS: MediaItem[] = [
     title: "Write the Vision",
     summary:
       "Understanding the power of vision, how to document spiritual direction, and the patience required to see the promise manifest.",
-    heroImage: img("/place-for-yous.jpg"),
-    cardImage: img("/images/giving-hero.jpg"),
+    heroImage: img("/images/Write-the-Vision.jpg"),
+    cardImage: img("/images/Write-the-Vision.jpg"),
     primaryCta: { label: "Watch on YouTube", href: "https://youtube.com/..." },
     secondaryCta: { label: "Listen on Telegram", href: "https://t.me/..." },
     episodes: [
@@ -163,33 +156,26 @@ export const MEDIA_ITEMS: MediaItem[] = [
         title: "The Power of Sight",
         part: "PART 1",
         duration: "40:20",
-        image: img("/new-here.jpg"),
-        youtubeID: "dQw4w9WgXcQ"
+        image: img("/images/Write-the-Vision.jpg"),
+        youtubeID: "02VNPeZ5O7M"
       },
       {
         slug: "part-2-clarity-and-conviction",
         title: "Clarity and Conviction",
         part: "PART 2",
         duration: "44:50",
-        image: img("/place-for-you.jpg"),
-        youtubeID: "dQw4w9WgXcQ"
+        image: img("/images/Write-the-Vision.jpg"),
+        youtubeID: "N7EPW9YhFaY"
       },
       {
         slug: "part-3-running-with-the-vision",
         title: "Running with the Vision",
         part: "PART 3",
         duration: "41:15",
-        image: img("/images/giving-phone.jpg"),
-        youtubeID: "dQw4w9WgXcQ"
+        image: img("/images/Write-the-Vision.jpg"),
+        youtubeID: "hLNcV4dqAIo"
       },
-      {
-        slug: "part-4-the-appointed-time",
-        title: "The Appointed Time",
-        part: "PART 4",
-        duration: "47:30",
-        image: img("/place-for-yous.jpg"),
-        youtubeID: "dQw4w9WgXcQ"
-      },
+  
     ],
     tags: ["vision", "purpose", "patience"],
   },
