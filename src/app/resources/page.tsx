@@ -20,12 +20,7 @@ const RESOURCE_CATEGORIES = [
         fileSize: "PDF • 1.8 MB",
         downloadUrl: "/downloads/membership-form.pdf",
       },
-      {
-        name: "Baptism Registration",
-        description: "Register for water baptism.",
-        fileSize: "PDF • 1.2 MB",
-        downloadUrl: "/downloads/baptism-form.pdf",
-      },
+  
     ]
   },
   {
