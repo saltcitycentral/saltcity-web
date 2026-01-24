@@ -7,7 +7,7 @@ import Container from "@/components/ui/Container";
 import MenuOverlay from "@/components/nav/MenuOverlay";
 
 const MAIN_LINKS = [
-  { label: "Watch Online", href: "/watch" },
+  { label: "Watch Online", href: "https://www.youtube.com/@saltcitycentral" },
   { label: "Sermons", href: "/media/sermon-series" }, // Updated this line
   { label: "Resources", href: "/resources" },
   { label: "Give", href: "/giving" },

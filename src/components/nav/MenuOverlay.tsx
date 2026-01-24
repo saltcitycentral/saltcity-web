@@ -15,17 +15,38 @@ type NavItem = {
   href: string;
 };
 
+// Updated to match Header.tsx links
 const TOP_ITEMS: NavItem[] = [
   {
     title: "Attend Online",
     desc: "Check out a message live with our Church Online community.",
-    href: "/watch",
+    href: "https://www.youtube.com/@saltcitycentral",
   },
-  { title: "Media", desc: "Messages, LifeGroups, Kids content, Worship, and more.", href: "/media" },
-  { title: "Locations", desc: "Find a campus and get service times and directions.", href: "/locations" },
-  { title: "Give", desc: "Giving is simple. Find ways to give and make a difference.", href: "/giving" },
-  { title: "Who We Are", desc: "Learn about our story, beliefs, and leadership.", href: "/who-we-are" },
-  { title: "Worship", desc: "Music, albums, and worship resources.", href: "/worship" },
+  { 
+    title: "Sermons", 
+    desc: "Scripture-rich teaching series and messages.", 
+    href: "/media/sermon-series" // Matches Header.tsx
+  },
+  { 
+    title: "Resources", 
+    desc: "Tools and guides to help you grow in your faith.", 
+    href: "/resources" 
+  },
+  { 
+    title: "Give", 
+    desc: "Giving is simple. Find ways to give and make a difference.", 
+    href: "/giving" 
+  },
+  { 
+    title: "Who We Are", 
+    desc: "Learn about our story, beliefs, and leadership.", 
+    href: "/who-we-are" 
+  },
+  { 
+    title: "Songs", 
+    desc: "Worship and sound doctrine set to melody.", 
+    href: "/songs" 
+  },
 ];
 
 const WAYS_TO_CONNECT: NavItem[] = [
