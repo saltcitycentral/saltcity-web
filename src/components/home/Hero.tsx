@@ -25,7 +25,7 @@ export default function Hero() {
 
             <div className="flex flex-wrap gap-4">
               <Button 
-                href="https://www.youtube.com/@saltcitychurch"
+                href="https://www.youtube.com/@saltcitycentral"
                 target="_blank"
                 className="bg-black text-white hover:bg-black/90"
                 icon={
@@ -34,10 +34,10 @@ export default function Hero() {
                   </svg>
                 }
               >
-                Join Us Live
+                Join A Live Service
               </Button>
 
-              <Button 
+              {/* <Button 
                 href="/serve"
                 className="bg-transparent text-black ring-2 ring-black/20 hover:ring-black/40 hover:bg-black/5"
                 icon={
@@ -50,7 +50,7 @@ export default function Hero() {
                 }
               >
                 Join a Unit
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>
