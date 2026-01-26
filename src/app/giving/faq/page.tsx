@@ -8,79 +8,43 @@ const TEAL = "#08b6a6";
 
 const FAQS = [
   {
-    category: "General Questions",
+    category: "The Purpose of Giving",
     questions: [
       {
-        q: "What happens to my money when I give to SaltCity?",
-        a: "When you give to SaltCity, your contributions support discipleship programs, outreach initiatives, facility maintenance, staff support, and various kingdom projects. We are committed to stewarding every gift with integrity and transparency, ensuring your giving makes a lasting impact for God's glory."
+        q: "How do I give?",
+        a: "Biblically, the primary purpose of giving is for raising disciples through the spread of the gospel. God gave us the ultimate gift of his Son generously, and that is how He expects His children to give. Here at SaltCity, we teach that everyone should give now and again, as God has prospered them. You can partner with the work SaltCity church is doing around the world by giving through the following channels below."
       },
       {
-        q: "Is SaltCity a registered organization?",
-        a: "Yes, SaltCity Church is a registered religious organization in Nigeria. We operate with full legal compliance and maintain proper accountability structures for all financial matters."
-      },
-      {
-        q: "Can I get a receipt for my giving?",
-        a: "Yes! We provide receipts for all documented gifts. If you give via bank transfer, please send your payment confirmation to our WhatsApp line or email, and we'll issue you a receipt. This is especially important for those who need tax documentation or record-keeping purposes."
-      },
-      {
-        q: "Should I give my tithe or to a specific project?",
-        a: "The Bible teaches us to bring our tithes (the first 10% of our income) to the storehouse, which is the local church. Beyond your tithe, you can give offerings to specific projects or causes that resonate with your heart. We encourage both faithful tithing and generous offerings."
-      },
+        q: "What does the Bible say about partnership and giving?",
+        a: "Philippians 4:15-19 (KJV): 15 Now you Philippians know also that in the beginning of the gospel, when I departed from Macedonia, no church shared with me concerning giving and receiving but you only. 16 For even in Thessalonica you sent aid once and again for my necessities. 17 Not that I seek the gift, but I seek the fruit that abounds to your account. 18 Indeed I [a]have all and abound. I am full, having received from Epaphroditus the things sent from you, a sweet-smelling aroma, an acceptable sacrifice, well pleasing to God. 19 And my God shall supply all your need according to His riches in glory by Christ Jesus."
+      }
     ]
   },
   {
-    category: "Giving Methods",
+    category: "Banking Channels",
     questions: [
       {
-        q: "What are the ways I can give?",
-        a: "You can give through bank transfers to our designated accounts, cash/cheque during service, mobile transfers, QR code payments during service, or by setting up recurring automated giving. We've made it easy and convenient for you to partner with us."
-      },
-      {
-        q: "Can I give items instead of money?",
-        a: "Absolutely! We welcome contributions of equipment, resources, and materials needed for ministry. Please contact our admin team to discuss what you'd like to contribute, and we'll coordinate with the relevant department."
-      },
-      {
-        q: "How do I set up recurring giving?",
-        a: "Contact our finance team via WhatsApp or email, and they'll help you set up automated recurring giving through your bank's standing order or our partnership program. You can choose weekly, monthly, or quarterly frequencies."
-      },
-      {
-        q: "Is my financial information secure?",
-        a: "Yes! We use secure banking channels and never store your financial details. All transactions go through verified banking systems with proper encryption and security measures."
-      },
-    ]
-  },
-  {
-    category: "Accountability & Transparency",
-    questions: [
-      {
-        q: "How can I see how my giving is being used?",
-        a: "We provide regular updates through our announcements, social media, and quarterly reports. You can also request our annual financial summary or speak with our leadership team for more detailed information about specific projects."
-      },
-      {
-        q: "Who oversees the church finances?",
-        a: "Our church finances are overseen by our pastoral leadership team and a dedicated finance committee. We maintain proper checks and balances with multiple levels of accountability to ensure faithful stewardship."
-      },
-      {
-        q: "Can I designate my gift to a specific ministry or project?",
-        a: "Yes! When giving, you can specify which ministry, project, or cause you'd like to support. Simply indicate your preference when making your transfer or during your cash offering."
-      },
+        q: "What are the account details for giving?",
+        a: "Account Name: SaltCity Church | Account Number: 0431944413 | Bank: Guaranty Trust Bank Plc | Type: Naira. \n\n Account Name: SaltCity Church | Account Number: 0469266462 | Bank: Guaranty Trust Bank Plc | Type: Dollar. \n\n Account Name: SaltCity Church | Account Number: 0469266462 | Bank: Guaranty Trust Bank Plc | Type: Euro. \n\n Account Name: SaltCity Church | Account Number: 0073530847 | Bank: Access Bank | Type: Naira. \n\n Account Name: SaltCity Church | Account Number: 1015095018 | Bank: Zenith Bank | Type: Naira."
+      }
     ]
   },
   {
     category: "Partnership & Commitment",
     questions: [
       {
-        q: "What is the partnership program?",
-        a: "Our partnership program is for believers who want to commit to consistent, recurring giving beyond their tithe. Partners support ongoing projects, missions, and ministry expansion through monthly or quarterly commitments."
-      },
+        q: "Why should I partner with SaltCity?",
+        a: "Just as Paul had these partners, as you will see in Luke 8:2-3, Jesus also had partners who ministered their substance to His ministry while He was on the earth. Since the Lord has assigned us this task of raising disciples to fulfill their ministry we have set our faith for everything we need to be successful in teaching the Word. So, decide prayerfully, what you will give to the work monthly as we obey the Lord."
+      }
+    ]
+  },
+  {
+    category: "Ministry Focus",
+    questions: [
       {
-        q: "Can I change or cancel my recurring giving?",
-        a: "Yes, you have full control over your giving commitments. Simply contact our finance team, and they'll help you adjust or cancel your recurring gift at any time."
-      },
-      {
-        q: "What if I miss a month of giving?",
-        a: "There's no condemnation! We understand that circumstances change. Give as the Lord leads you. If you're on a partnership plan and need to pause or adjust, just let us know."
-      },
+        q: "What is the focus of SaltCity Church?",
+        a: "SaltCity Church is a Bible-teaching church focused on Discipling Believers and Perfecting them for the Fulfillment of the Work of Ministry."
+      }
     ]
   }
 ];
@@ -121,10 +85,10 @@ export default function GivingFAQPage() {
         <div className="mx-auto w-full max-w-[1200px] px-6">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-black mb-4">
-              Giving is More Than a Transaction
+              Welcome to SaltCity Church
             </h2>
             <p className="text-lg text-black/70 leading-relaxed">
-              It's a spiritual practice. Whether you're exploring giving as a next step in your relationship with Christ or you're a long-time giver looking for ways to invest in what God is doing, we're here to help! You can learn more about the logistics of giving through SaltCity below, and if you still have questions, contact our team.
+              SaltCity Church is a Bible-teaching church focused on Discipling Believers and Perfecting them for the Fulfillment of the Work of Ministry. Whether you're exploring giving as a next step in your relationship with Christ or you're a long-time giver looking for ways to invest in what God is doing, we're here to help!
             </p>
           </div>
         </div>
@@ -171,7 +135,7 @@ export default function GivingFAQPage() {
                         
                         {isOpen && (
                           <div className="px-6 pb-6 border-t border-black/5">
-                            <p className="text-black/70 leading-relaxed pt-4">{faq.a}</p>
+                            <p className="text-black/70 leading-relaxed pt-4 whitespace-pre-line">{faq.a}</p>
                           </div>
                         )}
                       </div>
@@ -187,142 +151,31 @@ export default function GivingFAQPage() {
       {/* ASK A QUESTION */}
       <section className="py-20 bg-white">
         <div className="mx-auto w-full max-w-[1200px] px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-black mb-4">Still Have Questions?</h2>
-              <p className="text-lg text-black/70">
-                We're here to help! Reach out to our team and we'll get back to you as soon as possible.
-              </p>
-            </div>
-
-<div className="grid md:grid-cols-3 gap-6">
-  {/* Email Card */}
-  <a
-    href="mailto:giving@saltcity.church"
-    className="group bg-neutral-50 rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-  >
-    <div 
-      className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4"
-      style={{ background: `${TEAL}15`, color: TEAL }}
-    >
-      <Mail size={32} />
-    </div>
-    <h3 className="font-bold text-lg mb-2">Send an Email</h3>
-    <p className="text-sm text-black/60">giving@saltcity.church</p>
-  </a>
-
-  {/* WhatsApp Card */}
-  <a
-    href="https://wa.me/2348012345678"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="group bg-neutral-50 rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-  >
-    <div 
-      className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4"
-      style={{ background: `${TEAL}15`, color: TEAL }}
-    >
-      <MessageCircle size={32} />
-    </div>
-    <h3 className="font-bold text-lg mb-2">WhatsApp Us</h3>
-    <p className="text-sm text-black/60">+234 801 234 5678</p>
-  </a>
-
-  {/* Phone Card */}
-  <a
-    href="tel:+2348012345678"
-    className="group bg-neutral-50 rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-  >
-    <div 
-      className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4"
-      style={{ background: `${TEAL}15`, color: TEAL }}
-    >
-      <Phone size={32} />
-    </div>
-    <h3 className="font-bold text-lg mb-2">Call Us</h3>
-    <p className="text-sm text-black/60">+234 801 234 5678</p>
-  </a>
-</div>
-
-            {/* Contact Form */}
-            <div className="mt-12 bg-neutral-50 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold mb-6">Ask Your Question</h3>
-              <form className="space-y-5">
-                <div className="grid md:grid-cols-2 gap-5">
-                  <div>
-                    <label className="block text-sm font-semibold mb-2">Your Name</label>
-                    <input
-                      type="text"
-                      placeholder="John Doe"
-                      className="w-full px-4 py-3 rounded-xl border border-black/10 focus:outline-none focus:ring-2 focus:ring-teal-500/50"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold mb-2">Email Address</label>
-                    <input
-                      type="email"
-                      placeholder="john@example.com"
-                      className="w-full px-4 py-3 rounded-xl border border-black/10 focus:outline-none focus:ring-2 focus:ring-teal-500/50"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold mb-2">Phone Number</label>
-                  <input
-                    type="tel"
-                    placeholder="+234 800 000 0000"
-                    className="w-full px-4 py-3 rounded-xl border border-black/10 focus:outline-none focus:ring-2 focus:ring-teal-500/50"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold mb-2">Your Question</label>
-                  <textarea
-                    rows={5}
-                    placeholder="Type your question here..."
-                    className="w-full px-4 py-3 rounded-xl border border-black/10 focus:outline-none focus:ring-2 focus:ring-teal-500/50 resize-none"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full md:w-auto px-8 py-3.5 rounded-full text-white font-semibold hover:opacity-90 transition-opacity"
-                  style={{ background: TEAL }}
-                >
-                  Submit Question
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-20 bg-neutral-900">
-        <div className="mx-auto w-full max-w-[1200px] px-6">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-4xl font-black text-white mb-6">
-              Ready to Make an Impact?
-            </h2>
-            <p className="text-lg text-white/80 mb-8">
-              Your generosity transforms lives and advances God's kingdom. Start giving today.
+          <div className="max-w-4xl mx-auto text-center mb-12">
+            <h2 className="text-4xl font-black mb-4">Still Have Questions?</h2>
+            <p className="text-lg text-black/70">
+              Reach out to our team via the channels below or fill out the form.
             </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link
-                href="/giving"
-                className="px-8 py-3.5 rounded-full text-black font-semibold hover:bg-white/90 transition-colors"
-                style={{ background: "white" }}
-              >
-                Learn Why We Give
-              </Link>
-              <Link
-                href="/giving/ways"
-                className="px-8 py-3.5 rounded-full border-2 border-white text-white font-semibold hover:bg-white/10 transition-colors"
-              >
-                Discover Ways to Give
-              </Link>
-            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            <a href="mailto:tobore@saltcitycentral.org" className="group bg-neutral-50 rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <div className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4" style={{ background: `${TEAL}15`, color: TEAL }}><Mail size={32} /></div>
+              <h3 className="font-bold text-lg mb-2">Email Pastor Tobore</h3>
+              <p className="text-sm text-black/60">tobore@saltcitycentral.org</p>
+            </a>
+
+            <a href="https://wa.me/2348030597015" target="_blank" rel="noopener noreferrer" className="group bg-neutral-50 rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <div className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4" style={{ background: `${TEAL}15`, color: TEAL }}><MessageCircle size={32} /></div>
+              <h3 className="font-bold text-lg mb-2">Info Desk</h3>
+              <p className="text-sm text-black/60">08030597015</p>
+            </a>
+
+            <a href="tel:08030597015" className="group bg-neutral-50 rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <div className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4" style={{ background: `${TEAL}15`, color: TEAL }}><Phone size={32} /></div>
+              <h3 className="font-bold text-lg mb-2">Call Info Desk</h3>
+              <p className="text-sm text-black/60">08030597015</p>
+            </a>
           </div>
         </div>
       </section>

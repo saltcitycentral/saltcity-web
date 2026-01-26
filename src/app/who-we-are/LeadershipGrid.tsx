@@ -18,93 +18,113 @@ export default function LeadershipGrid() {
       {
         key: "tobore",
         name: "Pastor Tobore David",
-        title: "Senior Pastor",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+        title: "Lead Pastor",
+        image:
+          "/images/PASTOR.jpg",
         button: "About",
         modalTitle: "Pastor Tobore David",
-        modalBody: "Pastor Tobore David is the Senior Pastor of SaltCity Church. With a passionate heart for discipleship and transformation, he leads the congregation in becoming mighty men and women of God through the power of His Word. His vision is to raise disciples who become disciple makers, impacting families, communities, and nations.",
+        modalBody:
+          "Pastor Tobore David serves as the Lead Pastor of SaltCity Warri, providing spiritual oversight. He is committed to making men fit for use, with practical insights from GOD's Word for daily life. His work extends within SaltCity and the wider Body of Christ, reaching Warri and beyond.",
       },
       {
         key: "seun",
         name: "Pastor Seun Tobore David",
         title: "Pastor, Family Life",
-        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80",
+        image:
+          "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80",
         button: "About",
         modalTitle: "Pastor Seun Tobore David",
-        modalBody: "Pastor Seun oversees Family Life ministry at SaltCity, helping families build strong foundations rooted in biblical principles. Her passion is to see families thrive in God's love and truth, creating homes that reflect Christ's presence.",
+        modalBody:
+          "Pastor Seun Tobore David serves as Pastor over Family Life. She is committed to enriching families and strengthening homes; building Christ-centered families that grow in faith, unity, and purpose.",
       },
       {
         key: "edison",
         name: "Pastor Edison Iboyi",
-        title: "Pastor, Cityzens PTI",
-        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+        title: "Pastor, Cityzens PTI Campus Expression",
+        image:
+          "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
         button: "About",
         modalTitle: "Pastor Edison Iboyi",
-        modalBody: "Pastor Edison leads Cityzens PTI, raising up disciples who are equipped to make a lasting impact. His focus is on intentional discipleship and developing leaders who will carry the gospel forward with conviction and power.",
+        modalBody:
+          "Pastor Edison Iboyi serves as the Pastor of the Cityzens PTI campus expression, the university outreach of City Church at the Petroleum Training Institute, Warri. He is committed to raising young believers equipped to discover their place and path in GOD’s purpose.",
       },
       {
-        key: "rachel",
-        name: "Pastor Rachel Adesi",
-        title: "Resident Pastor",
-        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+        key: "racheal",
+        name: "Pastor Racheal Adesi",
+        title: "Resident Pastor, SaltCity Central",
+        image:
+          "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
         button: "About",
-        modalTitle: "Pastor Rachel Adesi",
-        modalBody: "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        modalTitle: "Pastor Racheal Adesi",
+        modalBody:
+          "Pastor Racheal Adesi serves as the Resident Pastor of SaltCity Central. She provides and guides the administrative and operational life of the church. Her ministry is centered on order, care, and the healthy functioning of the church community.",
       },
       {
         key: "othuke",
         name: "Pastor Othuke Adesi",
-        title: "Resident Pastor",
-        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+        title: "Resident Pastor, SaltCity Central",
+        image:
+          "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
         button: "About",
         modalTitle: "Pastor Othuke Adesi",
-        modalBody: "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        modalBody:
+          "Pastor Othuke Adesi serves as a Resident Pastor at SaltCity Central. His service supports the spiritual care and effective organization of the ministry.",
       },
-      
+
       {
         key: "victor",
         name: "Pastor Victor Samuel",
-        title: "Pastor, CityCenter",
-        image: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?auto=format&fit=crop&w=400&q=80",
+        title: "Pastor, Teenage Ministry",
+        image:
+          "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?auto=format&fit=crop&w=400&q=80",
         button: "About",
         modalTitle: "Pastor Victor Samuel",
-        modalBody: "Pastor Victor serves as the pastor of CityCenter, guiding teenagers in discovering their identity in Christ. His heart is to see young people live purposefully, grounded in faith and ready to impact their generation.",
+        modalBody:
+          "Pastor Victor Samuel serves as the Pastor over the teenage ministry of SaltCity Church. He is committed to centering teenagers in Christ and helping them recognize their identity in Him early.",
       },
-     {
+      {
         key: "mercy",
         name: "Pastor Mercy Chuks",
-        title: "Pastor",
-        image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
+        title: "Pastor, Media",
+        image:
+          "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
         button: "About",
         modalTitle: "Pastor Mercy Chuks",
-        modalBody: "Pastor Mercy leads LifeCity ministry, empowering young adults to walk in faith and fulfill their God-given purpose. His passion is to see this generation rise up as mighty men and women who know their identity in Christ.",
+        modalBody:
+          "Pastor Mercy Chuks oversees the use of media to support worship, service delivery, and ministry expression both on ground and across digital platforms. Her work helps ensure that the message and ministry of the church are communicated clearly and effectively.",
       },
       {
         key: "axcel",
         name: "Pastor Axcel Chuks",
-        title: "Pastor, LifeCity",
-        image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
+        title: "Pastor, Youth Expression",
+        image:
+          "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
         button: "About",
         modalTitle: "Pastor Axcel Chuks",
-        modalBody: "Pastor Axcel leads LifeCity ministry, empowering young adults to walk in faith and fulfill their God-given purpose. His passion is to see this generation rise up as mighty men and women who know their identity in Christ.",
+        modalBody:
+          "Pastor Axcel Chuks serves as the Pastor over the youth expression of SaltCity Church. He is committed to reaching and discipling energetic young people with the gospel, helping them channel their strength toward God and the work of ministry.",
       },
-         {
+      {
         key: "sam",
         name: "Pastor Sam Igurube",
-        title: "Pastor",
-        image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
+        title: "Pastor, Venue Management",
+        image:
+          "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
         button: "About",
         modalTitle: "Pastor Sam Igurube",
-        modalBody: "Pastor Axcel leads LifeCity ministry, empowering young adults to walk in faith and fulfill their God-given purpose. His passion is to see this generation rise up as mighty men and women who know their identity in Christ.",
+        modalBody:
+          "Pastor Sam Igurube serves as the Pastor overseeing venue management at SaltCity Church. His service supports the structural and educational foundations that enable ministry to function smoothly.",
       },
       {
         key: "brave",
         name: "Pastor Brave Iyomih",
         title: "Pastor, LifeCity",
-        image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
+        image:
+          "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
         button: "About",
-        modalTitle: "Pastor Sam Iyomih",
-        modalBody: "Pastor Axcel leads LifeCity ministry, empowering young adults to walk in faith and fulfill their God-given purpose. His passion is to see this generation rise up as mighty men and women who know their identity in Christ.",
+        modalTitle: "Pastor Brave Iyomih",
+        modalBody:
+          "Pastor Brave Iyomih serves as a Pastor at LifeCity. He contributes to the ministry through his expression of worship and exhortation, strengthening the spiritual life of the church.",
       },
     ],
     []
@@ -153,7 +173,7 @@ export default function LeadershipGrid() {
             aria-modal="true"
             onClick={() => setOpenKey(null)}
           >
-            <div 
+            <div
               className="relative w-full max-w-2xl rounded-2xl bg-white shadow-2xl overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
@@ -163,15 +183,22 @@ export default function LeadershipGrid() {
                 type="button"
                 aria-label="Close"
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2">
-                  <path d="M18 6L6 18M6 6l12 12"/>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="black"
+                  strokeWidth="2"
+                >
+                  <path d="M18 6L6 18M6 6l12 12" />
                 </svg>
               </button>
 
               <div className="p-8">
                 <h3 className="text-3xl font-black mb-2">{active.modalTitle}</h3>
                 <p className="text-sm text-black/60 mb-6 font-semibold">
-                  {leaders.find(l => l.key === active.key)?.title}
+                  {leaders.find((l) => l.key === active.key)?.title}
                 </p>
                 <p className="text-base leading-relaxed text-black/70">
                   {active.modalBody}

@@ -5,26 +5,28 @@ import { useState } from "react";
 
 const BELIEFS = [
   {
-    title: "JESUS IS LORD",
-    content: "He has eternally existed as the Father, the Son, and the Holy Spirit. The three are coequal and are one God. We believe in one God who exists in three persons: Father, Son, and Holy Spirit."
+    title: "School of Tyrannus (Foundation School)",
+    content: "We believe the Apostle Paul when by the spirit he said, “GOD wants all men to be saved and come to the knowledge of the truth…” We believe that teaching is the primary tool for making disciples, so here in SaltCity Church, we have the School of Tyrannus with three colleges:\n\nCollege of Doctrinal Alignment: aimed at establishing and reminding believers of foundational principles in various areas of the Faith. The College of Doctrinal Alignment holds every quarter in all our Centres. To attend please reach our info desk on 08030597015.\n\nCollege of Membership: aimed at establishing members on spiritual home raining. This equip members with the Biblical principles of doing life with other believers.\n\nCollege of Maturity: aimed at equipping believers to know their ministry, know their ministry graces, understand their call and fulfill it."
   },
   {
-    title: "Praying in Tongues",
-    content: "Jesus Christ is the eternal Son of God who became man without ceasing to be God. He was born of a virgin, lived a sinless life, died on the cross for our sins, rose from the dead, and ascended to heaven where He sits at the right hand of God the Father."
+    title: "How do I begin a courtship?",
+    content: "Inform your interest to the FamilyLife Pastor or your Centre Pastor. Pray for 90 days during which you should abstain from any form of communication with your intended. Fill the spousal selection form prayerfully. Ask your company or trusted believing friends to pray for you even as you believe GOD for a life partner."
   },
   {
-    title: "Water Baptism",
-    content: "The Holy Spirit is the third person of the Trinity who convicts us of sin, regenerates us, and indwells believers from the moment of salvation, empowering us to live godly lives and serving as our Helper and Guide."
-  },
-
-
-  {
-    title: "Honor",
-    content: "Salvation is received by grace through faith in Jesus Christ alone. It is not earned by good works but is a free gift of God's grace. When we accept Christ, we are forgiven, justified, and adopted into God's family."
+    title: "Premarital Counselling & Marriage",
+    content: "Premarital Counselling is designed to prepare couples seriously considering marriage based on biblical principles to guide them into this lifelong commitment to each other. The Premarital Counselling sessions provide guidance and information on the concept of a marriage that glorifies God, self discovery, setting reasonable expectations for each other and responsibilities in marriage. Inform the FamilyLife Pastor or your Centre Pastor and register for the next premarital class. The Premarital Counselling classes run for 3 months. SaltCity Church is licensed under The Federal Government Marriage Registry."
   },
   {
-    title: "Women doing ministry",
-    content: "After death, people will exist eternally either in heaven with God or separated from Him in hell. Our eternal destiny is determined by our response to Jesus Christ in this life."
+    title: "How do I join a company?",
+    content: "A company is group of homogeneous believers who support you in your daily obedience of the Word of GOD. To join a company, speak to your FamilyLife fellowship leader (Unmarried women, Married women, Married men, Married women)."
+  },
+  {
+    title: "How do I join morning prayers?",
+    content: "We believe that the biggest spiritual discipline is to read your Bible and pray everyday. We pray together on Mixlr every Monday, Wednesday and Friday. We pray together in our companies on Tuesdays and Thursdays."
+  },
+  {
+    title: "What about my children?",
+    content: "Establishing children in the Word of GOD from their early age makes them wise. Our Children Chapel is designed to help your children grow in their faith in GOD. Through age specific lessons and activities, children are taught Biblical truths and real life lessons every week in love. The Children Chapel is open to all learners between the ages of 0-12years during church services."
   }
 ];
 
@@ -89,7 +91,7 @@ export default function OurBeliefsPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                   </svg>
                 </summary>
-                <div className="px-6 pb-6 text-black/70 leading-relaxed border-t border-black/5 pt-4">
+                <div className="px-6 pb-6 text-black/70 leading-relaxed border-t border-black/5 pt-4 whitespace-pre-line">
                   {belief.content}
                 </div>
               </details>
@@ -99,76 +101,72 @@ export default function OurBeliefsPage() {
       </section>
 
       {/* Vision & Values Slider */}
-      {/* Vision & Values Slider */}
-<section className="py-12 bg-neutral-900">
-  <Container>
-    <h2 className="text-3xl font-black text-center text-white mb-10">
-      Our Primary And Secondary Focus
-    </h2>
+      <section className="py-12 bg-neutral-900">
+        <Container>
+          <h2 className="text-3xl font-black text-center text-white mb-10">
+            Our Primary And Secondary Focus
+          </h2>
 
-    <div className="max-w-4xl mx-auto">
-      <div className="relative bg-white rounded-xl shadow-2xl overflow-hidden">
-        {/* Slide Content */}
-        <div className="p-8 md:p-12 min-h-[350px] flex flex-col justify-center">
-          <h3 className="text-2xl font-black mb-4">
-            {VISION_AND_VALUES[activeSlide].title}
-          </h3>
-          
-          {/* 'whitespace-pre-line' makes the text respect the line breaks.
-              The logic below checks if a line starts with a quote “ to apply centering/italics.
-          */}
-          <div className="text-base leading-relaxed text-black/80 whitespace-pre-line">
-            {VISION_AND_VALUES[activeSlide].content.split('\n').map((line, i) => (
-              <p 
-                key={i} 
-                className={`mb-3 ${line.trim().startsWith('“') ? 'text-center italic font-medium text-black px-4 my-4' : ''}`}
+          <div className="max-w-4xl mx-auto">
+            <div className="relative bg-white rounded-xl shadow-2xl overflow-hidden">
+              {/* Slide Content */}
+              <div className="p-8 md:p-12 min-h-[350px] flex flex-col justify-center">
+                <h3 className="text-2xl font-black mb-4">
+                  {VISION_AND_VALUES[activeSlide].title}
+                </h3>
+                
+                <div className="text-base leading-relaxed text-black/80 whitespace-pre-line">
+                  {VISION_AND_VALUES[activeSlide].content.split('\n').map((line, i) => (
+                    <p 
+                      key={i} 
+                      className={`mb-3 ${line.trim().startsWith('“') ? 'text-center italic font-medium text-black px-4 my-4' : ''}`}
+                    >
+                      {line}
+                    </p>
+                  ))}
+                </div>
+              </div>
+
+              {/* Navigation Arrows */}
+              <button
+                onClick={() => setActiveSlide(prev => prev === 0 ? 1 : 0)}
+                className="absolute left-2 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center transition-colors"
+                aria-label="Previous slide"
               >
-                {line}
-              </p>
-            ))}
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2">
+                  <path d="M15 18l-6-6 6-6"/>
+                </svg>
+              </button>
+
+              <button
+                onClick={() => setActiveSlide(prev => prev === 0 ? 1 : 0)}
+                className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center transition-colors"
+                aria-label="Next slide"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2">
+                  <path d="M9 18l6-6-6-6"/>
+                </svg>
+              </button>
+
+              {/* Dots Indicator */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                {VISION_AND_VALUES.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setActiveSlide(index)}
+                    className={`h-1.5 rounded-full transition-all ${
+                      activeSlide === index ? 'w-6 bg-black' : 'w-1.5 bg-black/20'
+                    }`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
+        </Container>
+      </section>
 
-        {/* Navigation Arrows */}
-        <button
-          onClick={() => setActiveSlide(prev => prev === 0 ? 1 : 0)}
-          className="absolute left-2 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center transition-colors"
-          aria-label="Previous slide"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2">
-            <path d="M15 18l-6-6 6-6"/>
-          </svg>
-        </button>
-
-        <button
-          onClick={() => setActiveSlide(prev => prev === 0 ? 1 : 0)}
-          className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center transition-colors"
-          aria-label="Next slide"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2">
-            <path d="M9 18l6-6-6-6"/>
-          </svg>
-        </button>
-
-        {/* Dots Indicator */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-          {VISION_AND_VALUES.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setActiveSlide(index)}
-              className={`h-1.5 rounded-full transition-all ${
-                activeSlide === index ? 'w-6 bg-black' : 'w-1.5 bg-black/20'
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-  </Container>
-</section>
-
-    {/* CTA Section */}
+      {/* CTA Section */}
       <section className="py-20 bg-white">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
@@ -179,7 +177,6 @@ export default function OurBeliefsPage() {
               Join us as we grow together in faith and become the people God created us to be.
             </p>
             
-            {/* ADD THE OPENING '<a' BELOW */}
             <a
               href="/locations"
               className="inline-block px-8 py-3.5 rounded-full bg-black text-white font-semibold hover:bg-black/90 transition-colors"

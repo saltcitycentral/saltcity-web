@@ -11,7 +11,7 @@ const RESOURCE_CATEGORIES = [
       {
         name: "Spousal Selection Form",
         description: "Guidelines and form for those seeking a life partner.",
-        fileSize: "PDF • 2.4 MB",
+        fileSize: "PDF • 114 KB",
         downloadUrl: "/downloads/spousal-selection-form.pdf",
       },
       {
@@ -73,13 +73,7 @@ const RESOURCE_CATEGORIES = [
         fileSize: "PDF • 2.8 MB",
         downloadUrl: "/downloads/prayer-guide.pdf",
       },
-      {
-        name: "Prayer Points",
-        description: "Weekly prayer points on Telegram.",
-        fileSize: "Telegram Channel",
-        downloadUrl: "https://t.me/saltcityprayer",
-        external: true,
-      },
+
     ]
   },
 ];

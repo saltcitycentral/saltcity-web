@@ -25,7 +25,7 @@ const SOCIALS = [
   { icon: FaTelegram, label: "Telegram", href: "https://t.me/mysaltcity" },
   { icon: SiMixcloud, label: "Mixlr", href: "https://mixlr.com/saltcitycentral" },
   { icon: FaInstagram, label: "Instagram", href: "https://instagram.com/saltcitycentral" },
-  { icon: FaSpotify, label: "Spotify", href: "https://open.spotify.com/user/saltcitycentral" },
+  { icon: FaSpotify, label: "Spotify", href: "https://open.spotify.com/user/mysaltcity" },
 ];
 
 export default function Footer() {
