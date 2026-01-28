@@ -31,18 +31,29 @@ export default function LeadershipGrid() {
         name: "Pastor Seun Tobore David",
         title: "Pastor, Family Life",
         image:
-          "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80",
+          "/images/PS.jpg",
         button: "About",
         modalTitle: "Pastor Seun Tobore David",
         modalBody:
           "Pastor Seun Tobore David serves as Pastor over Family Life. She is committed to enriching families and strengthening homes; building Christ-centered families that grow in faith, unity, and purpose.",
+      },
+     {
+        key: "dennis",
+        name: "Pastor Dennis Oyinvbi",
+        title: "Company Group Coordinator",
+        image:
+          "/images/PD.jpg",
+        button: "About",
+        modalTitle: "Pastor Oyinvbi Iboyi",
+        modalBody:
+          "Pastor Oyinvbi Iboyi serves as the Pastor of the Cityzens PTI campus expression, the university outreach of City Church at the Petroleum Training Institute, Warri. He is committed to raising young believers equipped to discover their place and path in GOD’s purpose.",
       },
       {
         key: "edison",
         name: "Pastor Edison Iboyi",
         title: "Pastor, Cityzens PTI Campus Expression",
         image:
-          "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+          "/images/PE.jpg",
         button: "About",
         modalTitle: "Pastor Edison Iboyi",
         modalBody:
@@ -53,7 +64,7 @@ export default function LeadershipGrid() {
         name: "Pastor Racheal Adesi",
         title: "Resident Pastor, SaltCity Central",
         image:
-          "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+          "/images/PR.jpg",
         button: "About",
         modalTitle: "Pastor Racheal Adesi",
         modalBody:
@@ -64,7 +75,7 @@ export default function LeadershipGrid() {
         name: "Pastor Othuke Adesi",
         title: "Resident Pastor, SaltCity Central",
         image:
-          "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+          "/images/PO.jpg",
         button: "About",
         modalTitle: "Pastor Othuke Adesi",
         modalBody:
@@ -74,9 +85,9 @@ export default function LeadershipGrid() {
       {
         key: "victor",
         name: "Pastor Victor Samuel",
-        title: "Pastor, Teenage Ministry",
+        title: "Pastor, CityCentre",
         image:
-          "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?auto=format&fit=crop&w=400&q=80",
+          "/images/PV.jpg",
         button: "About",
         modalTitle: "Pastor Victor Samuel",
         modalBody:
@@ -87,7 +98,7 @@ export default function LeadershipGrid() {
         name: "Pastor Mercy Chuks",
         title: "Pastor, Media",
         image:
-          "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
+          "/images/PM.jpg",
         button: "About",
         modalTitle: "Pastor Mercy Chuks",
         modalBody:
@@ -96,9 +107,9 @@ export default function LeadershipGrid() {
       {
         key: "axcel",
         name: "Pastor Axcel Chuks",
-        title: "Pastor, Youth Expression",
+        title: "Pastor, LifeCity",
         image:
-          "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
+          "/images/PA.jpg",
         button: "About",
         modalTitle: "Pastor Axcel Chuks",
         modalBody:
@@ -107,20 +118,31 @@ export default function LeadershipGrid() {
       {
         key: "sam",
         name: "Pastor Sam Igurube",
-        title: "Pastor, Venue Management",
+        title: "Pastor, Church Administration",
         image:
-          "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
+          "/images/PSI.jpg",
         button: "About",
         modalTitle: "Pastor Sam Igurube",
         modalBody:
-          "Pastor Sam Igurube serves as the Pastor overseeing venue management at SaltCity Church. His service supports the structural and educational foundations that enable ministry to function smoothly.",
+          "Pastor Sam Igurube serves as the Pastor overseeing the operations of the Church and manages the facility. His service supports the structural foundations that enable ministry to function smoothly.",
+      },
+     {
+        key: "stephanie",
+        name: "Pastor Stephanie Innocent",
+        title: "Fruitful Bough Coordinator",
+        image:
+          "/images/PIS.jpg",
+        button: "About",
+        modalTitle: "Pastor Stephanie Innocent",
+        modalBody:
+          "Pastor Brave Iyomih serves as a Pastor at LifeCity. He contributes to the ministry through his expression of worship and exhortation, strengthening the spiritual life of the church.",
       },
       {
         key: "brave",
         name: "Pastor Brave Iyomih",
         title: "Pastor, LifeCity",
         image:
-          "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
+          "/images/PB.jpg",
         button: "About",
         modalTitle: "Pastor Brave Iyomih",
         modalBody:

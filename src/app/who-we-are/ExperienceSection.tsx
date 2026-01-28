@@ -5,7 +5,7 @@ export default function ExperienceSection() {
     <section className="relative w-full text-white bg-neutral-800">
       <div className="absolute inset-0 opacity-30">
         <img
-          src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1600&q=80"
+          src="images/experience_saltcity.jpg"
           alt="Experience"
           className="w-full h-full object-cover"
         />

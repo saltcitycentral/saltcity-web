@@ -41,7 +41,7 @@ const STEPS = [
     ),
   },
   {
-    title: "Serve Team",
+    title: "Serve in a unit",
     desc: "Join a team and start serving with your gifts.",
     kind: "modal" as const,
     modalKey: "serve" as const,
@@ -117,10 +117,10 @@ const STEPS = [
     ),
   },
   {
-    title: "Watch Media",
+    title: "Listen to sermons",
     desc: "Browse sermons, teachings, and worship content.",
     kind: "link" as const,
-    href: "/media",
+    href: "/media/sermon-series",
     cta: "Browse media",
     color: "from-red-900 to-red-950",
     iconBg: "bg-red-900/10",

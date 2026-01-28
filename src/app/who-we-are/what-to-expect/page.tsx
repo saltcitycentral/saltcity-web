@@ -5,7 +5,7 @@ const EXPRESSIONS = [
   {
     title: "SaltCity Warri",
     description: "Our main location in Warri where we gather to worship, hear GOD's Word, and fellowship.",
-    image: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=600&q=80",
+    image: "/images/salt_warri.jpg",
     href: "/locations"
   },
   {
@@ -23,25 +23,25 @@ const EXPRESSIONS = [
   {
     title: "CityCenter",
     description: "Teenage church for young believers between 13-20 years.",
-    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&q=80",
+    image: "/images/citycentre.jpg",
     href: "/citycentre"
   },
   {
     title: "Sapele Bible Study",
     description: "Satellite study center that holds every Thursday.",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
+    image: "/images/sapele.jpg",
     href: "/sapele"
   },
   {
     title: "SaltCity Capital",
     description: "Training institute for raising human capital",
-    image: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?auto=format&fit=crop&w=600&q=80",
+    image: "/images/capital.jpg",
     href: "/capital"
   },
   {
     title: "SaltWorship",
     description: "A platform for communicating the gospel through songs",
-    image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=600&q=80",
+    image: "/images/saltworship.jpg",
     href: "/worship"
   },
   {
@@ -95,10 +95,10 @@ export default function WhatToExpectPage() {
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative h-[450px] bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600">
+      <section className="relative h-[450px] bg-gradient-to-br from-slate-900 to-slate-800">
         <div className="absolute inset-0">
           <img 
-            src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1600&q=80"
+            src="/images/fulfill_call.jpg"
             alt="Everyone's invited"
             className="w-full h-full object-cover opacity-20"
           />
@@ -122,7 +122,7 @@ export default function WhatToExpectPage() {
           <div className="grid lg:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
             <div className="aspect-video rounded-2xl overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.15)]">
               <img 
-                src="https://images.unsplash.com/photo-1438032005730-c779502df39b?auto=format&fit=crop&w=800&q=80"
+                src="/images/church_with_us.jpg"
                 alt="SaltCity Locations"
                 className="w-full h-full object-cover"
               />

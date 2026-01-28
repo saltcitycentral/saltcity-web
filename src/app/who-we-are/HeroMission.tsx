@@ -3,7 +3,7 @@ export default function HeroMission() {
     <section className="relative w-full text-white bg-gradient-to-br from-neutral-800 to-neutral-900">
       <div className="absolute inset-0 opacity-20">
         <img
-          src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1600&q=80"
+          src="/images/who1.jpg"
           alt="Our Mission"
           className="w-full h-full object-cover"
         />
