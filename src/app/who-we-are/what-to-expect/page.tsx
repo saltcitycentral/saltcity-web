@@ -1,5 +1,6 @@
 import Container from "@/components/ui/Container";
 import Link from "next/link";
+import Image from "next/image";
 
 const EXPRESSIONS = [
   {
@@ -97,12 +98,16 @@ export default function WhatToExpectPage() {
       {/* Hero Section */}
       <section className="relative h-[450px] bg-gradient-to-br from-slate-900 to-slate-800">
         <div className="absolute inset-0">
-          <img 
+          <Image 
             src="/images/fulfill_call.jpg"
-            alt="Everyone's invited"
-            className="w-full h-full object-cover opacity-20"
+            alt="Fulfill your calling"
+            fill // This makes it fill the parent div
+            className="object-cover object-top opacity-20"
+            priority // Loads this image first
           />
         </div>
+
+        
         
         <Container>
           <div className="relative h-[450px] flex flex-col justify-center items-center text-center">
@@ -124,7 +129,7 @@ export default function WhatToExpectPage() {
               <img 
                 src="/images/church_with_us.jpg"
                 alt="SaltCity Locations"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-[center_25%]" 
               />
             </div>
 

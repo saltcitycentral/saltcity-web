@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 
 type Leader = {
   key: string;
@@ -19,8 +20,7 @@ export default function LeadershipGrid() {
         key: "tobore",
         name: "Pastor Tobore David",
         title: "Lead Pastor",
-        image:
-          "/images/PASTOR.jpg",
+        image: "/images/PASTOR.jpg",
         button: "About",
         modalTitle: "Pastor Tobore David",
         modalBody:
@@ -30,19 +30,17 @@ export default function LeadershipGrid() {
         key: "seun",
         name: "Pastor Seun Tobore David",
         title: "Pastor, Family Life",
-        image:
-          "/images/PS.jpg",
+        image: "/images/PS.jpg",
         button: "About",
         modalTitle: "Pastor Seun Tobore David",
         modalBody:
           "Pastor Seun Tobore David serves as Pastor over Family Life. She is committed to enriching families and strengthening homes; building Christ-centered families that grow in faith, unity, and purpose.",
       },
-     {
+      {
         key: "dennis",
         name: "Pastor Dennis Oyinvbi",
         title: "Company Group Coordinator",
-        image:
-          "/images/PD.jpg",
+        image: "/images/PD.jpg",
         button: "About",
         modalTitle: "Pastor Oyinvbi Iboyi",
         modalBody:
@@ -52,8 +50,7 @@ export default function LeadershipGrid() {
         key: "edison",
         name: "Pastor Edison Iboyi",
         title: "Pastor, Cityzens PTI Campus Expression",
-        image:
-          "/images/PE.jpg",
+        image: "/images/PE.jpg",
         button: "About",
         modalTitle: "Pastor Edison Iboyi",
         modalBody:
@@ -63,8 +60,7 @@ export default function LeadershipGrid() {
         key: "racheal",
         name: "Pastor Racheal Adesi",
         title: "Resident Pastor, SaltCity Central",
-        image:
-          "/images/PR.jpg",
+        image: "/images/PR.jpg",
         button: "About",
         modalTitle: "Pastor Racheal Adesi",
         modalBody:
@@ -74,20 +70,17 @@ export default function LeadershipGrid() {
         key: "othuke",
         name: "Pastor Othuke Adesi",
         title: "Resident Pastor, SaltCity Central",
-        image:
-          "/images/PO.jpg",
+        image: "/images/PO.jpg",
         button: "About",
         modalTitle: "Pastor Othuke Adesi",
         modalBody:
           "Pastor Othuke Adesi serves as a Resident Pastor at SaltCity Central. His service supports the spiritual care and effective organization of the ministry.",
       },
-
       {
         key: "victor",
         name: "Pastor Victor Samuel",
         title: "Pastor, CityCentre",
-        image:
-          "/images/PV.jpg",
+        image: "/images/PV.jpg",
         button: "About",
         modalTitle: "Pastor Victor Samuel",
         modalBody:
@@ -97,8 +90,7 @@ export default function LeadershipGrid() {
         key: "mercy",
         name: "Pastor Mercy Chuks",
         title: "Pastor, Media",
-        image:
-          "/images/PM.jpg",
+        image: "/images/PM.jpg",
         button: "About",
         modalTitle: "Pastor Mercy Chuks",
         modalBody:
@@ -108,8 +100,7 @@ export default function LeadershipGrid() {
         key: "axcel",
         name: "Pastor Axcel Chuks",
         title: "Pastor, LifeCity",
-        image:
-          "/images/PA.jpg",
+        image: "/images/PA.jpg",
         button: "About",
         modalTitle: "Pastor Axcel Chuks",
         modalBody:
@@ -119,19 +110,17 @@ export default function LeadershipGrid() {
         key: "sam",
         name: "Pastor Sam Igurube",
         title: "Pastor, Church Administration",
-        image:
-          "/images/PSI.jpg",
+        image: "/images/PSI.jpg",
         button: "About",
         modalTitle: "Pastor Sam Igurube",
         modalBody:
           "Pastor Sam Igurube serves as the Pastor overseeing the operations of the Church and manages the facility. His service supports the structural foundations that enable ministry to function smoothly.",
       },
-     {
+      {
         key: "stephanie",
         name: "Pastor Stephanie Innocent",
         title: "Fruitful Bough Coordinator",
-        image:
-          "/images/PIS.jpg",
+        image: "/images/PIS.jpg",
         button: "About",
         modalTitle: "Pastor Stephanie Innocent",
         modalBody:
@@ -141,8 +130,7 @@ export default function LeadershipGrid() {
         key: "brave",
         name: "Pastor Brave Iyomih",
         title: "Pastor, LifeCity",
-        image:
-          "/images/PB.jpg",
+        image: "/images/PB.jpg",
         button: "About",
         modalTitle: "Pastor Brave Iyomih",
         modalBody:
@@ -153,44 +141,47 @@ export default function LeadershipGrid() {
   );
 
   const [openKey, setOpenKey] = useState<string | null>(null);
-  const active = leaders.find((l) => l.key === openKey) || null;
+  const active = leaders.find((l) => l.key === openKey) ?? null;
 
   return (
     <section className="w-full bg-white">
       <div className="mx-auto w-full max-w-[1200px] px-6 pb-20">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {leaders.map((l) => (
-            <div key={l.key} className="group">
-              <div className="relative overflow-hidden rounded-2xl mb-4 shadow-[0_8px_24px_rgba(0,0,0,0.12)] group-hover:shadow-[0_12px_32px_rgba(0,0,0,0.16)] transition-all duration-300">
-                <div className="aspect-square bg-neutral-200">
-                  <img
-                    src={l.image}
-                    alt={`${l.name} - ${l.title}`}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
+          {leaders.map((leader, index) => (
+            <div key={leader.key} className="group">
+              <div className="relative aspect-square overflow-hidden rounded-2xl mb-4 shadow-[0_8px_24px_rgba(0,0,0,0.12)] group-hover:shadow-[0_12px_32px_rgba(0,0,0,0.16)] transition-all duration-300">
+                <Image
+                  src={leader.image}
+                  alt={`${leader.name} — ${leader.title}`}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  priority={index < 4}
+                  quality={78}
+                  // placeholder="blur" ← removed to fix the error
+                />
               </div>
 
               <div className="text-center">
-                <div className="text-xl font-bold mb-1">{l.name}</div>
-                <div className="text-sm text-black/60 mb-4">{l.title}</div>
+                <div className="text-xl font-bold mb-1">{leader.name}</div>
+                <div className="text-sm text-neutral-600 mb-4">{leader.title}</div>
 
                 <button
-                  onClick={() => setOpenKey(l.key)}
-                  className="text-sm font-semibold px-6 py-2.5 rounded-lg bg-black/5 hover:bg-black/10 transition-colors"
+                  onClick={() => setOpenKey(leader.key)}
+                  className="text-sm font-semibold px-6 py-2.5 rounded-lg bg-black/5 hover:bg-black/10 transition-colors duration-200"
                   type="button"
                 >
-                  {l.button}
+                  {leader.button}
                 </button>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Modal */}
-        {active ? (
+        {/* Modal – unchanged */}
+        {active && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center px-6 bg-black/60"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 sm:px-6"
             role="dialog"
             aria-modal="true"
             onClick={() => setOpenKey(null)}
@@ -200,35 +191,28 @@ export default function LeadershipGrid() {
               onClick={(e) => e.stopPropagation()}
             >
               <button
-                className="absolute right-4 top-4 h-10 w-10 rounded-full bg-black/10 hover:bg-black/20 flex items-center justify-center transition-colors"
+                className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/10 hover:bg-black/20 transition-colors"
                 onClick={() => setOpenKey(null)}
                 type="button"
-                aria-label="Close"
+                aria-label="Close modal"
               >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="black"
-                  strokeWidth="2"
-                >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <path d="M18 6L6 18M6 6l12 12" />
                 </svg>
               </button>
 
-              <div className="p-8">
-                <h3 className="text-3xl font-black mb-2">{active.modalTitle}</h3>
-                <p className="text-sm text-black/60 mb-6 font-semibold">
-                  {leaders.find((l) => l.key === active.key)?.title}
+              <div className="p-6 sm:p-8">
+                <h3 className="text-2xl sm:text-3xl font-black mb-2">{active.modalTitle}</h3>
+                <p className="text-sm text-neutral-600 font-medium mb-5 sm:mb-6">
+                  {active.title}
                 </p>
-                <p className="text-base leading-relaxed text-black/70">
+                <p className="text-base leading-relaxed text-neutral-700">
                   {active.modalBody}
                 </p>
               </div>
             </div>
           </div>
-        ) : null}
+        )}
       </div>
     </section>
   );
