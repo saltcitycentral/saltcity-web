@@ -1,37 +1,48 @@
-import { ButtonHTMLAttributes, ReactNode } from "react";
+import React, { ReactNode } from "react";
 import Link from "next/link";
 
-// 1. Updated Props to include icon and iconPosition
-type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
+type CommonProps = {
   variant?: "primary" | "secondary";
-  href?: string;
-  target?: string;
-  icon?: ReactNode; // Added this
-  iconPosition?: "left" | "right"; // Added this
+  icon?: ReactNode;
+  iconPosition?: "left" | "right";
+  className?: string;
+  children: ReactNode;
 };
 
-export default function Button({
-  variant = "primary",
-  className = "",
-  href,
-  target,
-  icon,
-  iconPosition = "right", // Default to right
-  children,
-  ...props
-}: Props) {
+// When href exists, render a link
+type LinkButtonProps = CommonProps & {
+  href: string;
+  target?: string;
+  rel?: string;
+} & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "className" | "children">;
+
+// When href does NOT exist, render a button
+type RealButtonProps = CommonProps & {
+  href?: undefined;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
+
+type Props = LinkButtonProps | RealButtonProps;
+
+export default function Button(props: Props) {
+  const {
+    variant = "primary",
+    className = "",
+    icon,
+    iconPosition = "right",
+    children,
+    ...rest
+  } = props;
+
   const base =
     "inline-flex items-center justify-center gap-2 rounded-full shadow-md px-8 py-3 text-sm font-semibold transition duration-300";
 
-  // Using the Tredin Refinery Bronze and Deep Petroleum colors
   const styles =
     variant === "primary"
-      ? "bg-[#92400E] text-black hover:bg-[#78350F]" 
+      ? "bg-[#92400E] text-black hover:bg-[#78350F]"
       : "bg-transparent text-[#0F172A] ring-1 ring-[#64748B]/40 hover:ring-[#64748B]";
 
   const combinedClassName = `${base} ${styles} ${className}`;
 
-  // Helper to render the button content with icon
   const content = (
     <>
       {icon && iconPosition === "left" && icon}
@@ -40,16 +51,27 @@ export default function Button({
     </>
   );
 
-  if (href) {
+  // 🔥 Defensive: remove `asChild` if it exists anywhere in your project
+  const { asChild, ...safeRest } = rest as any;
+
+  if ("href" in props && props.href) {
+    const { href, target, rel, ...anchorRest } = safeRest as LinkButtonProps;
+
     return (
-      <Link href={href} target={target} className={combinedClassName}>
+      <Link
+        href={href}
+        target={target}
+        rel={rel ?? (target === "_blank" ? "noopener noreferrer" : undefined)}
+        className={combinedClassName}
+        {...anchorRest}
+      >
         {content}
       </Link>
     );
   }
 
   return (
-    <button className={combinedClassName} {...props}>
+    <button className={combinedClassName} {...(safeRest as RealButtonProps)}>
       {content}
     </button>
   );

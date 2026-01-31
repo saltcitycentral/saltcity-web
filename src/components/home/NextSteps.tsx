@@ -13,6 +13,20 @@ export default function NextSteps() {
   const NEXT_STEPS = useMemo(
     () => [
       {
+        title: "First Time Here?",
+        desc: "Let us know you came — we’ll help you settle in and connect quickly.",
+        href: "/first-time",
+        icon: (
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M12 12c2.2 0 4-1.8 4-4s-1.8-4-4-4-4 1.8-4 4 1.8 4 4 4z" />
+            <path d="M4 21v-1c0-3.3 2.7-6 6-6h4c3.3 0 6 2.7 6 6v1" />
+            <path d="M18 8h4" />
+            <path d="M20 6v4" />
+          </svg>
+        ),
+      },
+
+      {
         title: "Sign up for Discipleship",
         desc: "Learn the foundations of faith and grow in your walk with Christ.",
         action: () => setActiveModal("discipleship"),
@@ -60,7 +74,7 @@ export default function NextSteps() {
             Start Growing
           </h2>
 
-          <div className="grid gap-8 md:grid-cols-3 max-w-5xl mx-auto">
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
             {NEXT_STEPS.map((step) => {
               const CardInner = (
                 <>
