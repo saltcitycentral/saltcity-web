@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import Modal from "@/components/ui/Modal";
@@ -9,6 +9,26 @@ type ActiveModal = "discipleship" | "company" | null;
 
 export default function NextSteps() {
   const [activeModal, setActiveModal] = useState<ActiveModal>(null);
+  const [inView, setInView] = useState(false);
+
+  // Entrance animation on scroll (no libs)
+  useEffect(() => {
+    const el = document.querySelector("[data-next-steps]");
+    if (!el) return;
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.18 }
+    );
+
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   const NEXT_STEPS = useMemo(
     () => [
@@ -17,7 +37,13 @@ export default function NextSteps() {
         desc: "Let us know you came — we’ll help you settle in and connect quickly.",
         href: "/first-time",
         icon: (
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg
+            className="w-8 h-8"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
             <path d="M12 12c2.2 0 4-1.8 4-4s-1.8-4-4-4-4 1.8-4 4 1.8 4 4 4z" />
             <path d="M4 21v-1c0-3.3 2.7-6 6-6h4c3.3 0 6 2.7 6 6v1" />
             <path d="M18 8h4" />
@@ -25,13 +51,18 @@ export default function NextSteps() {
           </svg>
         ),
       },
-
       {
         title: "Sign up for Discipleship",
         desc: "Learn the foundations of faith and grow in your walk with Christ.",
-        action: () => setActiveModal("discipleship"),
+        action: () => setActiveModal("discipleship" as const),
         icon: (
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg
+            className="w-8 h-8"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
             <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
             <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
           </svg>
@@ -40,9 +71,15 @@ export default function NextSteps() {
       {
         title: "Join a Company",
         desc: "Do life with a community of believers close to you.",
-        action: () => setActiveModal("company"),
+        action: () => setActiveModal("company" as const),
         icon: (
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg
+            className="w-8 h-8"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
             <circle cx="9" cy="7" r="4" />
             <circle cx="16" cy="9" r="3" />
             <path d="M2 21v-3c0-2 2-4 5-4h4c3 0 5 2 5 4v3" />
@@ -55,7 +92,13 @@ export default function NextSteps() {
         desc: "Find out more about our growth structures.",
         href: "/next-steps",
         icon: (
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg
+            className="w-8 h-8"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
             <line x1="3" y1="6" x2="21" y2="6" />
             <line x1="3" y1="12" x2="21" y2="12" />
             <line x1="3" y1="18" x2="21" y2="18" />
@@ -68,53 +111,106 @@ export default function NextSteps() {
 
   return (
     <>
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white" data-next-steps>
         <Container>
-          <h2 className="text-center text-4xl font-black mb-12 tracking-tight">
-            Start Growing
-          </h2>
+          <div
+            className={[
+              "transition-all duration-700",
+              inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
+            ].join(" ")}
+          >
+            <h2 className="text-center text-4xl font-black mb-12 tracking-tight">
+              Start Growing
+            </h2>
 
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
-            {NEXT_STEPS.map((step) => {
-              const CardInner = (
-                <>
-                  <div className="w-16 h-16 rounded-xl bg-black text-white flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                    {step.icon}
-                  </div>
-                  <h3 className="text-xl font-bold mb-3 text-black">
-                    {step.title}
-                  </h3>
-                  <p className="text-base text-black/70 leading-relaxed">
-                    {step.desc}
-                  </p>
-                </>
-              );
-
-              // Link card
-              if ("href" in step && step.href) {
-                return (
-                  <Link
-                    key={step.title}
-                    href={step.href}
-                    className="group bg-white rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 cursor-pointer border border-black/5 block"
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
+              {NEXT_STEPS.map((step, idx) => {
+                const CardInner = (
+                  <div
+                    className={[
+                      "relative h-full flex flex-col",
+                      "rounded-2xl p-8 border border-black/5 bg-white",
+                      "shadow-[0_4px_20px_rgba(0,0,0,0.08)]",
+                      "transition-all duration-300",
+                      "hover:-translate-y-1 hover:shadow-[0_14px_40px_rgba(0,0,0,0.14)]",
+                      "active:translate-y-0.5 active:shadow-[0_8px_22px_rgba(0,0,0,0.12)]",
+                      "group",
+                    ].join(" ")}
+                    style={{
+                      transitionDelay: inView ? `${idx * 70}ms` : "0ms",
+                    }}
                   >
-                    {CardInner}
-                  </Link>
-                );
-              }
+                    {/* subtle shine on hover */}
+                    <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
+                      <div className="absolute -left-20 -top-20 h-40 w-40 rounded-full bg-black/0 group-hover:bg-black/5 blur-2xl transition-colors duration-300" />
+                      <div className="absolute -right-20 -bottom-20 h-40 w-40 rounded-full bg-black/0 group-hover:bg-black/5 blur-2xl transition-colors duration-300" />
+                    </div>
 
-              // Button card (modal)
-              return (
-                <button
-                  key={step.title}
-                  type="button"
-                  onClick={step.action}
-                  className="text-left group bg-white rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 cursor-pointer border border-black/5"
-                >
-                  {CardInner}
-                </button>
-              );
-            })}
+                    {/* icon (aligned) */}
+                    <div className="w-16 h-16 rounded-xl bg-black text-white flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                      {step.icon}
+                    </div>
+
+                    {/* title + desc */}
+                    <h3 className="text-xl font-bold mb-3 text-black leading-snug min-h-[3.2rem]">
+                      {step.title}
+                    </h3>
+                    <p className="text-base text-black/70 leading-relaxed min-h-[4.5rem]">
+                      {step.desc}
+                    </p>
+
+                    {/* arrow reveal */}
+                    <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-black/70">
+                      <span className="transition-colors duration-300 group-hover:text-black">
+                        Continue
+                      </span>
+                      <span className="relative overflow-hidden w-6 h-4">
+                        <span className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300">
+                          →
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                );
+
+                // Link card
+                if ("href" in step && step.href) {
+                  return (
+                    <Link key={step.title} href={step.href} className="block">
+                      <div
+                        className={[
+                          "transition-all duration-700",
+                          inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
+                        ].join(" ")}
+                        style={{ transitionDelay: inView ? `${idx * 70}ms` : "0ms" }}
+                      >
+                        {CardInner}
+                      </div>
+                    </Link>
+                  );
+                }
+
+                // Button card (modal)
+                return (
+                  <button
+                    key={step.title}
+                    type="button"
+                    onClick={step.action}
+                    className="text-left block"
+                  >
+                    <div
+                      className={[
+                        "transition-all duration-700",
+                        inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
+                      ].join(" ")}
+                      style={{ transitionDelay: inView ? `${idx * 70}ms` : "0ms" }}
+                    >
+                      {CardInner}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </Container>
       </section>
@@ -151,6 +247,8 @@ export default function NextSteps() {
     </>
   );
 }
+
+/* ---------- forms below unchanged ---------- */
 
 function Field({
   label,
@@ -233,7 +331,6 @@ function DiscipleshipForm({ onDone }: { onDone: () => void }) {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        // TODO: connect to an API route / form provider
         onDone();
       }}
       className="grid gap-5"
@@ -288,7 +385,6 @@ function CompanyForm({ onDone }: { onDone: () => void }) {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        // TODO: connect to an API route / form provider
         onDone();
       }}
       className="grid gap-5"

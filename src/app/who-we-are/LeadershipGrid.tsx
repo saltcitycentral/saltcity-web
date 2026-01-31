@@ -152,6 +152,17 @@ export default function LeadershipGrid() {
           "Pastor Brave Iyomih serves as a Pastor at LifeCity. He contributes to the ministry through his expression of worship and exhortation, strengthening the spiritual life of the church.",
         focusY: 12,
       },
+      {
+        key: "immanuel",
+        name: "Pastor Immanuel Oluwanifise",
+        title: "Pastor, Cityzens Church, FUPRE",
+        image: "/images/PI.jpg",
+        button: "About",
+        modalTitle: "Pastor Immanuel Oluwanifise",
+        modalBody:
+          "Pastor Immanuel Oluwanifise serves as a Pastor at LifeCity. He contributes to the ministry through his expression of worship and exhortation, strengthening the spiritual life of the church.",
+        focusY: 12,
+      },
     ],
     []
   );

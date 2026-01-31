@@ -18,7 +18,7 @@ export default function HeroMission() {
           </h2>
 
           <h1 className="text-4xl font-black leading-tight md:text-6xl mb-6">
-            Transforming men in distress, in debt, and discontented, into mighty men by the power that is the Word of GOD.
+            Transforming the distressed, indebted and discontented into mighty men.
           </h1>
 
           <p className="text-lg text-white/90">
