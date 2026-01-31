@@ -6,7 +6,6 @@ export default function ListenToSermons() {
     <section className="py-20 bg-neutral-900">
       <Container>
         <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
-          
           {/* LEFT */}
           <div>
             <div className="flex items-center gap-4 mb-8">
@@ -35,29 +34,20 @@ export default function ListenToSermons() {
 
             <div className="flex flex-wrap gap-4">
               <Button
-                asChild
+                href="https://t.me/mysaltcity"
+                target="_blank"
                 className="bg-white text-black hover:bg-white/90"
               >
-                <a
-                  href="t.me/mysaltcity"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Listen on Telegram
-                </a>
+                Listen on Telegram
               </Button>
 
               <Button
-                asChild
+                href="https://open.spotify.com/show/0ZH0Zaojh617RRjrGzQsMw"
+                target="_blank"
+                variant="secondary"
                 className="bg-transparent text-white ring-2 ring-white/30 hover:ring-white/60 hover:bg-white/10"
               >
-                <a
-                  href="https://open.spotify.com/show/0ZH0Zaojh617RRjrGzQsMw"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Open in Spotify
-                </a>
+                Open in Spotify
               </Button>
             </div>
           </div>
@@ -72,11 +62,10 @@ export default function ListenToSermons() {
                 frameBorder="0"
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                 loading="lazy"
-                className="rounded-3xl"
+                className="block w-full"
               />
             </div>
           </div>
-
         </div>
       </Container>
     </section>
