@@ -199,6 +199,7 @@ export default function NextSteps() {
                     type="button"
                     onClick={step.action}
                     className="text-left block"
+                    id="new-guest"
                   >
                     <div
                       className={[
