@@ -10,10 +10,12 @@ import { FaXTwitter } from "react-icons/fa6";
 
 
 // 1. Refactored to objects to allow custom hrefs
+// 1. Updated with Shop link
 const FOOTER_LINKS = [
   { label: "Watch", href: "https://youtube.com/@saltcitycentral" },
   { label: "Locations", href: "/locations" },
   { label: "Give", href: "/give" },
+  { label: "Shop", href: "/shop" }, // Added this line
   { label: "Contact Us", href: "/contact" },
 ];
 

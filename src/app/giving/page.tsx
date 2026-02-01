@@ -49,26 +49,46 @@ export default function GivingPage() {
   return (
     <main>
       {/* HERO */}
-      <section
-        className="relative h-[500px]"
-        style={{
-          backgroundImage: "url(/images/giving-hero.jpg)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="relative mx-auto w-full max-w-[1200px] px-6 h-full flex items-center">
-          <div className="max-w-3xl">
-            <h1 className="text-5xl lg:text-6xl font-black leading-tight text-white mb-6">
-              Why Should <br /> The Believer Give?
-            </h1>
-            <p className="text-xl text-white/90 leading-relaxed">
-              The primary purpose of giving is for raising disciples through the spread of the gospel.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* HERO */}
+<section
+  className="relative h-[500px]"
+  style={{
+    backgroundImage: "url(/images/giving-hero.jpg)",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  }}
+>
+  <div className="absolute inset-0 bg-black/50" />
+  <div className="relative mx-auto w-full max-w-[1200px] px-6 h-full flex items-center">
+    <div className="max-w-3xl">
+      <h1 className="text-5xl lg:text-6xl font-black leading-tight text-white mb-6">
+        Why Should <br /> The Believer Give?
+      </h1>
+
+      <p className="text-xl text-white/90 leading-relaxed">
+        The primary purpose of giving is for raising disciples through the spread of the gospel.
+      </p>
+
+      {/* ✅ NEW: Give Now button */}
+      <div className="mt-8 flex flex-col sm:flex-row gap-3">
+        <Link
+          href="/giving/ways"
+          className="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-white text-black font-semibold hover:bg-white/90 transition-colors"
+        >
+          Give Now
+        </Link>
+
+        <Link
+          href="/giving/ways"
+          className="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-transparent text-white font-semibold ring-1 ring-white/35 hover:ring-white/60 hover:bg-white/10 transition-colors"
+        >
+          See All Channels
+        </Link>
+      </div>
+    </div>
+  </div>
+</section>
+
 
       {/* OUR MANDATE */}
       <section className="py-20 bg-white">
