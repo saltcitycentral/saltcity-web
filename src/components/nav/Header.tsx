@@ -113,7 +113,7 @@ export default function Header() {
             </div>
 
             <div className="flex items-center gap-6">
-              <Link
+              {/* <Link
                 href="/login"
                 className={[
                   "hidden sm:flex items-center gap-2 uppercase text-xs font-semibold tracking-wide transition-colors",
@@ -129,7 +129,7 @@ export default function Header() {
                   <User className="h-4 w-4" />
                 </div>
                 <span>LOG IN</span>
-              </Link>
+              </Link> */}
 
               <button
                 onClick={() => setMenuOpen(true)}
