@@ -245,7 +245,7 @@ export default function HeroStage() {
   const [typingEnabled, setTypingEnabled] = useState(false);
 
   // slideshow timing (slow + calm)
-  const intervalMs = 8500;
+  const intervalMs = 3000;
   const fadeMs = 1100;
 
   useEffect(() => {
