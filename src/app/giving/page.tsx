@@ -26,22 +26,40 @@ const ONGOING_PROJECTS = [
 
 const GIVING_ACCOUNTS = [
   {
+    bank: "Zenith Bank",
+    accountName: "SaltCity Church",
+    accountNumber: "1015095018",
+    type: "Partnership Account",
+  },
+  {
+    bank: "Fidelity Bank",
+    accountName: "SaltCity Church",
+    accountNumber: "4150051597",
+    type: "Property Partnership",
+  },
+  {
     bank: "Access Bank",
     accountName: "SaltCity Church",
-    accountNumber: "0123456789",
-    type: "Tithe & Offerings",
+    accountNumber: "0073530847",
+    type: "Offerings",
   },
   {
-    bank: "GTBank",
-    accountName: "SaltCity Church - Projects",
-    accountNumber: "0987654321",
-    type: "Building & Projects",
+    bank: "GTBank (Naira)",
+    accountName: "SaltCity Church",
+    accountNumber: "0431944413",
+    type: "Offerings",
   },
   {
-    bank: "Zenith Bank",
-    accountName: "SaltCity Church - Missions",
-    accountNumber: "1122334455",
-    type: "Missions & Outreach",
+    bank: "GTBank (USD)",
+    accountName: "SaltCity Church",
+    accountNumber: "0469266462",
+    type: "Offerings - Dollar",
+  },
+  {
+    bank: "GTBank (GBP)",
+    accountName: "SaltCity Church",
+    accountNumber: "0469266479",
+    type: "Offerings - Pound",
   },
 ];
 
