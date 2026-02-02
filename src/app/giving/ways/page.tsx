@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 
-const TEAL = "#08b6a6";
+const TEAL = "#1f71be";
 
 type GivingChannel = {
   label: string;
@@ -75,7 +75,7 @@ export default function GivingWaysPage() {
       <section className="bg-white py-16">
         <div className="mx-auto max-w-[1200px] px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-black text-slate-900">Official Accounts 💚</h2>
+            <h2 className="text-3xl font-black text-slate-900">Official Accounts</h2>
             <p className="text-slate-500 mt-2">SaltCity Church Accounts</p>
           </div>
 

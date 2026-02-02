@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Mail, Phone, MessageCircle } from "lucide-react";
 
-const TEAL = "#08b6a6";
+const TEAL = "#1f71be";
 
 const FAQS = [
   {

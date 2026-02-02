@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { HandHeart, MapPin, Users, Book, Heart } from "lucide-react";
 
-const TEAL = "#08b6a6";
+// Updated the main theme color
+const PRIMARY_BLUE = "#1f71be"; 
 
 const ONGOING_PROJECTS = [
   {
@@ -67,46 +68,43 @@ export default function GivingPage() {
   return (
     <main>
       {/* HERO */}
-      {/* HERO */}
-<section
-  className="relative h-[500px]"
-  style={{
-    backgroundImage: "url(/images/giving-hero.jpg)",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  }}
->
-  <div className="absolute inset-0 bg-black/50" />
-  <div className="relative mx-auto w-full max-w-[1200px] px-6 h-full flex items-center">
-    <div className="max-w-3xl">
-      <h1 className="text-5xl lg:text-6xl font-black leading-tight text-white mb-6">
-        Why Should <br /> The Believer Give?
-      </h1>
+      <section
+        className="relative h-[500px]"
+        style={{
+          backgroundImage: "url(/images/giving-hero.jpg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="relative mx-auto w-full max-w-[1200px] px-6 h-full flex items-center">
+          <div className="max-w-3xl">
+            <h1 className="text-5xl lg:text-6xl font-black leading-tight text-white mb-6">
+              Why Should <br /> The Believer Give?
+            </h1>
 
-      <p className="text-xl text-white/90 leading-relaxed">
-        The primary purpose of giving is for raising disciples through the spread of the gospel.
-      </p>
+            <p className="text-xl text-white/90 leading-relaxed">
+              The primary purpose of giving is for raising disciples through the spread of the gospel.
+            </p>
 
-      {/* ✅ NEW: Give Now button */}
-      <div className="mt-8 flex flex-col sm:flex-row gap-3">
-        <Link
-          href="/giving/ways"
-          className="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-white text-black font-semibold hover:bg-white/90 transition-colors"
-        >
-          Give Now
-        </Link>
+            <div className="mt-8 flex flex-col sm:flex-row gap-3">
+              <Link
+                href="/giving/ways"
+                className="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-white text-black font-semibold hover:bg-white/90 transition-colors"
+              >
+                Give Now
+              </Link>
 
-        <Link
-          href="/giving/ways"
-          className="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-transparent text-white font-semibold ring-1 ring-white/35 hover:ring-white/60 hover:bg-white/10 transition-colors"
-        >
-          See All Channels
-        </Link>
-      </div>
-    </div>
-  </div>
-</section>
-
+              <Link
+                href="/giving/ways"
+                className="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-transparent text-white font-semibold ring-1 ring-white/35 hover:ring-white/60 hover:bg-white/10 transition-colors"
+              >
+                See All Channels
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* OUR MANDATE */}
       <section className="py-20 bg-white">
@@ -117,8 +115,6 @@ export default function GivingPage() {
               GOD, our primary EXAMPLE gave us the ultimate gift of his Son generously, and that is how He expects His children to give. 
               Here at SaltCity, we teach that everyone should give now and again, as GOD has prospered them.
             </p>
-            <p className="text-lg leading-relaxed text-black/70">
-                </p>
           </div>
         </div>
       </section>
@@ -157,7 +153,7 @@ export default function GivingPage() {
       </section>
 
       {/* SCRIPTURE */}
-      <section style={{ background: TEAL }}>
+      <section style={{ background: PRIMARY_BLUE }}>
         <div className="mx-auto w-full max-w-[1200px] px-6 py-16">
           <div className="max-w-4xl mx-auto text-center text-white">
             <div className="mb-6">
@@ -179,8 +175,6 @@ export default function GivingPage() {
                 </p>
                 <p className="font-bold">— 1 Timothy 6:17-19</p>
               </div>
-
-
             </div>
           </div>
         </div>
@@ -197,44 +191,23 @@ export default function GivingPage() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div className="bg-neutral-50 rounded-2xl p-8 text-center">
-              <div className="w-16 h-16 rounded-full bg-teal-100 flex items-center justify-center mx-auto mb-6">
-                <HandHeart size={32} style={{ color: TEAL }} />
+            {[
+              { icon: <HandHeart size={32} />, title: "Tithe Partners", desc: "Give your first 10% consistently as an act of worship and obedience to God's Word.", commit: "Monthly Commitment" },
+              { icon: <Heart size={32} />, title: "Project Partners", desc: "Support specific kingdom projects and help us expand our reach and impact.", commit: "One-time or Recurring" },
+              { icon: <Users size={32} />, title: "Mission Partners", desc: "Fund evangelism, outreach, and community impact initiatives across Nigeria.", commit: "Quarterly Commitment" }
+            ].map((item, idx) => (
+              <div key={idx} className="bg-neutral-50 rounded-2xl p-8 text-center">
+                {/* Replaced bg-teal-100 with a subtle blue version of your hex */}
+                <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6" style={{ backgroundColor: `${PRIMARY_BLUE}15` }}>
+                  <div style={{ color: PRIMARY_BLUE }}>{item.icon}</div>
+                </div>
+                <h3 className="text-2xl font-bold mb-3">{item.title}</h3>
+                <p className="text-black/70 mb-4">{item.desc}</p>
+                <p className="text-sm font-semibold" style={{ color: PRIMARY_BLUE }}>
+                  {item.commit}
+                </p>
               </div>
-              <h3 className="text-2xl font-bold mb-3">Tithe Partners</h3>
-              <p className="text-black/70 mb-4">
-                Give your first 10% consistently as an act of worship and obedience to God's Word.
-              </p>
-              <p className="text-sm font-semibold" style={{ color: TEAL }}>
-                Monthly Commitment
-              </p>
-            </div>
-
-            <div className="bg-neutral-50 rounded-2xl p-8 text-center">
-              <div className="w-16 h-16 rounded-full bg-teal-100 flex items-center justify-center mx-auto mb-6">
-                <Heart size={32} style={{ color: TEAL }} />
-              </div>
-              <h3 className="text-2xl font-bold mb-3">Project Partners</h3>
-              <p className="text-black/70 mb-4">
-                Support specific kingdom projects and help us expand our reach and impact.
-              </p>
-              <p className="text-sm font-semibold" style={{ color: TEAL }}>
-                One-time or Recurring
-              </p>
-            </div>
-
-            <div className="bg-neutral-50 rounded-2xl p-8 text-center">
-              <div className="w-16 h-16 rounded-full bg-teal-100 flex items-center justify-center mx-auto mb-6">
-                <Users size={32} style={{ color: TEAL }} />
-              </div>
-              <h3 className="text-2xl font-bold mb-3">Mission Partners</h3>
-              <p className="text-black/70 mb-4">
-                Fund evangelism, outreach, and community impact initiatives across Nigeria.
-              </p>
-              <p className="text-sm font-semibold" style={{ color: TEAL }}>
-                Quarterly Commitment
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -252,7 +225,8 @@ export default function GivingPage() {
           <div className="grid md:grid-cols-3 gap-8">
             {ONGOING_PROJECTS.map((project) => (
               <div key={project.title} className="bg-white rounded-2xl p-8">
-                <div className="w-14 h-14 rounded-xl bg-teal-50 flex items-center justify-center mb-6" style={{ color: TEAL }}>
+                {/* Replaced bg-teal-50 with subtle primary blue tint */}
+                <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6" style={{ backgroundColor: `${PRIMARY_BLUE}10`, color: PRIMARY_BLUE }}>
                   {project.icon}
                 </div>
                 <h3 className="text-xl font-bold mb-3">{project.title}</h3>
@@ -261,12 +235,12 @@ export default function GivingPage() {
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm font-semibold">
                     <span>Progress</span>
-                    <span style={{ color: TEAL }}>{project.progress}%</span>
+                    <span style={{ color: PRIMARY_BLUE }}>{project.progress}%</span>
                   </div>
                   <div className="w-full h-2 bg-neutral-200 rounded-full overflow-hidden">
                     <div
                       className="h-full rounded-full transition-all duration-500"
-                      style={{ width: `${project.progress}%`, background: TEAL }}
+                      style={{ width: `${project.progress}%`, background: PRIMARY_BLUE }}
                     />
                   </div>
                 </div>
@@ -290,7 +264,12 @@ export default function GivingPage() {
             {GIVING_ACCOUNTS.map((account) => (
               <div
                 key={account.accountNumber}
-                className="bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl p-8 text-white shadow-[0_12px_40px_rgba(8,182,166,0.3)]"
+                // Replaced teal gradient with blue gradient and shadow
+                className="rounded-2xl p-8 text-white shadow-xl"
+                style={{ 
+                    background: `linear-gradient(135deg, ${PRIMARY_BLUE}, #165a98)`,
+                    boxShadow: `0 12px 40px -10px rgba(31, 113, 190, 0.4)` 
+                }}
               >
                 <div className="text-sm font-bold opacity-90 mb-6">{account.type}</div>
                 <div className="space-y-3">

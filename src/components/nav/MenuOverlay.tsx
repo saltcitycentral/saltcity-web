@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Container from "@/components/ui/Container";
-import { User } from "lucide-react";
+import { User, Instagram, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
 type Props = {
@@ -12,105 +12,182 @@ type Props = {
 
 type NavItem = {
   title: string;
-  desc: string;
+  desc?: string;
   href: string;
+};
+
+type Expression = {
+  title: string;
+  handle: string;
+  href: string;
+  note?: string;
 };
 
 const TOP_ITEMS: NavItem[] = [
   {
     title: "Attend Online",
-    desc: "Check out a message live with our Church Online community.",
+    desc: "Watch a message live with our online community.",
     href: "https://www.youtube.com/@saltcitycentral",
   },
-  {
-    title: "Sermons",
-    desc: "Scripture-rich teaching series and messages.",
-    href: "/media/sermon-series",
-  },
-  {
-    title: "Resources",
-    desc: "Tools and guides to help you grow in your faith.",
-    href: "/resources",
-  },
-  {
-    title: "Give",
-    desc: "Giving is simple. Find ways to give and make a difference.",
-    href: "/giving",
-  },
-  {
-    title: "Who We Are",
-    desc: "Learn about our story, beliefs, and leadership.",
-    href: "/who-we-are",
-  },
-  {
-    title: "Songs",
-    desc: "Worship and sound doctrine set to melody.",
-    href: "/songs",
-  },
+  { title: "Sermons", desc: "Teaching series and messages.", href: "/media/sermon-series" },
+  { title: "Resources", desc: "Tools and guides to grow.", href: "/resources" },
+  { title: "Give", desc: "Simple ways to give.", href: "/giving" },
+  { title: "Who We Are", desc: "Our story, beliefs, leadership.", href: "/who-we-are" },
+  { title: "Songs", desc: "Worship and sound doctrine.", href: "/songs" },
 ];
 
-const WAYS_TO_CONNECT: NavItem[] = [
+const QUICK_LINKS: NavItem[] = [
+  { title: "Shop", href: "/shop" },
+];
+
+const EXPRESSIONS: Expression[] = [
+  // ✅ replace handles/links with your real IG URLs if needed
   {
-    title: "CityCenter",
-    desc: "Follow CityCenter and stay updated on gatherings and moments.",
-    href: "https://instagram.com/mycitycentre",
+    title: "SaltCity Central",
+    handle: "@saltcitycentral",
+    href: "https://instagram.com/saltcitycentral",
+    note: "Main expression",
+  },
+  {
+    title: "Children Chapel",
+    handle: "@saltcitychildren",
+    href: "https://instagram.com/saltcitychildren",
+    note: "Kids ministry",
   },
   {
     title: "LifeCity",
-    desc: "Follow LifeCity for youth updates, meetups, and highlights.",
+    handle: "@thisislifecity",
     href: "https://instagram.com/thisislifecity",
+    note: "Youth expression",
   },
   {
-    title: "Shop",
-    desc: "Merch and resources from our church.",
-    href: "/shop",
+    title: "PTI Cityzens",
+    handle: "@pticityzens",
+    href: "https://instagram.com/pticityzens",
+    note: "Campus expression",
+  },
+  {
+    title: "FUPRE Cityzens",
+    handle: "@fuprecityzens",
+    href: "https://instagram.com/fuprecityzens",
+    note: "Campus expression",
+  },
+  {
+    title: "CityCentre",
+    handle: "@mycitycentre",
+    href: "https://instagram.com/mycitycentre",
+    note: "Community expression",
   },
 ];
 
+function isExternal(href: string) {
+  return href.startsWith("http");
+}
+
 export default function MenuOverlay({ open, onClose }: Props) {
-  // Keep mounted for animation
-  const [mounted, setMounted] = useState(open);
+  // Two-step animation: mount first, then animate in next frame.
+  const [mounted, setMounted] = useState(false);
+  const [active, setActive] = useState(false);
 
   useEffect(() => {
-    if (open) setMounted(true);
+    if (!open) {
+      setActive(false);
+      return;
+    }
+    setMounted(true);
+    const t = requestAnimationFrame(() => setActive(true));
+    return () => cancelAnimationFrame(t);
   }, [open]);
 
   useEffect(() => {
+    if (!mounted) return;
+
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
-    if (open) window.addEventListener("keydown", onKeyDown);
+
+    window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [open, onClose]);
+  }, [mounted, onClose]);
+
+  // Unmount after close transition
+  useEffect(() => {
+    if (!mounted) return;
+    if (open) return;
+
+    const timeout = window.setTimeout(() => setMounted(false), 240);
+    return () => window.clearTimeout(timeout);
+  }, [open, mounted]);
+
+  const ExpressionCards = useMemo(() => {
+    return EXPRESSIONS.map((x) => (
+      <a
+        key={x.title}
+        href={x.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={[
+          "group rounded-2xl border border-black/10 bg-white",
+          "px-5 py-4",
+          "shadow-[0_10px_40px_rgba(0,0,0,0.06)]",
+          "hover:shadow-[0_18px_60px_rgba(0,0,0,0.10)] hover:-translate-y-[1px]",
+          "transition-all duration-200",
+        ].join(" ")}
+      >
+        <div className="flex items-start justify-between gap-4">
+          <div className="min-w-0">
+            <div className="text-sm font-extrabold text-black/90 truncate">
+              {x.title}
+            </div>
+            <div className="mt-1 text-xs text-black/55 truncate">{x.handle}</div>
+            {x.note ? (
+              <div className="mt-2 text-xs text-black/60 leading-relaxed">
+                {x.note}
+              </div>
+            ) : null}
+          </div>
+
+          <div
+            className={[
+              "shrink-0 grid place-items-center",
+              "h-10 w-10 rounded-full border border-black/10",
+              "text-black/60",
+              "group-hover:text-black group-hover:border-black/20",
+              "transition-colors",
+            ].join(" ")}
+            aria-hidden="true"
+          >
+            <Instagram className="h-4 w-4" />
+          </div>
+        </div>
+
+        <div className="mt-3 inline-flex items-center gap-2 text-xs font-semibold text-black/60 group-hover:text-black transition-colors">
+          View on Instagram
+          <ArrowUpRight className="h-3.5 w-3.5" />
+        </div>
+      </a>
+    ));
+  }, []);
 
   if (!mounted) return null;
 
-  const isExternal = (href: string) => href.startsWith("http");
-
   return (
     <div
-      className={[
-        "fixed inset-0 z-50",
-        "transition-opacity duration-300",
-        open ? "opacity-100" : "opacity-0 pointer-events-none",
-      ].join(" ")}
+      className="fixed inset-0 z-50"
       role="dialog"
       aria-modal="true"
       aria-label="Menu"
-      onTransitionEnd={() => {
-        if (!open) setMounted(false);
-      }}
     >
       {/* Backdrop */}
       <button
         type="button"
-        aria-label="Close menu backdrop"
+        aria-label="Close menu"
         onClick={onClose}
         className={[
           "absolute inset-0",
-          "bg-black/30 backdrop-blur-[2px]",
-          "transition-opacity duration-300",
-          open ? "opacity-100" : "opacity-0",
+          "bg-black/35 backdrop-blur-[2px]",
+          "transition-opacity duration-200",
+          active ? "opacity-100" : "opacity-0",
         ].join(" ")}
       />
 
@@ -118,25 +195,24 @@ export default function MenuOverlay({ open, onClose }: Props) {
       <div
         className={[
           "absolute inset-0 bg-white",
-          "transition-transform duration-300 ease-out",
-          open ? "translate-y-0" : "-translate-y-3",
+          "transition-transform duration-200 ease-out",
+          "will-change-transform",
+          active ? "translate-y-0" : "-translate-y-3",
         ].join(" ")}
       >
         {/* Top bar mirrors header */}
         <div className="border-b border-black/10">
           <Container>
             <div className="flex items-center justify-between py-6">
-              {/* Logo */}
-              <Link href="/" className="flex items-center cursor-pointer" onClick={onClose}>
+              <Link href="/" className="flex items-center" onClick={onClose}>
                 <img src="/logo.svg" alt="SaltCity" className="h-6 w-auto" />
               </Link>
 
               <div className="flex items-center gap-6">
-                {/* LOG IN */}
                 <Link
                   href="/login"
                   onClick={onClose}
-                  className="hidden sm:flex cursor-pointer items-center gap-2 uppercase text-sm font-semibold tracking-wide text-black/70 hover:text-black"
+                  className="hidden sm:flex items-center gap-2 uppercase text-sm font-semibold tracking-wide text-black/70 hover:text-black"
                 >
                   <div className="grid h-7 w-7 place-items-center rounded-full border border-black/20 text-black/50">
                     <User className="h-4 w-4" />
@@ -144,11 +220,10 @@ export default function MenuOverlay({ open, onClose }: Props) {
                   <span>LOG IN</span>
                 </Link>
 
-                {/* Close Menu */}
                 <button
                   type="button"
                   onClick={onClose}
-                  className="flex cursor-pointer items-center gap-3 uppercase text-sm font-semibold tracking-wide text-black/70 hover:text-black"
+                  className="flex items-center gap-3 uppercase text-sm font-semibold tracking-wide text-black/70 hover:text-black"
                   aria-label="Close menu"
                 >
                   <span className="text-xl leading-none">×</span>
@@ -163,33 +238,29 @@ export default function MenuOverlay({ open, onClose }: Props) {
         <div className="h-[calc(100vh-81px)] overflow-y-auto">
           <Container>
             <div className="py-10">
-              {/* Mobile */}
-              <div className="lg:hidden space-y-10">
-                <div className="space-y-6">
-                  {TOP_ITEMS.map((x) => {
-                    const ext = isExternal(x.href);
-                    return (
-                      <Link
-                        key={x.title}
-                        href={x.href}
-                        onClick={onClose}
-                        target={ext ? "_blank" : undefined}
-                        rel={ext ? "noopener noreferrer" : undefined}
-                        className="block cursor-pointer"
-                      >
-                        <div className="text-sm font-bold text-sky-600 hover:underline">
-                          {x.title}
-                        </div>
-                        <div className="text-sm text-black/70 mt-1">{x.desc}</div>
-                      </Link>
-                    );
-                  })}
+              {/* Header block */}
+              <div className="mb-10">
+                <div className="text-xs font-bold uppercase tracking-wider text-black/45">
+                  Navigation
                 </div>
+                <div className="mt-2 text-3xl md:text-4xl font-extrabold tracking-tight text-black">
+                  Welcome to SaltCity
+                </div>
+                <div className="mt-3 max-w-2xl text-sm text-black/65 leading-relaxed">
+                  Find where you belong and stay connected with what God is doing across our expressions.
+                </div>
+              </div>
 
-                <div>
-                  <div className="text-xl font-extrabold mb-4">More of us</div>
-                  <div className="space-y-6">
-                    {WAYS_TO_CONNECT.map((x) => {
+              {/* Layout */}
+              <div className="grid gap-10 lg:grid-cols-12">
+                {/* LEFT: Explore */}
+                <div className="lg:col-span-4">
+                  <div className="text-xs font-bold uppercase tracking-wider text-black/45">
+                    Explore
+                  </div>
+
+                  <div className="mt-5 space-y-2">
+                    {TOP_ITEMS.map((x) => {
                       const ext = isExternal(x.href);
                       return (
                         <Link
@@ -198,87 +269,84 @@ export default function MenuOverlay({ open, onClose }: Props) {
                           onClick={onClose}
                           target={ext ? "_blank" : undefined}
                           rel={ext ? "noopener noreferrer" : undefined}
-                          className="block cursor-pointer"
+                          className={[
+                            "block rounded-xl border border-black/10 bg-white",
+                            "px-4 py-3",
+                            "hover:border-black/20 hover:shadow-[0_10px_40px_rgba(0,0,0,0.06)]",
+                            "transition-all duration-200",
+                          ].join(" ")}
                         >
-                          <div className="text-sm font-bold text-sky-600 hover:underline">
+                          <div className="text-sm font-extrabold text-black/90">
                             {x.title}
                           </div>
-                          <div className="text-sm text-black/70 mt-1">{x.desc}</div>
+                          {x.desc ? (
+                            <div className="mt-1 text-xs text-black/60 leading-relaxed">
+                              {x.desc}
+                            </div>
+                          ) : null}
                         </Link>
                       );
                     })}
                   </div>
-                </div>
-              </div>
 
-              {/* Desktop */}
-              <div className="hidden lg:block">
-                <div className="grid grid-cols-[260px_1fr] gap-12">
-                  {/* Left column */}
-                  <div className="space-y-10">
-                    <div>
-                      <div className="text-sm font-semibold uppercase tracking-wide text-black/40 mb-4">
-                        Explore
-                      </div>
-                      <div className="space-y-4">
-                        {TOP_ITEMS.map((x) => {
-                          const ext = isExternal(x.href);
-                          return (
-                            <Link
-                              key={x.title}
-                              href={x.href}
-                              onClick={onClose}
-                              target={ext ? "_blank" : undefined}
-                              rel={ext ? "noopener noreferrer" : undefined}
-                              className="block cursor-pointer text-sky-600 font-bold hover:underline"
-                            >
-                              {x.title}
-                            </Link>
-                          );
-                        })}
-                      </div>
+                  {/* Quick links */}
+                  <div className="mt-8">
+                    <div className="text-xs font-bold uppercase tracking-wider text-black/45">
+                      Quick links
                     </div>
+                    <div className="mt-4 space-y-2">
+                      {QUICK_LINKS.map((x) => (
+                        <Link
+                          key={x.title}
+                          href={x.href}
+                          onClick={onClose}
+                          className="inline-flex items-center gap-2 rounded-full border border-black/15 px-4 py-2 text-xs font-semibold text-black/70 hover:text-black hover:border-black/25 transition"
+                        >
+                          {x.title}
+                          <ArrowUpRight className="h-3.5 w-3.5" />
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
 
+                {/* RIGHT: Expressions */}
+                <div className="lg:col-span-8">
+                  <div className="flex items-end justify-between gap-6">
                     <div>
-                      <div className="text-3xl font-extrabold mb-6">Ways to Connect</div>
-                      <div className="space-y-5">
-                        {WAYS_TO_CONNECT.map((x) => {
-                          const ext = isExternal(x.href);
-                          return (
-                            <Link
-                              key={x.title}
-                              href={x.href}
-                              onClick={onClose}
-                              target={ext ? "_blank" : undefined}
-                              rel={ext ? "noopener noreferrer" : undefined}
-                              className="block cursor-pointer text-left text-sky-600 font-bold hover:underline"
-                            >
-                              {x.title}
-                            </Link>
-                          );
-                        })}
+                      <div className="text-xs font-bold uppercase tracking-wider text-black/45">
+                        Expressions
+                      </div>
+                      <div className="mt-2 text-xl md:text-2xl font-extrabold text-black">
+                        Follow the one closest to you.
+                      </div>
+                      <div className="mt-2 text-sm text-black/60 max-w-2xl">
+                        Each expression shares updates, gatherings, and moments on Instagram.
                       </div>
                     </div>
                   </div>
 
-                  {/* Right column descriptions */}
-                  <div className="space-y-7">
-                    {WAYS_TO_CONNECT.map((x) => (
-                      <div key={x.title} className="border-b border-black/5 pb-6">
-                        <div className="text-sm font-semibold text-black/90 mb-1">{x.title}</div>
-                        <div className="text-sm text-black/70">{x.desc}</div>
-                      </div>
-                    ))}
+                  <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                    {ExpressionCards}
                   </div>
-                </div>
 
-                <div className="mt-14 border-t border-black/10 pt-10">
-                  <div className="text-3xl font-extrabold mb-6">About Us</div>
-                  <div className="text-sm text-black/70">
-                    Placeholder section — we’ll clone this section next.
+                  <div className="mt-10 border-t border-black/10 pt-8">
+                    <div className="text-xs font-bold uppercase tracking-wider text-black/45">
+                      About
+                    </div>
+                    <div className="mt-2 text-sm text-black/65">
+                      Want leadership, beliefs, and our story? Use{" "}
+                      <Link href="/who-we-are" onClick={onClose} className="font-semibold text-black underline">
+                        Who We Are
+                      </Link>
+                      .
+                    </div>
                   </div>
                 </div>
               </div>
+
+              {/* Bottom spacing */}
+              <div className="h-10" />
             </div>
           </Container>
         </div>
