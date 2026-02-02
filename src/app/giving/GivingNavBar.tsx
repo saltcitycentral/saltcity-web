@@ -11,7 +11,7 @@ const TABS: Tab[] = [
   { label: "FAQ", href: "/giving/faq" },
 ];
 
-const TEAL = "#08b6a6";
+const TEAL = "#1f71be";
 
 export default function GivingNavBar() {
   const pathname = usePathname();
