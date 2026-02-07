@@ -180,6 +180,40 @@ export const MEDIA_ITEMS: MediaItem[] = [
     tags: ["vision", "purpose", "patience"],
   },
 
+
+  // --- WRITE THE VISION ---
+  {
+    category: "sermon-series",
+    slug: "fruitful-christianity",
+    title: "Fruitful Christianity",
+    summary:
+      "Understanding the power of vision, how to document spiritual direction, and the patience required to see the promise manifest.",
+    heroImage: img("/images/fruitful-christianity.jpeg"),
+    cardImage: img("/images/fruitful-christianity.jpeg"),
+    primaryCta: { label: "Watch on YouTube", href: "https://youtube.com/saltcitycentral" },
+    secondaryCta: { label: "Listen on Telegram", href: "https://t.me/mysaltcity" },
+    episodes: [
+      {
+        slug: "fruitful-christianity",
+        title: "Fruitful Christianity",
+        part: "PART 1",
+        duration: "3:00:00",
+        image: img("/images/fruitful-christianity.jpeg"),
+        youtubeID: "vG9PZhunBkE"
+      },
+      {
+        slug: "fruitful-christianity-2.0",
+        title: "Fruitful Christianity 2.0",
+        part: "PART 2",
+        duration: "3:00:00",
+        image: img("/images/fruitful-christianity.jpeg"),
+        youtubeID: "LNlqJzHCQ7g"
+      },
+  
+    ],
+    tags: ["vision", "purpose", "patience"],
+  },
+
   // SONGS
   {
     category: "songs",
