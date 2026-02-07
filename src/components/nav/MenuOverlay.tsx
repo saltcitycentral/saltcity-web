@@ -51,7 +51,7 @@ const EXPRESSIONS: Expression[] = [
   {
     title: "Children Chapel",
     handle: "@saltcitychildren",
-    href: "https://instagram.com/saltcitychildren",
+    href: "https://instagram.com/saltcity_children_chapel",
     note: "Kids ministry",
   },
   {
@@ -205,7 +205,7 @@ export default function MenuOverlay({ open, onClose }: Props) {
           <Container>
             <div className="flex items-center justify-between py-6">
               <Link href="/" className="flex items-center" onClick={onClose}>
-                <img src="/logo.svg" alt="SaltCity" className="h-6 w-auto" />
+                <img src="/logo.svg" alt="SaltCity" className="h-8 w-auto" />
               </Link>
 
               <div className="flex items-center gap-6">

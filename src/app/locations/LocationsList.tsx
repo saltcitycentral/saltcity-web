@@ -67,7 +67,7 @@ export default function LocationsList({ items, selectedId, onSelect }: Props) {
               rel="noreferrer"
               className="rounded-full border border-black/15 px-3 py-2 text-xs font-medium hover:border-black/30"
             >
-              Join WhatsApp
+              Join Our Community
             </a>
           </div>
         ))}
