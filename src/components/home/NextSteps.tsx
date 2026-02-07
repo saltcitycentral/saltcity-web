@@ -7,8 +7,7 @@ import Modal from "@/components/ui/Modal";
 
 type ActiveModal = "firstTime" | "discipleship" | "company" | null;
 
-const WEBAPP_URL = process.env.NEXT_PUBLIC_FORMS_WEBAPP_URL || "";
-const API_KEY = process.env.NEXT_PUBLIC_FORMS_API_KEY || "";
+
 
 // tiny helper
 function cx(...classes: (string | false | undefined | null)[]) {
@@ -204,12 +203,7 @@ export default function NextSteps() {
         <CompanyForm onDone={() => setActiveModal(null)} />
       </Modal>
 
-      {/* small warning if env not set */}
-      {!WEBAPP_URL && (
-        <div className="fixed bottom-4 left-4 z-50 rounded-xl border border-black/10 bg-white px-4 py-3 text-sm text-black/70 shadow-lg">
-          Missing <span className="font-semibold">NEXT_PUBLIC_FORMS_WEBAPP_URL</span>
-        </div>
-      )}
+      
     </>
   );
 }
@@ -301,20 +295,15 @@ function SubmitRow({
 /* ---------- network helper ---------- */
 
 async function submitToWebApp(payload: Record<string, any>) {
-  if (!WEBAPP_URL) throw new Error("Missing NEXT_PUBLIC_FORMS_WEBAPP_URL");
-
-  const url = new URL(WEBAPP_URL);
-  if (API_KEY) url.searchParams.set("key", API_KEY);
-
-  const res = await fetch(url.toString(), {
+  const res = await fetch("/api/forms", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
 
-  // Apps Script returns 200 with JSON even on logical errors, so parse body
   const text = await res.text();
   let data: any = null;
+
   try {
     data = JSON.parse(text);
   } catch {
@@ -325,6 +314,7 @@ async function submitToWebApp(payload: Record<string, any>) {
     throw new Error(data?.error || "Submission failed");
   }
 }
+
 
 /* ---------- First Time Form ---------- */
 
@@ -355,8 +345,6 @@ function FirstTimeForm({ onDone }: { onDone: () => void }) {
             location,
             notes,
             hp,
-            pageUrl: typeof window !== "undefined" ? window.location.href : "",
-            userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "",
           });
 
           setMsg("Submitted. We’ll reach out soon.");
@@ -440,8 +428,7 @@ function DiscipleshipForm({ onDone }: { onDone: () => void }) {
             availability,
             notes,
             hp,
-            pageUrl: typeof window !== "undefined" ? window.location.href : "",
-            userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "",
+
           });
 
           setMsg("Submitted. We’ll reach out soon.");
@@ -516,7 +503,6 @@ function CompanyForm({ onDone }: { onDone: () => void }) {
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
   const [ageRange, setAgeRange] = useState("");
-  const [companyType, setCompanyType] = useState("");
   const [notes, setNotes] = useState("");
   const [hp, setHp] = useState("");
 
@@ -535,15 +521,12 @@ function CompanyForm({ onDone }: { onDone: () => void }) {
             email,
             city,
             ageRange,
-            companyType,
             notes,
             hp,
-            pageUrl: typeof window !== "undefined" ? window.location.href : "",
-            userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "",
           });
 
           setMsg("Submitted. We’ll reach out soon.");
-          setFullName(""); setPhone(""); setEmail(""); setCity(""); setAgeRange(""); setCompanyType(""); setNotes(""); setHp("");
+          setFullName(""); setPhone(""); setEmail(""); setCity(""); setAgeRange(""); setNotes(""); setHp("");
           setTimeout(() => onDone(), 700);
         } catch (err: any) {
           setMsg(err?.message || "Something went wrong.");
@@ -589,15 +572,6 @@ function CompanyForm({ onDone }: { onDone: () => void }) {
         </Field>
       </div>
 
-      <Field label="Company Type (optional)">
-        <Select value={companyType} onChange={(e) => setCompanyType(e.target.value)}>
-          <option value="">Select one</option>
-          <option>Men’s Company</option>
-          <option>Women’s Company</option>
-          <option>Young Professionals</option>
-          <option>Campus / Students</option>
-        </Select>
-      </Field>
 
       <Field label="Notes (optional)">
         <Textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={4} placeholder="Anything specific you're looking for..." />
