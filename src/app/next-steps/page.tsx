@@ -5,14 +5,19 @@ import Link from "next/link";
 import Container from "@/components/ui/Container";
 import Modal from "@/components/ui/Modal";
 
-type ActiveModal = "baptism" | "serve" | "counseling" | "company" | "giving" | null;
+type ActiveModal = "serve" | "counseling" | "company" | "discipleship" | null;
+
+// Tiny helper
+function cx(...classes: (string | false | undefined | null)[]) {
+  return classes.filter(Boolean).join(" ");
+}
 
 const STEPS = [
   {
     title: "Sign up for discipleship",
     desc: "Learn what it means and register for the next discipleship class.",
     kind: "modal" as const,
-    modalKey: "baptism" as const,
+    modalKey: "discipleship" as const,
     cta: "Join the next class",
     color: "from-amber-900 to-amber-950",
     iconBg: "bg-amber-900/10",
@@ -60,8 +65,8 @@ const STEPS = [
   {
     title: "Give Online",
     desc: "Support the ministry through generous giving.",
-    kind: "modal" as const,
-    modalKey: "giving" as const,
+    kind: "link" as const,
+    href: "/giving",
     cta: "Learn about giving",
     color: "from-purple-900 to-purple-950",
     iconBg: "bg-purple-900/10",
@@ -298,19 +303,13 @@ export default function NextStepsPage() {
 
       {/* Modals */}
       <Modal
-        open={active === "baptism"}
-        title="Water Baptism"
-        description="Register and we'll share the next available date and class details."
+        open={active === "discipleship"}
+        title="Sign up for Discipleship"
+        description="Fill this and we'll reach out with the next steps."
         onClose={() => setActive(null)}
+        footer={<div className="text-xs text-black/60">By submitting, you agree we may contact you about discipleship.</div>}
       >
-        <SimpleForm
-          onDone={() => setActive(null)}
-          fields={[
-            { label: "Full Name", required: true },
-            { label: "Phone Number", required: true },
-            { label: "Email (optional)" },
-          ]}
-        />
+        <DiscipleshipForm onDone={() => setActive(null)} />
       </Modal>
 
       <Modal
@@ -318,16 +317,9 @@ export default function NextStepsPage() {
         title="Join a Company"
         description="Tell us where you are and what kind of community you're looking for."
         onClose={() => setActive(null)}
+        footer={<div className="text-xs text-black/60">We'll connect you to a company lead near you.</div>}
       >
-        <SimpleForm
-          onDone={() => setActive(null)}
-          fields={[
-            { label: "Full Name", required: true },
-            { label: "Phone Number", required: true },
-            { label: "City / Area", required: true },
-            { label: "Age Range (optional)" },
-          ]}
-        />
+        <CompanyForm onDone={() => setActive(null)} />
       </Modal>
 
       <Modal
@@ -335,31 +327,9 @@ export default function NextStepsPage() {
         title="Serve Team"
         description="Tell us what you're interested in and we'll connect you."
         onClose={() => setActive(null)}
+        footer={<div className="text-xs text-black/60">We'll help you find the perfect team.</div>}
       >
-        <SimpleForm
-          onDone={() => setActive(null)}
-          fields={[
-            { label: "Full Name", required: true },
-            { label: "Phone Number", required: true },
-            { label: "Preferred Team (optional)" },
-          ]}
-        />
-      </Modal>
-
-      <Modal
-        open={active === "giving"}
-        title="Give Online"
-        description="Thank you for your generous heart. We'll guide you through the giving process."
-        onClose={() => setActive(null)}
-      >
-        <SimpleForm
-          onDone={() => setActive(null)}
-          fields={[
-            { label: "Full Name", required: true },
-            { label: "Email", required: true },
-            { label: "Message (optional)", textarea: true },
-          ]}
-        />
+        <ServeForm onDone={() => setActive(null)} />
       </Modal>
 
       <Modal
@@ -367,71 +337,452 @@ export default function NextStepsPage() {
         title="Counseling / Prayer"
         description="Share briefly and someone will reach out."
         onClose={() => setActive(null)}
+        footer={<div className="text-xs text-black/60">All requests are kept confidential.</div>}
       >
-        <SimpleForm
-          onDone={() => setActive(null)}
-          fields={[
-            { label: "Full Name", required: true },
-            { label: "Phone Number", required: true },
-            { label: "Message (optional)", textarea: true },
-          ]}
-        />
+        <CounselingForm onDone={() => setActive(null)} />
       </Modal>
     </>
   );
 }
 
-function SimpleForm({
-  onDone,
-  fields,
-}: {
-  onDone: () => void;
-  fields: Array<{ label: string; required?: boolean; textarea?: boolean }>;
-}) {
+/* ---------- Shared UI Components ---------- */
+
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <label className="block">
+      <div className="text-xs font-bold uppercase tracking-wider text-black/60 mb-2">{label}</div>
+      {children}
+    </label>
+  );
+}
+
+function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
+  return (
+    <input
+      {...props}
+      className={cx(
+        "w-full rounded-xl border border-black/10 bg-white px-4 py-3",
+        "text-sm text-black placeholder:text-black/40",
+        "focus:outline-none focus:ring-2 focus:ring-black/15"
+      )}
+    />
+  );
+}
+
+function Select(props: React.SelectHTMLAttributes<HTMLSelectElement>) {
+  return (
+    <select
+      {...props}
+      className={cx(
+        "w-full rounded-xl border border-black/10 bg-white px-4 py-3",
+        "text-sm text-black",
+        "focus:outline-none focus:ring-2 focus:ring-black/15"
+      )}
+    />
+  );
+}
+
+function Textarea(props: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
+  return (
+    <textarea
+      {...props}
+      className={cx(
+        "w-full rounded-xl border border-black/10 bg-white px-4 py-3",
+        "text-sm text-black placeholder:text-black/40",
+        "focus:outline-none focus:ring-2 focus:ring-black/15"
+      )}
+    />
+  );
+}
+
+function SubmitRow({ onDone, loading }: { onDone: () => void; loading?: boolean }) {
+  return (
+    <div className="mt-6 flex flex-wrap gap-3">
+      <button
+        type="submit"
+        disabled={loading}
+        className={cx(
+          "rounded-full bg-black px-6 py-3 text-sm font-semibold text-white",
+          loading ? "opacity-60 cursor-not-allowed" : "hover:opacity-90"
+        )}
+      >
+        {loading ? "Submitting..." : "Submit"}
+      </button>
+      <button
+        type="button"
+        onClick={onDone}
+        disabled={loading}
+        className={cx(
+          "rounded-full border border-black/15 px-6 py-3 text-sm font-semibold text-black/70",
+          loading ? "opacity-60 cursor-not-allowed" : "hover:border-black/25 hover:text-black"
+        )}
+      >
+        Cancel
+      </button>
+    </div>
+  );
+}
+
+/* ---------- Network Helper ---------- */
+
+async function submitToWebApp(payload: Record<string, any>) {
+  const res = await fetch("/api/forms", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+  const text = await res.text();
+  let data: any = null;
+
+  try {
+    data = JSON.parse(text);
+  } catch {
+    // ignore
+  }
+
+  if (!data?.ok) {
+    throw new Error(data?.error || "Submission failed");
+  }
+}
+
+/* ---------- Form Components ---------- */
+
+function DiscipleshipForm({ onDone }: { onDone: () => void }) {
+  const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState<string | null>(null);
+
+  const [fullName, setFullName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [location, setLocation] = useState("");
+  const [availability, setAvailability] = useState("");
+  const [notes, setNotes] = useState("");
+  const [hp, setHp] = useState("");
+
   return (
     <form
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
-        // TODO: connect to an API route / form provider
-        onDone();
+        setMsg(null);
+        setLoading(true);
+
+        try {
+          await submitToWebApp({
+            formType: "discipleship",
+            fullName,
+            phone,
+            email,
+            location,
+            availability,
+            notes,
+            hp,
+          });
+
+          setMsg("Submitted. We'll reach out soon.");
+          setFullName(""); setPhone(""); setEmail(""); setLocation(""); setAvailability(""); setNotes(""); setHp("");
+          setTimeout(() => onDone(), 700);
+        } catch (err: any) {
+          setMsg(err?.message || "Something went wrong.");
+        } finally {
+          setLoading(false);
+        }
       }}
       className="grid gap-5"
     >
-      {fields.map((f) => (
-        <label key={f.label} className="block">
-          <div className="text-xs font-bold uppercase tracking-wider text-black/60 mb-2">
-            {f.label}
-          </div>
-          {f.textarea ? (
-            <textarea
-              rows={4}
-              required={f.required}
-              className="w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm text-black placeholder:text-black/40 focus:outline-none focus:ring-2 focus:ring-amber-900/20"
-            />
-          ) : (
-            <input
-              required={f.required}
-              className="w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm text-black placeholder:text-black/40 focus:outline-none focus:ring-2 focus:ring-amber-900/20"
-            />
-          )}
+      <div className="hidden">
+        <label>
+          Leave this empty:
+          <input value={hp} onChange={(e) => setHp(e.target.value)} />
         </label>
-      ))}
-
-      <div className="mt-2 flex flex-wrap gap-3">
-        <button
-          type="submit"
-          className="rounded-full bg-amber-900 px-6 py-3 text-sm font-semibold text-white hover:bg-amber-800"
-        >
-          Submit
-        </button>
-        <button
-          type="button"
-          onClick={onDone}
-          className="rounded-full border border-black/15 px-6 py-3 text-sm font-semibold text-black/70 hover:border-black/25 hover:text-black"
-        >
-          Cancel
-        </button>
       </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field label="Full Name">
+          <Input value={fullName} onChange={(e) => setFullName(e.target.value)} required placeholder="Your name" />
+        </Field>
+        <Field label="Phone Number">
+          <Input value={phone} onChange={(e) => setPhone(e.target.value)} required placeholder="+234..." />
+        </Field>
+      </div>
+
+      <Field label="Email (optional)">
+        <Input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="you@email.com" />
+      </Field>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field label="Preferred Location">
+          <Select value={location} onChange={(e) => setLocation(e.target.value)} required>
+            <option value="" disabled>Select one</option>
+            <option>SaltCity Central</option>
+            <option>PTI Campus</option>
+            <option>Online</option>
+          </Select>
+        </Field>
+        <Field label="Availability">
+          <Select value={availability} onChange={(e) => setAvailability(e.target.value)} required>
+            <option value="" disabled>Select one</option>
+            <option>Weekdays</option>
+            <option>Weekends</option>
+            <option>Anytime</option>
+          </Select>
+        </Field>
+      </div>
+
+      <Field label="Anything we should know? (optional)">
+        <Textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={4} placeholder="Tell us briefly..." />
+      </Field>
+
+      {msg && <div className="text-sm font-semibold text-black/70">{msg}</div>}
+
+      <SubmitRow onDone={onDone} loading={loading} />
+    </form>
+  );
+}
+
+function CompanyForm({ onDone }: { onDone: () => void }) {
+  const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState<string | null>(null);
+
+  const [fullName, setFullName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [city, setCity] = useState("");
+  const [ageRange, setAgeRange] = useState("");
+  const [notes, setNotes] = useState("");
+  const [hp, setHp] = useState("");
+
+  return (
+    <form
+      onSubmit={async (e) => {
+        e.preventDefault();
+        setMsg(null);
+        setLoading(true);
+
+        try {
+          await submitToWebApp({
+            formType: "company",
+            fullName,
+            phone,
+            email,
+            city,
+            ageRange,
+            notes,
+            hp,
+          });
+
+          setMsg("Submitted. We'll reach out soon.");
+          setFullName(""); setPhone(""); setEmail(""); setCity(""); setAgeRange(""); setNotes(""); setHp("");
+          setTimeout(() => onDone(), 700);
+        } catch (err: any) {
+          setMsg(err?.message || "Something went wrong.");
+        } finally {
+          setLoading(false);
+        }
+      }}
+      className="grid gap-5"
+    >
+      <div className="hidden">
+        <label>
+          Leave this empty:
+          <input value={hp} onChange={(e) => setHp(e.target.value)} />
+        </label>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field label="Full Name">
+          <Input value={fullName} onChange={(e) => setFullName(e.target.value)} required placeholder="Your name" />
+        </Field>
+        <Field label="Phone Number">
+          <Input value={phone} onChange={(e) => setPhone(e.target.value)} required placeholder="+234..." />
+        </Field>
+      </div>
+
+      <Field label="Email (optional)">
+        <Input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="you@email.com" />
+      </Field>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field label="City / Area">
+          <Input value={city} onChange={(e) => setCity(e.target.value)} required placeholder="Warri, Effurun..." />
+        </Field>
+        <Field label="Age Range (optional)">
+          <Select value={ageRange} onChange={(e) => setAgeRange(e.target.value)}>
+            <option value="">Select one</option>
+            <option>Under 18</option>
+            <option>18–24</option>
+            <option>25–34</option>
+            <option>35–44</option>
+            <option>45+</option>
+          </Select>
+        </Field>
+      </div>
+
+      <Field label="Notes (optional)">
+        <Textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={4} placeholder="Anything specific you're looking for..." />
+      </Field>
+
+      {msg && <div className="text-sm font-semibold text-black/70">{msg}</div>}
+
+      <SubmitRow onDone={onDone} loading={loading} />
+    </form>
+  );
+}
+
+function ServeForm({ onDone }: { onDone: () => void }) {
+  const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState<string | null>(null);
+
+  const [fullName, setFullName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [preferredTeam, setPreferredTeam] = useState("");
+  const [notes, setNotes] = useState("");
+  const [hp, setHp] = useState("");
+
+  return (
+    <form
+      onSubmit={async (e) => {
+        e.preventDefault();
+        setMsg(null);
+        setLoading(true);
+
+        try {
+          await submitToWebApp({
+            formType: "serve",
+            fullName,
+            phone,
+            email,
+            preferredTeam,
+            notes,
+            hp,
+          });
+
+          setMsg("Submitted. We'll reach out soon.");
+          setFullName(""); setPhone(""); setEmail(""); setPreferredTeam(""); setNotes(""); setHp("");
+          setTimeout(() => onDone(), 700);
+        } catch (err: any) {
+          setMsg(err?.message || "Something went wrong.");
+        } finally {
+          setLoading(false);
+        }
+      }}
+      className="grid gap-5"
+    >
+      <div className="hidden">
+        <label>
+          Leave this empty:
+          <input value={hp} onChange={(e) => setHp(e.target.value)} />
+        </label>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field label="Full Name">
+          <Input value={fullName} onChange={(e) => setFullName(e.target.value)} required placeholder="Your name" />
+        </Field>
+        <Field label="Phone Number">
+          <Input value={phone} onChange={(e) => setPhone(e.target.value)} required placeholder="+234..." />
+        </Field>
+      </div>
+
+      <Field label="Email (optional)">
+        <Input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="you@email.com" />
+      </Field>
+
+      <Field label="Preferred Team (optional)">
+        <Select value={preferredTeam} onChange={(e) => setPreferredTeam(e.target.value)}>
+          <option value="">Select one</option>
+          <option>Media/Tech</option>
+          <option>Ushering</option>
+          <option>Children's Ministry</option>
+          <option>Worship Team</option>
+          <option>Prayer Team</option>
+          <option>Other</option>
+        </Select>
+      </Field>
+
+      <Field label="Tell us about your interests (optional)">
+        <Textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={4} placeholder="What are you passionate about?" />
+      </Field>
+
+      {msg && <div className="text-sm font-semibold text-black/70">{msg}</div>}
+
+      <SubmitRow onDone={onDone} loading={loading} />
+    </form>
+  );
+}
+
+function CounselingForm({ onDone }: { onDone: () => void }) {
+  const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState<string | null>(null);
+
+  const [fullName, setFullName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [hp, setHp] = useState("");
+
+  return (
+    <form
+      onSubmit={async (e) => {
+        e.preventDefault();
+        setMsg(null);
+        setLoading(true);
+
+        try {
+          await submitToWebApp({
+            formType: "counseling",
+            fullName,
+            phone,
+            email,
+            message,
+            hp,
+          });
+
+          setMsg("Submitted. We'll reach out soon.");
+          setFullName(""); setPhone(""); setEmail(""); setMessage(""); setHp("");
+          setTimeout(() => onDone(), 700);
+        } catch (err: any) {
+          setMsg(err?.message || "Something went wrong.");
+        } finally {
+          setLoading(false);
+        }
+      }}
+      className="grid gap-5"
+    >
+      <div className="hidden">
+        <label>
+          Leave this empty:
+          <input value={hp} onChange={(e) => setHp(e.target.value)} />
+        </label>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field label="Full Name">
+          <Input value={fullName} onChange={(e) => setFullName(e.target.value)} required placeholder="Your name" />
+        </Field>
+        <Field label="Phone Number">
+          <Input value={phone} onChange={(e) => setPhone(e.target.value)} required placeholder="+234..." />
+        </Field>
+      </div>
+
+      <Field label="Email (optional)">
+        <Input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="you@email.com" />
+      </Field>
+
+      <Field label="How can we pray for you or support you?">
+        <Textarea 
+          value={message} 
+          onChange={(e) => setMessage(e.target.value)} 
+          required
+          rows={5} 
+          placeholder="Share what's on your heart..." 
+        />
+      </Field>
+
+      {msg && <div className="text-sm font-semibold text-black/70">{msg}</div>}
+
+      <SubmitRow onDone={onDone} loading={loading} />
     </form>
   );
 }
