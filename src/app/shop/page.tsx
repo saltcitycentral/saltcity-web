@@ -8,7 +8,7 @@ const PRICE = 10000;
 
 // ✅ Put your WhatsApp number here (international format, no +)
 // example: "2348012345678"
-const WHATSAPP_NUMBER = "234";
+const WHATSAPP_NUMBER = "2348030597015";
 
 const ITEMS = [
   {

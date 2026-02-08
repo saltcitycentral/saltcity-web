@@ -162,21 +162,21 @@ export const RESOURCE_CATEGORIES: ResourceCategory[] = [
   },
 
 
-  {
-    title: "Prayer Resources",
-    description: "Prayer tools and guides to strengthen your prayer life.",
-    iconKey: "prayer",
-    resources: [
-      {
-        id: "prayer-guide",
-        title: "Prayer Guide",
-        description: "A practical guide to building a consistent prayer life.",
-        fileSize: "PDF",
-        href: "/downloads/prayer-guide.pdf",
-        kind: "pdf",
-        badge: "Guide",
-      },
+  // {
+  //   title: "Prayer Resources",
+  //   description: "Prayer tools and guides to strengthen your prayer life.",
+  //   iconKey: "prayer",
+  //   resources: [
+  //     {
+  //       id: "prayer-guide",
+  //       title: "Prayer Guide",
+  //       description: "A practical guide to building a consistent prayer life.",
+  //       fileSize: "PDF",
+  //       href: "/downloads/prayer-guide.pdf",
+  //       kind: "pdf",
+  //       badge: "Guide",
+  //     },
     
-    ],
-  },
+  //   ],
+  // },
 ];

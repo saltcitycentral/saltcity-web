@@ -29,7 +29,7 @@ const SOCIALS = [
   { icon: FaTelegram, label: "Telegram", href: "https://t.me/mysaltcity" },
   { icon: FaXTwitter, label: "X", href: "https://x.com/saltcitycentral" },
   { icon: FaInstagram, label: "Instagram", href: "https://instagram.com/saltcitycentral" },
-  { icon: FaSpotify, label: "Spotify", href: "https://open.spotify.com/user/mysaltcity" },
+  { icon: FaSpotify, label: "Spotify", href: "https://open.spotify.com/show/0ZH0Zaojh617RRjrGzQsMw" },
 ];
 
 
