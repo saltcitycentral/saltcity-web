@@ -30,6 +30,7 @@ const TOP_ITEMS: NavItem[] = [
     href: "https://www.youtube.com/@saltcitycentral",
   },
   { title: "Sermons", desc: "Teaching series and messages.", href: "/media/sermon-series" },
+  { title: "Blog", desc: "Articles, stories, and updates.", href: "/blog" }, // Added Blog
   { title: "Resources", desc: "Tools and guides to grow.", href: "/resources" },
   { title: "Give", desc: "Simple ways to give.", href: "/giving" },
   { title: "Who We Are", desc: "Our story, beliefs, leadership.", href: "/who-we-are" },
@@ -38,6 +39,7 @@ const TOP_ITEMS: NavItem[] = [
 
 const QUICK_LINKS: NavItem[] = [
   { title: "Shop", href: "/shop" },
+  { title: "Housekeeping", href: "/housekeeping" }, // Added Housekeeping
 ];
 
 const EXPRESSIONS: Expression[] = [

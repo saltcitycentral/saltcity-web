@@ -3,9 +3,12 @@ import "./globals.css";
 import Header from "@/components/nav/Header";
 import Footer from "@/components/layout/Footer";
 
+
 export const metadata: Metadata = {
-  title: "SaltCity",
-  description: "SaltCity Church",
+  title: "SaltCity Central",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
