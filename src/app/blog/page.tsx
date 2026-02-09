@@ -145,13 +145,15 @@ export default function BlogPage() {
           </div>
         </Container>
       </section>
-
-      {/* Search & Filter Bar */}
+{/* Search & Filter Bar */}
       <section className="sticky top-[73px] z-30 bg-white/95 backdrop-blur-md border-b border-black/5 shadow-sm">
         <Container>
-          <div className="py-6 flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
-            {/* Search */}
-            <div className="relative flex-1 max-w-md">
+          {/* Use flex-col for mobile, row for desktop. 
+              Items-stretch on mobile ensures the search bar takes full width. */}
+          <div className="py-4 lg:py-6 flex flex-col lg:flex-row gap-4 lg:items-center justify-between">
+            
+            {/* Search - Max width only applies to desktop */}
+            <div className="relative w-full lg:max-w-md">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-black/40" />
               <input
                 type="text"
@@ -162,22 +164,27 @@ export default function BlogPage() {
               />
             </div>
 
-            {/* Categories */}
-            <div className="flex gap-2 overflow-x-auto no-scrollbar pb-2 lg:pb-0">
-              {CATEGORIES.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setSelectedCategory(cat)}
-                  className={[
-                    "px-5 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all duration-300",
-                    selectedCategory === cat
-                      ? "bg-black text-white shadow-lg"
-                      : "bg-black/5 text-black/70 hover:bg-black/10",
-                  ].join(" ")}
-                >
-                  {cat}
-                </button>
-              ))}
+            {/* Categories - The "Scroll Wrapper" */}
+            <div className="relative w-full lg:w-auto">
+              <div className="flex gap-2 overflow-x-auto no-scrollbar pb-2 lg:pb-0 -mx-4 px-4 lg:mx-0 lg:px-0">
+                {CATEGORIES.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setSelectedCategory(cat)}
+                    className={[
+                      "px-5 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all duration-300 flex-shrink-0",
+                      selectedCategory === cat
+                        ? "bg-black text-white shadow-lg"
+                        : "bg-black/5 text-black/70 hover:bg-black/10",
+                    ].join(" ")}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+              
+              {/* Optional: Visual hint that there's more to scroll on mobile */}
+              <div className="absolute right-0 top-0 bottom-2 w-8 bg-gradient-to-l from-white/80 to-transparent pointer-events-none lg:hidden" />
             </div>
           </div>
         </Container>
