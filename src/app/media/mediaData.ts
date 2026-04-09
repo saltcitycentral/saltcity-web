@@ -261,6 +261,53 @@ export const MEDIA_ITEMS: MediaItem[] = [
     tags: ["growth", "diligence", "usefulness", "vision", "discipline"],
   },
 
+
+
+    // --- WRITE THE VISION ---
+  {
+    category: "sermon-series",
+    slug: "new-testament-giving",
+    title: "New Testament Giving",
+    summary:
+      "Understanding the power of vision, how to document spiritual direction, and the patience required to see the promise manifest.",
+    heroImage: img("/images/new-testament-giving.jpeg"),
+    cardImage: img("/images/new-testament-giving.jpeg"),
+    primaryCta: { label: "Watch on YouTube", href: "https://youtube.com/saltcitycentral" },
+    secondaryCta: { label: "Listen on Telegram", href: "https://t.me/mysaltcity" },
+    episodes: [
+      {
+        slug: "new-testament-giving",
+        title: "New Testament Giving",
+        part: "PART 1",
+        duration: "1:21:00",
+        image: img("/images/new-testament-giving.jpeg"),
+        youtubeID: "0exa3cv-zKc"
+      },
+      {
+        slug: "new-testament-giving-2.0",
+        title: "New Testament Giving 2.0",
+        part: "PART 2",
+        duration: "1:48:00",
+        image: img("/images/new-testament-giving.jpeg"),
+        youtubeID: "CnhBY2XEp2Q"
+      },
+      {
+        slug: "new-testament-giving-3.0",
+        title: "New Testament Giving 3.0",
+        part: "PART 3",
+        duration: "3:00:00",
+        image: img("/images/new-testament-giving.jpeg"),
+        youtubeID: "hLNcV4dqAIo"
+      },
+  
+    ],
+    tags: ["giving", "prosperity", "patience"],
+  },
+
+
+
+
+
   // SONGS
   {
     category: "songs",

@@ -34,7 +34,7 @@ export default function ListenToSermons() {
 
             <div className="flex flex-wrap gap-4">
               <Button
-                href="https://t.me/mysaltcity/2235"
+                href="https://t.me/mysaltcity/2263"
                 target="_blank"
                 className="bg-white text-black hover:bg-white/90"
               >
@@ -42,7 +42,7 @@ export default function ListenToSermons() {
               </Button>
 
               <Button
-                href="https://open.spotify.com/episode/7odFzHVr0WMn0CxeDPP0Ep?si=285c964a2cab4ccd"
+                href="https://open.spotify.com/episode/2Vxr3pAnoAnu7UoklzZS68?si=4d31e7a9449b41fc"
                 target="_blank"
                 variant="secondary"
                 className="bg-transparent text-white ring-2 ring-white/30 hover:ring-white/60 hover:bg-white/10"
@@ -56,8 +56,8 @@ export default function ListenToSermons() {
           <div className="flex justify-center lg:justify-end">
             <div className="w-full max-w-[420px] rounded-3xl bg-neutral-950 border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.6)] overflow-hidden">
               
-
-    <iframe data-testid="embed-iframe" src="https://open.spotify.com/embed/episode/7odFzHVr0WMn0CxeDPP0Ep?utm_source=generator" width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>            </div>
+    <iframe data-testid="embed-iframe" src="https://open.spotify.com/embed/episode/2Vxr3pAnoAnu7UoklzZS68?utm_source=generator" width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
           </div>
         </div>
       </Container>

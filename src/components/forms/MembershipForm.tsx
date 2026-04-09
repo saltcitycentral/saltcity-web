@@ -406,6 +406,8 @@ export default function MembershipForm({ onDone }: { onDone: () => void }) {
               <option>Married</option>
               <option>Divorced</option>
               <option>Widowed</option>
+              <option>Separated</option>
+
             </Select>
           </Field>
 
