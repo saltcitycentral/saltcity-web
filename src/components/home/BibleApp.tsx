@@ -56,8 +56,8 @@ export default function ListenToSermons() {
           <div className="flex justify-center lg:justify-end">
             <div className="w-full max-w-[420px] rounded-3xl bg-neutral-950 border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.6)] overflow-hidden">
               
-    <iframe data-testid="embed-iframe" src="https://open.spotify.com/embed/episode/2Vxr3pAnoAnu7UoklzZS68?utm_source=generator" width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-    </div>
+        <iframe data-testid="embed-iframe" src="https://open.spotify.com/embed/episode/36zSCwGGS20Sg0TQRFPyYX?utm_source=generator" width="100%" height="352" frameBorder="0"  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>   
+        </div>
           </div>
         </div>
       </Container>

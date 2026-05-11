@@ -43,14 +43,23 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    if (!menuOpen) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [menuOpen]);
+useEffect(() => {
+  if (!menuOpen) return;
+
+  const scrollBarWidth =
+    window.innerWidth - document.documentElement.clientWidth;
+
+  const prevOverflow = document.body.style.overflow;
+  const prevPaddingRight = document.body.style.paddingRight;
+
+  document.body.style.overflow = "hidden";
+  document.body.style.paddingRight = `${scrollBarWidth}px`;
+
+  return () => {
+    document.body.style.overflow = prevOverflow;
+    document.body.style.paddingRight = prevPaddingRight;
+  };
+}, [menuOpen]);
 
   const overlayActive = overlayWanted && !scrolled;
 

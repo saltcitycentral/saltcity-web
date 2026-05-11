@@ -30,6 +30,11 @@ const TOP_ITEMS: NavItem[] = [
     href: "https://www.youtube.com/@saltcitycentral",
   },
   { title: "Sermons", desc: "Teaching series and messages.", href: "/media/sermon-series" },
+  {
+  title: "Contact",
+  desc: "Reach out, ask a question, or connect with us.",
+  href: "/contact",
+},
   { title: "Blog", desc: "Articles, stories, and updates.", href: "/blog" }, // Added Blog
   { title: "Resources", desc: "Tools and guides to grow.", href: "/resources" },
   { title: "Give", desc: "Simple ways to give.", href: "/giving" },
@@ -117,7 +122,7 @@ export default function MenuOverlay({ open, onClose }: Props) {
     if (!mounted) return;
     if (open) return;
 
-    const timeout = window.setTimeout(() => setMounted(false), 240);
+    const timeout = window.setTimeout(() => setMounted(false), 520);
     return () => window.clearTimeout(timeout);
   }, [open, mounted]);
 
@@ -186,9 +191,8 @@ export default function MenuOverlay({ open, onClose }: Props) {
         aria-label="Close menu"
         onClick={onClose}
         className={[
-          "absolute inset-0",
-          "bg-black/35 backdrop-blur-[2px]",
-          "transition-opacity duration-200",
+          "bg-black/45 backdrop-blur-md",
+          "transition-opacity duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
           active ? "opacity-100" : "opacity-0",
         ].join(" ")}
       />
@@ -197,9 +201,11 @@ export default function MenuOverlay({ open, onClose }: Props) {
       <div
         className={[
           "absolute inset-0 bg-white",
-          "transition-transform duration-200 ease-out",
-          "will-change-transform",
-          active ? "translate-y-0" : "-translate-y-3",
+          "transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+          "will-change-[transform,opacity]",
+          active
+            ? "translate-y-0 opacity-100"
+            : "-translate-y-4 opacity-0",
         ].join(" ")}
       >
         {/* Top bar mirrors header */}
