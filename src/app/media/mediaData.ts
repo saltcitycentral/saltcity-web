@@ -98,6 +98,145 @@ const img = (path: string) => path;
 
 export const MEDIA_ITEMS: MediaItem[] = [
   // SERMON SERIES (example with episodes)
+
+{
+    category: "sermon-series",
+    slug: "new-creation-realities",
+    title: "New Creation Realities",
+    summary:
+      "Ignorance of who we are is as good as being unbelievers. We explore identity in this series.",
+    heroImage: img("/images/new-creation-realities.jpeg"),
+    cardImage: img("/images/new-creation-realities.jpeg"),
+    primaryCta: { label: "Watch on YouTube", href: "https://youtube.com/saltcitycentral" },
+    secondaryCta: { label: "Listen on Telegram", href: "https://t.me/mysaltcity" },
+    episodes: [
+      {
+        slug: "new-creation-realities",
+        title: "New Creation Realities",
+        part: "PART 1",
+        duration: "1:10:54",
+        image: img("/images/new-creation-realities.jpeg"),
+        youtubeID: "zh3tK31TITQ"
+      },
+      {
+        slug: "new-creation-realities-2.0",
+        title: "New Creation Realities 2.0",
+        part: "PART 2",
+        duration: "1:13:08",
+        image: img("/images/new-creation-realities.jpeg"),
+        youtubeID: "ZH-UkzYsLQE"
+      },
+      {
+        slug: "new-creation-realities-3.0",
+        title: "New Creation Realities 3.0",
+        part: "PART 3",
+        duration: "1:26:33",
+        image: img("/images/new-creation-realities.jpeg"),
+        youtubeID: "rRq7sK2fKOg"
+      },
+      {
+        slug: "new-creation-realities-4.0",
+        title: "New Creation Realities 4.0",
+        part: "PART 4",
+        duration: "1:12:25",
+        image: img("/images/new-creation-realities.jpeg"),
+        youtubeID: "4oOBHcGU2zo"
+      },
+      {
+        slug: "new-creation-realities-5.0",
+        title: "New Creation Realities 5.0",
+        part: "PART 5",
+        duration: "1:15:57",
+        image: img("/images/new-creation-realities.jpeg"),
+        youtubeID: "FHGk5wrlN9s"
+      },
+      {
+        slug: "new-creation-realities-6.0",
+        title: "New Creation Realities 6.0",
+        part: "PART 6",
+        duration: "1:55:20",
+        image: img("/images/new-creation-realities.jpeg"),
+        youtubeID: "fs8IxtCQfbk"
+      },
+      
+    ],
+    tags: ["heritage", "identity"],
+  },
+
+
+
+{
+    category: "sermon-series",
+    slug: "the-saltcity",
+    title: "The Saltcity",
+    summary:
+      "An expose on the identity and responsibility of this local church and the church at large.",
+    heroImage: img("/images/the-saltcity.jpeg"),
+    cardImage: img("/images/the-saltcity.jpeg"),
+    primaryCta: { label: "Watch on YouTube", href: "https://youtube.com/saltcitycentral" },
+    secondaryCta: { label: "Listen on Telegram", href: "https://t.me/mysaltcity" },
+    episodes: [
+      {
+        slug: "the-saltcity",
+        title: "The Saltcity",
+        part: "PART 1",
+        duration: "1:10:54",
+        image: img("/images/the-saltcity.jpeg"),
+        youtubeID: "h-M5CBnkYu4"
+      },
+      {
+        slug: "the-saltcity-2.0",
+        title: "The Saltcity 2.0",
+        part: "PART 2",
+        duration: "1:13:08",
+        image: img("/images/the-saltcity.jpeg"),
+        youtubeID: "RzNPbTn3qJo"
+      },
+      {
+        slug: "the-saltcity-3.0",
+        title: "The Saltcity 3.0",
+        part: "PART 3",
+        duration: "1:26:33",
+        image: img("/images/the-saltcity.jpeg"),
+        youtubeID: "gSr12bCbdkU"
+      },
+      {
+        slug: "the-saltcity-4.0",
+        title: "The Saltcity 4.0",
+        part: "PART 4",
+        duration: "1:12:25",
+        image: img("/images/the-saltcity.jpeg"),
+        youtubeID: "B8fzhYj2Luo"
+      },
+      {
+        slug: "the-saltcity-5.0",
+        title: "The Saltcity 5.0",
+        part: "PART 5",
+        duration: "1:15:57",
+        image: img("/images/the-saltcity.jpeg"),
+        youtubeID: "RoPCWgFIufo"
+      },
+      {
+        slug: "the-saltcity-6.0",
+        title: "The Saltcity 6.0",
+        part: "PART 6",
+        duration: "1:55:20",
+        image: img("/images/the-saltcity.jpeg"),
+        youtubeID: "BhBQo5Rmhgs"
+      },
+      {
+        slug: "the-saltcity-7.0",
+        title: "The Saltcity 7.0",
+        part: "PART 7",
+        duration: "1:25:14",
+        image: img("/images/the-saltcity.jpeg"),
+        youtubeID: "bjTwILN2h8A"
+      },
+    ],
+    tags: ["salt", "light", "influence", "discipleship", "evangelism"],
+  },
+
+
 // --- INESCAPABLE WORK ---
   {
     category: "sermon-series",
@@ -305,6 +444,54 @@ export const MEDIA_ITEMS: MediaItem[] = [
   },
 
 
+// --- WRITE THE VISION ---
+  {
+    category: "sermon-series",
+    slug: "resurrection-faith-seminar",
+    title: "Resurrection Faith Seminar",
+    summary:
+      "focuses on completely expelling doubt from your heart so that your faith can function exactly how God intended.",
+    heroImage: img("/images/resurrection-faith-seminar.jpg"),
+    cardImage: img("/images/resurrection-faith-seminar.jpg"),
+    primaryCta: { label: "Watch on YouTube", href: "https://youtube.com/saltcitycentral" },
+    secondaryCta: { label: "Listen on Telegram", href: "https://t.me/mysaltcity" },
+    episodes: [
+      {
+        slug: "ressurection-faith-seminar",
+        title: "Resurrection Faith Seminar Day 1 Morning",
+        part: "PART 1",
+        duration: "2:48:00",
+        image: img("/images/ressurection-faith-seminar.jpg"),
+        youtubeID: "MV6afMJ8zIw"
+      },
+      {
+        slug: "ressurection-faith-seminar-2.0",
+        title: "Resurrection Faith Seminar Day 1 Evening ",
+        part: "PART 2",
+        duration: "1:58:00",
+        image: img("/images/ressurection-faith-seminar.jpg"),
+        youtubeID: "ogRGX_uLfyk"
+      },
+            {
+        slug: "ressurection-faith-seminar-2.0",
+        title: "Resurrection Faith Seminar Day 2 Morning ",
+        part: "PART 2",
+        duration: "1:58:00",
+        image: img("/images/ressurection-faith-seminar.jpg"),
+        youtubeID: "3D-ohy-_zgI"
+      },
+      {
+        slug: "ressurection-faith-seminar-3.0",
+        title: "Resurrection",
+        part: "PART 3",
+        duration: "3:00:00",
+        image: img("/images/ressurection-faith-seminar.jpg"),
+        youtubeID: "hLNcV4dqAIo"
+      },
+  
+    ],
+    tags: ["vision", "purpose", "patience"],
+  },
 
 
 
