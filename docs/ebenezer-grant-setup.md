@@ -61,7 +61,7 @@ Admin document access uses short-lived signed URLs generated server-side.
 3. Start the site locally with `npm run dev`.
 4. Open `/ebenezer-grant`.
 5. Fill all required fields.
-6. Upload PDF, JPG, JPEG, PNG, DOC, or DOCX files, each 10MB or smaller.
+6. Upload clear but compressed PDF, JPG, JPEG, PNG, DOC, or DOCX files, each 2MB or smaller.
 7. Submit the form.
 8. Confirm the on-site receipt shows a reference number like `EBZ-2026-0001`.
 

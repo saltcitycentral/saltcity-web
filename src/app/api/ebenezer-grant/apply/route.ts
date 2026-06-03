@@ -9,7 +9,7 @@ import {
 } from "@/lib/ebenezerGrant/supabaseServer";
 import { isEbenezerGrantClosed } from "@/lib/ebenezerGrant/deadline";
 
-const MAX_FILE_SIZE = 10 * 1024 * 1024;
+const MAX_FILE_SIZE = 2 * 1024 * 1024;
 const ACCEPTED_EXTENSIONS = new Set(["pdf", "jpg", "jpeg", "png", "doc", "docx"]);
 const REQUIRED_FIELDS = [
   "owner_director_name",
@@ -119,7 +119,7 @@ function validateFile(file: File | null, label: string, errors: string[], missin
   }
 
   if (file.size > MAX_FILE_SIZE) {
-    errors.push(`${label} must be 10MB or smaller.`);
+    errors.push(`${file.name} is too large. Maximum file size is 2MB.`);
   }
 
   if (!ACCEPTED_EXTENSIONS.has(fileExtension(file.name))) {

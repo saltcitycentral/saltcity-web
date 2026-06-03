@@ -252,7 +252,8 @@ export default function EbenezerGrantForm({ closed }: Props) {
 
       <FormSection number="04" title="Required Documents">
         <p className="mb-5 text-sm text-black/62">
-          Accepted formats: PDF, JPG, JPEG, PNG, DOC, DOCX. Maximum 10MB per file.
+          Please upload clear but compressed files. PDF, JPG, PNG, DOC, and DOCX files are
+          accepted. Maximum size: 2MB per file.
         </p>
         <div className="grid gap-5">
           <FileField label="Incorporation Documents" name="incorporation_document" />
