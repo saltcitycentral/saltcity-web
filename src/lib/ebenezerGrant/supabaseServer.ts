@@ -194,10 +194,34 @@ export async function uploadPrivateFile(path: string, file: File) {
   await readJsonOrError(response);
 }
 
+function normalizeStoragePath(storagePath: string) {
+  const trimmedPath = storagePath.replace(/^\/+/, "");
+  const bucketPrefix = `${STORAGE_BUCKET}/`;
+
+  if (trimmedPath.startsWith(bucketPrefix)) {
+    return trimmedPath.slice(bucketPrefix.length);
+  }
+
+  return trimmedPath;
+}
+
+function normalizeSignedStorageUrl(signedPath: string) {
+  if (signedPath.startsWith("http")) {
+    return signedPath;
+  }
+
+  if (signedPath.startsWith("/object/")) {
+    return `${SUPABASE_URL}/storage/v1${signedPath}`;
+  }
+
+  throw new Error("Supabase returned an invalid signed document URL.");
+}
+
 export async function createSignedDocumentUrl(storagePath: string) {
   requireSupabaseEnv();
+  const objectPath = normalizeStoragePath(storagePath);
   const response = await fetch(
-    `${SUPABASE_URL}/storage/v1/object/sign/${encodeURIComponent(STORAGE_BUCKET)}/${storagePath
+    `${SUPABASE_URL}/storage/v1/object/sign/${encodeURIComponent(STORAGE_BUCKET)}/${objectPath
       .split("/")
       .map(encodeURIComponent)
       .join("/")}`,
@@ -216,7 +240,7 @@ export async function createSignedDocumentUrl(storagePath: string) {
     throw new Error("Could not create a signed document URL.");
   }
 
-  return signedPath.startsWith("http") ? signedPath : `${SUPABASE_URL}${signedPath}`;
+  return normalizeSignedStorageUrl(signedPath);
 }
 
 export async function listApplications() {
