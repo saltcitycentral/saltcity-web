@@ -106,6 +106,48 @@ export function safeFileName(name: string) {
   return cleaned || fallback;
 }
 
+export function slugify(value: string, fallback = "item") {
+  const slug = value
+    .normalize("NFKD")
+    .replace(/[^\w\s-]+/g, "")
+    .trim()
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .toLowerCase();
+
+  return slug || fallback;
+}
+
+export function fileExtension(name: string) {
+  const extension = name.split(".").pop()?.toLowerCase() ?? "";
+  return extension && extension !== name.toLowerCase() ? extension : "bin";
+}
+
+export function documentTypeSlug(documentType: string) {
+  if (documentType.startsWith("optional_supporting_document")) {
+    const suffix = documentType.replace("optional_supporting_document", "").replace(/^_/, "");
+    return suffix ? `supporting-evidence-${suffix}` : "supporting-evidence";
+  }
+
+  const labels: Record<string, string> = {
+    incorporation_document: "incorporation-document",
+    financial_report: "financial-report",
+    revenue_projection: "revenue-projection",
+  };
+
+  return labels[documentType] ?? slugify(documentType, "document");
+}
+
+export function cleanGrantDocumentFileName(
+  ownerName: string,
+  documentType: string,
+  originalFilename: string
+) {
+  return `${slugify(ownerName, "applicant")}-${documentTypeSlug(documentType)}.${fileExtension(
+    originalFilename
+  )}`;
+}
+
 export async function businessRegistrationExists(registrationNumber: string) {
   const rows = await restGet<{ id: string }[]>(
     `grant_applications?select=id&business_registration_number=${encodeFilter(
@@ -203,6 +245,32 @@ function normalizeStoragePath(storagePath: string) {
   }
 
   return trimmedPath;
+}
+
+export function normalizeGrantStoragePath(storagePath: string) {
+  requireSupabaseEnv();
+  return normalizeStoragePath(storagePath);
+}
+
+export async function downloadPrivateFile(storagePath: string) {
+  requireSupabaseEnv();
+  const objectPath = normalizeStoragePath(storagePath);
+  const response = await fetch(
+    `${SUPABASE_URL}/storage/v1/object/${encodeURIComponent(STORAGE_BUCKET)}/${objectPath
+      .split("/")
+      .map(encodeURIComponent)
+      .join("/")}`,
+    {
+      headers: supabaseHeaders(),
+      cache: "no-store",
+    }
+  );
+
+  if (!response.ok) {
+    await readJsonOrError(response);
+  }
+
+  return Buffer.from(await response.arrayBuffer());
 }
 
 function normalizeSignedStorageUrl(signedPath: string) {

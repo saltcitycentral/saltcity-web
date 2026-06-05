@@ -107,7 +107,15 @@ export default async function EbenezerGrantApplicationDetail({ params }: Props) 
             </section>
 
             <section className="mt-8">
-              <h2 className="text-xl font-black">Uploaded Documents</h2>
+              <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                <h2 className="text-xl font-black">Uploaded Documents</h2>
+                <a
+                  href={`/api/admin/ebenezer-grant/applications/${application.id}/download-zip`}
+                  className="inline-flex items-center justify-center rounded-full bg-black px-5 py-2.5 text-sm font-bold text-white transition hover:bg-black/90"
+                >
+                  Download all documents
+                </a>
+              </div>
               <div className="mt-4 grid gap-4">
                 {application.documents.map((document) => (
                   <div

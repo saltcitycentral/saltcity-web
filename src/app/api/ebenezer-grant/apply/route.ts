@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
   businessRegistrationExists,
+  cleanGrantDocumentFileName,
   createApplicationWithReference,
   deleteApplication,
   insertDocuments,
-  safeFileName,
   uploadPrivateFile,
 } from "@/lib/ebenezerGrant/supabaseServer";
 import { isEbenezerGrantClosed } from "@/lib/ebenezerGrant/deadline";
@@ -296,8 +296,11 @@ export async function POST(request: NextRequest) {
       const uploadedDocuments = [];
 
       for (const item of allFiles) {
-        const timestamp = Date.now();
-        const storage_path = `ebenezer-grant/${application.reference_number}/${timestamp}-${safeFileName(
+        const storage_path = `ebenezer-grant/${
+          application.reference_number
+        }/${cleanGrantDocumentFileName(
+          application.owner_director_name,
+          item.document_type,
           item.file.name
         )}`;
 
