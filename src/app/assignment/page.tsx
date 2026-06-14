@@ -11,16 +11,17 @@ export const metadata: Metadata = {
 
 const config: ProgramConfig = {
   program: "assignment",
+  image: "/images/programs/assignment-banner.jpg",
+  imageAlt: "Finding Your Assignment in the Kingdom — Mon 15th Jun to Sun 5th Jul, 5AM daily",
   kicker: "SaltCity Central · Kingdom",
-  title: "Finding Your Assignment",
+  title: "Finding Your Assignment in the Kingdom",
   tagline:
     "Twenty-one mornings of seeking GOD for clarity, direction, and purpose — discovering what He has called you to do in the kingdom.",
   schedule: [
-    { label: "Mornings", value: "5:00 AM daily" },
+    { label: "Time", value: "5:00 AM daily" },
     { label: "Duration", value: "21 days" },
     { label: "Dates", value: "June 15 – July 5, 2026" },
   ],
-  startNote: "Starts June 15, 2026",
   accent: "#B8862F",
 };
 
