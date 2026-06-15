@@ -355,72 +355,76 @@ export default function SpiritOfFaithClient() {
     <main className="bg-[#FAF8F2] font-sans text-[#0B1526]">
       <ReadingProgress />
 
-      {/* ============================================ HERO (warm white) */}
-      <section ref={heroRef as React.Ref<HTMLElement>} className="relative overflow-hidden">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.6]"
-          style={{
-            backgroundImage:
-              "radial-gradient(60% 50% at 50% 0%, rgba(206,221,14,0.12), transparent 70%)",
-          }}
-        />
-        <div className="relative mx-auto flex min-h-[100svh] max-w-[1180px] flex-col items-center justify-center px-6 py-28 text-center">
-          <div style={step(0)}>
-            <div className="inline-flex items-center gap-2.5 text-[#0B1526]/60">
-              <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: LIME }} />
-              <Eyebrow>A Holy Ghost Meeting</Eyebrow>
-              <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: LIME }} />
-            </div>
-          </div>
-
-          <div className="mt-9 w-full" style={{ ...step(1), filter: loaded ? "blur(0)" : "blur(8px)" }}>
-            <img
-              src="/images/spirit-of-faith/logo-spirit-of-faith.svg"
-              alt="The Spirit of Faith — June 26–28"
-              className="mx-auto w-full max-w-[680px]"
+      {/* ============================================ HERO (banner artwork) */}
+      <section ref={heroRef as React.Ref<HTMLElement>} className="relative overflow-hidden bg-[#FAF8F2]">
+        {/* the artwork — full-bleed; portrait on mobile, wide banner on desktop */}
+        <div style={{ opacity: loaded ? 1 : 0, transition: "opacity 900ms ease" }}>
+          {/* mobile — portrait poster */}
+          <div className="relative aspect-[750/1334] w-full overflow-hidden bg-[#0B1526] md:hidden">
+            <Image
+              src="/images/spirit-of-faith/sof-poster.jpg"
+              alt="The Spirit of Faith — June 26–28. The Centre of Discipleship, 20 Okumagba Avenue, Warri."
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover transition-transform duration-[1600ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
+              style={{ transform: loaded ? "scale(1)" : "scale(1.05)" }}
             />
           </div>
+          {/* desktop — wide web banner */}
+          <div className="relative hidden aspect-[5/1] w-full overflow-hidden bg-[#0B1526] md:block">
+            <Image
+              src="/images/spirit-of-faith/sof-banner.jpg"
+              alt="The Spirit of Faith — June 26–28. The Centre of Discipleship, 20 Okumagba Avenue, Warri."
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover transition-transform duration-[1600ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
+              style={{ transform: loaded ? "scale(1)" : "scale(1.05)" }}
+            />
+          </div>
+        </div>
 
-          <div className="mt-10" style={step(2)}>
-            <div className="flex flex-col items-center gap-1 text-base font-semibold text-[#0B1526] sm:flex-row sm:gap-3 sm:text-lg">
-              <span>June 26 – 28, 2026</span>
-              <span className="hidden text-[#0B1526]/30 sm:inline">/</span>
-              <span className="text-[#0B1526]/70">The Centre of Discipleship, Warri</span>
+        {/* action bar — countdown + register */}
+        <div className="relative">
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.6]"
+            style={{
+              backgroundImage:
+                "radial-gradient(70% 80% at 50% 0%, rgba(206,221,14,0.14), transparent 70%)",
+            }}
+          />
+          <div className="relative mx-auto flex max-w-[1180px] flex-col items-center px-6 py-14 text-center md:py-16">
+            <div style={step(0)}>
+              <div className="inline-flex items-center gap-2.5 text-[#0B1526]/60">
+                <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: LIME }} />
+                <Eyebrow>A Holy Ghost Meeting</Eyebrow>
+                <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: LIME }} />
+              </div>
+            </div>
+
+            <div className="mt-7" style={step(1)}>
+              <Countdown />
+            </div>
+
+            <div className="mt-8" style={step(2)}>
+              <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
+                <button
+                  onClick={openModal}
+                  className="group inline-flex items-center justify-center gap-2.5 rounded-full bg-[#0B1526] px-9 py-4 text-sm font-bold tracking-wide text-white shadow-[0_10px_30px_rgba(11,21,38,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#0B1526]/90 hover:shadow-[0_16px_40px_rgba(11,21,38,0.26)]"
+                >
+                  Register
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                </button>
+                <button
+                  onClick={() => scrollTo("vision")}
+                  className="inline-flex items-center gap-2 px-4 py-3 text-sm font-bold tracking-wide text-[#0B1526]/70 underline-offset-8 transition hover:text-[#0B1526] hover:underline"
+                >
+                  Read the vision
+                </button>
+              </div>
             </div>
           </div>
-
-          <div className="mt-9" style={step(3)}>
-            <Countdown />
-          </div>
-
-          <div className="mt-10" style={step(4)}>
-            <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
-              <button
-                onClick={openModal}
-                className="group inline-flex items-center justify-center gap-2.5 rounded-full bg-[#0B1526] px-9 py-4 text-sm font-bold tracking-wide text-white shadow-[0_10px_30px_rgba(11,21,38,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#0B1526]/90 hover:shadow-[0_16px_40px_rgba(11,21,38,0.26)]"
-              >
-                Register
-                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-              </button>
-              <button
-                onClick={() => scrollTo("vision")}
-                className="inline-flex items-center gap-2 px-4 py-3 text-sm font-bold tracking-wide text-[#0B1526]/70 underline-offset-8 transition hover:text-[#0B1526] hover:underline"
-              >
-                Read the vision
-              </button>
-            </div>
-          </div>
-
-          <button
-            onClick={() => scrollTo("vision")}
-            aria-label="Scroll to read"
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[#0B1526]/30 transition hover:text-[#0B1526]/60"
-            style={{ opacity: loaded ? 1 : 0, transition: "opacity 1200ms ease 700ms" }}
-          >
-            <svg className="h-6 w-6 animate-bounce motion-reduce:animate-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M12 5v14M6 13l6 6 6-6" />
-            </svg>
-          </button>
         </div>
       </section>
 
