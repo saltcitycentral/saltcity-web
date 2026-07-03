@@ -139,6 +139,23 @@ export default async function EbenezerGrantApplicationDetail({ params }: Props) 
           </div>
 
           <aside>
+            <div className="mb-5 rounded-2xl bg-neutral-50 p-6">
+              <h2 className="text-xl font-black">Downloads</h2>
+              <div className="mt-4 grid gap-3">
+                <a
+                  href={`/api/admin/ebenezer-grant/applications/${application.id}/summary-docx`}
+                  className="inline-flex items-center justify-center rounded-full bg-black px-5 py-2.5 text-sm font-bold text-white transition hover:bg-black/90"
+                >
+                  Download application summary
+                </a>
+                <a
+                  href={`/api/admin/ebenezer-grant/applications/${application.id}/download-zip`}
+                  className="inline-flex items-center justify-center rounded-full border border-black/15 bg-white px-5 py-2.5 text-sm font-bold text-black transition hover:border-black/35"
+                >
+                  Download all documents
+                </a>
+              </div>
+            </div>
             <AdminApplicationForm
               applicationId={application.id}
               initialStatus={application.status}

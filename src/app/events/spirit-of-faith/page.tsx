@@ -4,7 +4,7 @@ import SpiritOfFaithClient from "./SpiritOfFaithClient";
 export const metadata: Metadata = {
   title: "The Spirit of Faith — A Holy Ghost Meeting | SaltCity",
   description:
-    "The Spirit of Faith Conference, June 26–28 — a Holy Ghost Meeting for spiritual renewal and city revival. Preparatory classes & fasting June 19–25, All-Night Prayers June 20. The Centre of Discipleship, 20 Okumagba Avenue, Warri.",
+    "The Spirit of Faith Conference, June 26–28 — a Holy Ghost Meeting for spiritual renewal and city revival. Preparatory classes & fasting June 18–25, All-Night Prayers June 19. The Centre of Discipleship, 20 Okumagba Avenue, Warri.",
   openGraph: {
     title: "The Spirit of Faith — A Holy Ghost Meeting",
     description:

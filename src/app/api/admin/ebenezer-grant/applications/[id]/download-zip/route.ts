@@ -5,6 +5,7 @@ import {
   getApplication,
   slugify,
 } from "@/lib/ebenezerGrant/supabaseServer";
+import { generateApplicationSummaryDocx } from "@/lib/ebenezerGrant/applicationSummaryDocx";
 import { createZip } from "@/lib/ebenezerGrant/zip";
 
 export const runtime = "nodejs";
@@ -49,6 +50,11 @@ export async function GET(_request: NextRequest, context: RouteContext) {
     const entries: { name: string; data: Buffer }[] = [];
     const errors: string[] = [];
     const usedNames = new Set<string>();
+
+    entries.push({
+      name: `${folderName}/application-summary.docx`,
+      data: await generateApplicationSummaryDocx(application),
+    });
 
     for (const document of application.documents) {
       const cleanName = uniqueFileName(

@@ -645,9 +645,9 @@ export default function SpiritOfFaithClient() {
               />
               <Reveal delay={120}>
                 <p className="mt-8 max-w-xl text-lg leading-[1.75] text-[#0B1526]/75">
-                  Participate in preparatory classes and fast from June 19th to
+                  Participate in preparatory classes and fast from June 18th to
                   25th via Mixlr at 6pm daily. Join the All-night Prayers on
-                  Friday, June 20th, 2026, at 10pm at the Centre of Discipleship.
+                  Friday, June 19th, 2026, at 10pm at the Centre of Discipleship.
                 </p>
                 <p className="mt-5 max-w-xl text-lg leading-[1.75] text-[#0B1526]/75">
                   Release any grudges or offenses, and increase your acts of
@@ -680,8 +680,8 @@ export default function SpiritOfFaithClient() {
           <Reveal delay={80} className="mt-16 block">
             <dl className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-[#0B1526]/12 bg-[#0B1526]/12 sm:grid-cols-3">
               {[
-                ["Preparatory Classes & Fast", "June 19 – 25 · 6pm daily (Mixlr)"],
-                ["All-Night Prayers", "Friday, June 20, 2026 · 10pm"],
+                ["Preparatory Classes & Fast", "June 18 – 25 · 6pm daily (Mixlr)"],
+                ["All-Night Prayers", "Friday, June 19, 2026 · 10pm"],
                 ["The Conference", "June 26 – 28, 2026 · Warri"],
               ].map(([k, v]) => (
                 <div key={k} className="bg-[#FAF8F2] p-6 transition-colors duration-300 hover:bg-white">
@@ -734,8 +734,8 @@ export default function SpiritOfFaithClient() {
                     ["Dates", "June 26 – 28, 2026"],
                     ["Venue", "The Centre of Discipleship"],
                     ["Address", "20 Okumagba Avenue, Warri"],
-                    ["Classes & Fast", "June 19 – 25 · 6pm daily (Mixlr)"],
-                    ["All-Night Prayers", "Friday, June 20, 2026 · 10pm"],
+                    ["Classes & Fast", "June 18 – 25 · 6pm daily (Mixlr)"],
+                    ["All-Night Prayers", "Friday, June 19, 2026 · 10pm"],
                   ].map(([k, v], i, arr) => (
                     <div
                       key={k}
