@@ -111,7 +111,7 @@ export default function HeroStage() {
           href: "https://www.youtube.com/@saltcitycentral",
           target: "_blank",
         },
-        secondaryCta: { label: "First Time Here?", href: "/first-time" },
+        secondaryCta: { label: "First Time Here?", href: "/new-here" },
       },
       {
         image: "/images/saltworship.jpg",
@@ -129,7 +129,7 @@ export default function HeroStage() {
         alt: "Church community",
         headline: "You Have a Place Here",
         subline: "Come as you are. We’ll help you connect and grow steadily.",
-        primaryCta: { label: "Plan Your Visit", href: "/first-time" },
+        primaryCta: { label: "Plan Your Visit", href: "/new-here" },
         secondaryCta: { label: "Who We Are", href: "/who-we-are" },
       },
     ],

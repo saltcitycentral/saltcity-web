@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Container from "@/components/ui/Container";
 import Modal from "@/components/ui/Modal";
 
@@ -15,6 +16,12 @@ function cx(...classes: (string | false | undefined | null)[]) {
 export default function NextSteps() {
   const [activeModal, setActiveModal] = useState<ActiveModal>(null);
   const [inView, setInView] = useState(false);
+  const pathname = usePathname();
+
+  // The /new-here short link opens the First Time form directly.
+  useEffect(() => {
+    if (pathname === "/new-here") setActiveModal("firstTime");
+  }, [pathname]);
 
   useEffect(() => {
     const el = document.querySelector("[data-next-steps]");
@@ -105,8 +112,7 @@ export default function NextSteps() {
           >
             {/* Heading + context */}
             <div className="text-center mb-10">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-black/10 bg-black/[0.02] text-sm font-semibold text-black/70">
-                <span className="inline-block w-2 h-2 rounded-full bg-black/40" />
+              <div className="text-xs font-bold uppercase tracking-[0.28em] text-black/45">
                 Next Steps
               </div>
 
@@ -459,8 +465,8 @@ function FirstTimeForm({ onDone }: { onDone: () => void }) {
         <Input value={location} onChange={(e) => setLocation(e.target.value)} placeholder="SaltCity Central, PTI Campus..." />
       </Field>
 
-      <Field label="Anything we should know? (optional)">
-        <Textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={4} placeholder="Tell us briefly..." />
+      <Field label="Question / Comment / Prayer Request (optional)">
+        <Textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={4} placeholder="Ask a question, leave a comment, or share a prayer request…" />
       </Field>
 
       {msg && <div className="text-sm font-semibold text-black/70">{msg}</div>}

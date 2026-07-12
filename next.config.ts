@@ -14,6 +14,8 @@ const nextConfig: NextConfig = {
   // address bar and opens the matching form (see PATH_TO_FORM in next-steps).
   async rewrites() {
     return [
+      // Opens the homepage "First Time Here?" form directly.
+      { source: "/new-here", destination: "/" },
       { source: "/thanksgiving", destination: "/next-steps" },
       { source: "/dedication", destination: "/next-steps" },
       { source: "/marriage", destination: "/next-steps" },

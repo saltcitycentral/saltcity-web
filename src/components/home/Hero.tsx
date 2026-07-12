@@ -102,7 +102,7 @@ export default function HeroStage() {
           href: "https://www.youtube.com/@saltcitycentral",
           target: "_blank",
         },
-        secondaryCta: { label: "First Time Here?", href: "/first-time" },
+        secondaryCta: { label: "First Time Here?", href: "/new-here" },
       },
       {
         image: "/images/home2.jpg",
@@ -118,7 +118,7 @@ export default function HeroStage() {
         alt: "Church community",
         headline: "You Have a Place Here",
         subline: "Come as you are. We’ll help you connect and grow steadily.",
-        primaryCta: { label: "Plan Your Visit", href: "/first-time" },
+        primaryCta: { label: "Plan Your Visit", href: "/new-here" },
         secondaryCta: { label: "Who We Are", href: "/who-we-are" },
       },
       {
@@ -126,7 +126,7 @@ export default function HeroStage() {
         alt: "SaltCity service moment",
         headline: "Experience SaltCity",
         subline: "Join us in worship, the Word, and a community built on faith.",
-        primaryCta: { label: "Plan Your Visit", href: "/first-time" },
+        primaryCta: { label: "Plan Your Visit", href: "/new-here" },
         secondaryCta: { label: "Locations", href: "/locations" },
       },
       {
@@ -328,14 +328,12 @@ export default function HeroStage() {
             >
               <div
                 className={[
-                  "inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2",
-                  "text-xs font-semibold uppercase tracking-wide text-white/85",
-                  "backdrop-blur-sm",
+                  "text-xs font-bold uppercase tracking-[0.28em] text-white/75",
+                  "drop-shadow-[0_1px_10px_rgba(0,0,0,0.55)]",
                   ready ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
                   "transition-all duration-700",
                 ].join(" ")}
               >
-                <span className="h-2 w-2 rounded-full bg-white/80" />
                 SaltCity Central
               </div>
 
