@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Container from "@/components/ui/Container";
 import Modal from "@/components/ui/Modal";
 
@@ -229,8 +230,27 @@ const STEPS = [
   },
 ];
 
+// Short links (rewritten in next.config) open the matching form directly.
+const PATH_TO_FORM: Record<string, ActiveModal> = {
+  "/thanksgiving": "thanksgiving",
+  "/dedication": "babyDedication",
+  "/marriage": "premarital",
+  "/membership": "membership",
+  "/discipleship": "discipleship",
+  "/company": "company",
+  "/serve": "serve",
+  "/prayer": "counseling",
+};
+
 export default function NextStepsPage() {
   const [active, setActive] = useState<ActiveModal>(null);
+  const pathname = usePathname();
+
+  // Arriving via a short link like /thanksgiving opens that form.
+  useEffect(() => {
+    const key = PATH_TO_FORM[pathname ?? ""];
+    if (key) setActive(key);
+  }, [pathname]);
 
   return (
     <>
@@ -246,23 +266,21 @@ export default function NextStepsPage() {
 
           <Container className="relative z-10">
             <div className="max-w-3xl mx-auto text-center">
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-6">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-                  <line x1="12" y1="5" x2="12" y2="19" />
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                </svg>
-                <span className="text-sm font-semibold text-white">Your Journey</span>
+              {/* Label */}
+              <div className="mb-6 text-xs font-bold uppercase tracking-[0.28em] text-amber-300/90">
+                Next Steps
               </div>
 
               <h1 className="text-5xl md:text-6xl font-black tracking-tight text-white mb-6">
-                Take Your Next Step
+                Take your next step
               </h1>
               <p className="text-xl leading-relaxed text-white/90 mb-4">
-                Growth is a journey, not a destination. Whether you're just starting or ready to go deeper, there's a step here for you.
+                Wherever you are with GOD, there&apos;s a clear next thing for you — and
+                people ready to walk it with you.
               </p>
               <p className="text-lg leading-relaxed text-white/70">
-                Everyone's next step looks different — choose the one that fits where you are.
+                Join a class, find your company, serve on a team, or register for
+                what&apos;s ahead. Pick what fits, and we&apos;ll take it from there.
               </p>
 
               <div className="mt-10">
