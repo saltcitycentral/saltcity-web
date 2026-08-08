@@ -8,8 +8,50 @@ import { useEffect, useState } from "react";
  * Palette: cream #FBF7EF · ink #241B10 · gold #9A6A1C
  */
 const ACCENT = "#9A6A1C";
+const EVENT_START = new Date("2026-08-19T17:00:00+01:00");
 
 type Status = "idle" | "submitting" | "done" | "error";
+
+function useCountdown(target: Date) {
+  const [now, setNow] = useState<number | null>(null);
+  useEffect(() => {
+    setNow(Date.now());
+    const id = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, []);
+  if (now === null) return null;
+  const diff = Math.max(0, target.getTime() - now);
+  return {
+    d: Math.floor(diff / 86400000),
+    h: Math.floor((diff % 86400000) / 3600000),
+    m: Math.floor((diff % 3600000) / 60000),
+    s: Math.floor((diff % 60000) / 1000),
+  };
+}
+
+function Countdown() {
+  const c = useCountdown(EVENT_START);
+  const cells: [string, number | null][] = [
+    ["Days", c ? c.d : null],
+    ["Hrs", c ? c.h : null],
+    ["Min", c ? c.m : null],
+    ["Sec", c ? c.s : null],
+  ];
+  return (
+    <div className="mt-6 inline-flex items-stretch divide-x divide-[#241B10]/12 rounded-2xl border border-[#241B10]/12 bg-white/70">
+      {cells.map(([label, val]) => (
+        <div key={label} className="px-4 py-2.5 text-center sm:px-5">
+          <div className="text-2xl font-black tabular-nums leading-none text-[#241B10] sm:text-3xl">
+            {val === null ? "—" : String(val).padStart(2, "0")}
+          </div>
+          <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.16em] text-[#241B10]/45">
+            {label}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 const TITLES = ["Pastor", "Apostle", "Bishop", "Reverend", "Prophet", "Evangelist", "Other"];
 const ROLES = ["Senior Pastor", "Associate Pastor", "Other"];
@@ -100,7 +142,7 @@ export default function FathersBlessingClient() {
               A Father&apos;s Blessing
             </h1>
             <p className="mt-4 max-w-md text-lg leading-relaxed text-[#241B10]/70">
-              An evening for pastors and ministers. Register below to join us.
+              An evening of blessing and impartation. Register below to join us.
             </p>
 
             <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
@@ -108,6 +150,8 @@ export default function FathersBlessingClient() {
               <span className="text-[#241B10]/25">·</span>
               <span className="text-[#241B10]/70">20 Okumagba Avenue, Warri</span>
             </div>
+
+            <Countdown />
 
             {/* form card */}
             <div className="mt-8 rounded-2xl border border-[#241B10]/10 bg-white p-6 shadow-[0_24px_70px_rgba(36,27,16,0.07)] md:p-8">
