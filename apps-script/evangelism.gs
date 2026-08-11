@@ -22,6 +22,14 @@
 
 const API_KEY = "evangelism-secret"; // must match EVANGELISM_API_KEY (or "" both sides)
 
+// Leave SHEET_ID blank if you opened this script from the sheet itself
+// (Extensions -> Apps Script — recommended). If this is a STANDALONE script,
+// paste the sheet's ID here: the part of its URL between /d/ and /edit.
+const SHEET_ID = "";
+function getSS_() {
+  return SHEET_ID ? SpreadsheetApp.openById(SHEET_ID) : SpreadsheetApp.getActiveSpreadsheet();
+}
+
 const INVITES_SHEET   = "Invites";            // written by the website (doPost)
 const PROGRESS_SHEET  = "Progress Responses"; // written by the coordinator form
 const TRACKING_SHEET  = "Tracking";
