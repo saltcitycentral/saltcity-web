@@ -2,35 +2,26 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-
-export type ProgramConfig = {
-  program: "assignment" | "wildfire";
-  image: string;
-  imageAlt: string;
-  kicker: string;
-  title: string;
-  tagline: string;
-  schedule: { label: string; value: string }[];
-  accent: string; // hex
-};
+import type { WeekdayClass } from "@/lib/weekdayClasses";
 
 type Status = "idle" | "submitting" | "done" | "error";
 
 function Label({ children }: { children: React.ReactNode }) {
   return (
-    <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#0B1526]/55">
+    <div className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#0B1526]/55">
       {children}
     </div>
   );
 }
 
 const field =
-  "mt-2 w-full rounded-xl border border-[#0B1526]/12 bg-white px-4 py-3 text-[15px] text-[#0B1526] " +
-  "placeholder:text-[#0B1526]/35 transition focus:outline-none focus:border-[#0B1526]/30 " +
-  "focus:ring-4 focus:ring-[#0B1526]/10";
+  "mt-2 w-full rounded-xl border border-[#0B1526]/15 bg-white px-4 py-3 text-[15px] text-[#0B1526] " +
+  "placeholder:text-[#0B1526]/35 transition focus:outline-none focus:border-[#0B1526]/35 " +
+  "focus:ring-4 focus:ring-black/5";
 
-export default function ProgramSignupClient({ config }: { config: ProgramConfig }) {
+export default function ClassSignupClient({ config }: { config: WeekdayClass }) {
   const [status, setStatus] = useState<Status>("idle");
+  const [errorMsg, setErrorMsg] = useState("");
   const [mounted, setMounted] = useState(false);
   const accent = config.accent;
 
@@ -41,7 +32,7 @@ export default function ProgramSignupClient({ config }: { config: ProgramConfig 
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setStatus("submitting");
+    setErrorMsg("");
     const form = e.currentTarget;
     const payload = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
     if (payload.website) {
@@ -49,70 +40,86 @@ export default function ProgramSignupClient({ config }: { config: ProgramConfig 
       form.reset();
       return;
     }
-    payload.program = config.program;
+    setStatus("submitting");
     try {
-      const res = await fetch("/api/program-signup", {
+      const res = await fetch("/api/class-signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ ...payload, classKey: config.key }),
       });
-      if (!res.ok) throw new Error("bad_response");
+      const data = await res.json().catch(() => null);
+      if (!res.ok || !data?.ok) throw new Error(data?.error || "Submission failed");
       setStatus("done");
       form.reset();
-    } catch {
+    } catch (err: any) {
+      setErrorMsg(err?.message || "Something went wrong.");
       setStatus("error");
     }
   }
 
+  const fade = (delay = 0): React.CSSProperties => ({
+    opacity: mounted ? 1 : 0,
+    transform: mounted ? "none" : "translateY(14px)",
+    transition: `opacity 700ms ease ${delay}ms, transform 700ms cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
+  });
+
   return (
-    <main className="bg-[#FAF8F2] font-sans text-[#0B1526]">
-      {/* ───────────────────────── banner hero (the artwork) */}
-      <section className="w-full overflow-hidden bg-[#0B1526]">
-        <div className="relative mx-auto aspect-video w-full max-w-[1920px]">
+    <main className="min-h-screen bg-[#FAF8F2] font-sans text-[#0B1526]">
+      {/* artwork — portrait on mobile, landscape on desktop */}
+      <section className="w-full overflow-hidden bg-[#0B1526]" style={fade()}>
+        <div className="relative aspect-[4/5] w-full sm:hidden">
           <Image
-            src={config.image}
-            alt={config.imageAlt}
+            src={config.portrait}
+            alt={`${config.title} with ${config.teacher} — ${config.time}, ${config.location}`}
             fill
             priority
             sizes="100vw"
-            className="object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
-            style={{ transform: mounted ? "scale(1)" : "scale(1.04)" }}
+            className="object-cover"
+          />
+        </div>
+        <div className="relative hidden aspect-video w-full sm:block">
+          <Image
+            src={config.landscape}
+            alt={`${config.title} with ${config.teacher} — ${config.time}, ${config.location}`}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
           />
         </div>
       </section>
 
-      {/* ───────────────────────── signup */}
-      <section
-        className="mx-auto max-w-[660px] px-6 py-16 md:py-24"
-        style={{
-          opacity: mounted ? 1 : 0,
-          transform: mounted ? "none" : "translateY(16px)",
-          transition: "opacity 800ms ease 120ms, transform 800ms cubic-bezier(0.16,1,0.3,1) 120ms",
-        }}
-      >
+      {/* details + form */}
+      <section className="mx-auto max-w-[640px] px-6 py-14 md:py-20" style={fade(120)}>
         <div className="text-center">
           <div className="text-[11px] font-bold uppercase tracking-[0.3em]" style={{ color: accent }}>
-            {config.kicker}
+            SaltCity Central · Weekday Class
           </div>
           <h1 className="mt-4 text-3xl font-black leading-tight tracking-tight sm:text-4xl">
             {config.title}
           </h1>
-          <p className="mx-auto mt-4 max-w-md text-lg leading-relaxed text-[#0B1526]/70">
-            {config.tagline}
+          <p className="mt-2 text-lg font-semibold text-[#0B1526]/80">with {config.teacher}</p>
+          <p className="mx-auto mt-4 max-w-md text-base leading-relaxed text-[#0B1526]/65">
+            {config.blurb}
           </p>
 
-          <div className="mt-7 inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm">
-            {config.schedule.map((s, i) => (
-              <span key={s.label} className="inline-flex items-center">
-                {i > 0 && <span className="mr-3 text-[#0B1526]/25">·</span>}
-                <span className="font-bold text-[#0B1526]">{s.value}</span>
-              </span>
-            ))}
-          </div>
+          <dl className="mx-auto mt-8 grid max-w-sm grid-cols-2 gap-px overflow-hidden rounded-2xl border border-[#0B1526]/12 bg-[#0B1526]/12">
+            <div className="bg-[#FAF8F2] px-4 py-4">
+              <dt className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#0B1526]/45">
+                Time
+              </dt>
+              <dd className="mt-1 text-sm font-bold leading-snug">{config.time}</dd>
+            </div>
+            <div className="bg-[#FAF8F2] px-4 py-4">
+              <dt className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#0B1526]/45">
+                Location
+              </dt>
+              <dd className="mt-1 text-sm font-bold leading-snug">{config.location}</dd>
+            </div>
+          </dl>
         </div>
 
-        {/* form card */}
-        <div className="mt-10 rounded-2xl border border-[#0B1526]/10 bg-white p-7 shadow-[0_24px_70px_rgba(11,21,38,0.07)] md:p-9">
+        <div className="mt-10 rounded-2xl border border-[#0B1526]/10 bg-white p-6 shadow-[0_24px_70px_rgba(11,21,38,0.06)] md:p-8">
           {status === "done" ? (
             <div className="py-6 text-center">
               <div
@@ -123,22 +130,22 @@ export default function ProgramSignupClient({ config }: { config: ProgramConfig 
                   <path d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h2 className="mt-5 text-2xl font-black tracking-tight">You’re in.</h2>
+              <h2 className="mt-5 text-2xl font-black tracking-tight">You&apos;re registered.</h2>
               <p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-[#0B1526]/65">
-                We’ll send you the details. See you there — and feel free to
-                bring someone with you.
+                We&apos;ll send you the Telegram link and a reminder before class.
+                See you Thursday.
               </p>
               <button
                 onClick={() => setStatus("idle")}
                 className="mt-6 text-sm font-bold underline underline-offset-4"
                 style={{ color: accent }}
               >
-                Sign up someone else
+                Register someone else
               </button>
             </div>
           ) : (
             <>
-              <h2 className="text-xl font-black tracking-tight">Count me in</h2>
+              <h2 className="text-xl font-black tracking-tight">Register</h2>
               <p className="mt-1 text-sm text-[#0B1526]/55">Takes a few seconds.</p>
 
               <form onSubmit={handleSubmit} className="mt-6 grid gap-5">
@@ -156,7 +163,7 @@ export default function ProgramSignupClient({ config }: { config: ProgramConfig 
                 </label>
 
                 <label className="block">
-                  <Label>Phone · WhatsApp</Label>
+                  <Label>Phone number</Label>
                   <input name="phone" required placeholder="+234…" autoComplete="tel" className={field} />
                 </label>
 
@@ -165,29 +172,20 @@ export default function ProgramSignupClient({ config }: { config: ProgramConfig 
                   <input name="email" type="email" placeholder="you@email.com" autoComplete="email" className={field} />
                 </label>
 
-                <label className="block">
-                  <Label>Prayer request (optional)</Label>
-                  <textarea name="notes" rows={3} placeholder="Anything you’d like us to stand with you on…" className={field} />
-                </label>
-
-                <div className="mt-1 flex items-center gap-4">
+                <div className="mt-1 flex flex-wrap items-center gap-4">
                   <button
                     type="submit"
                     disabled={status === "submitting"}
                     className="inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-sm font-bold text-white transition hover:opacity-90 disabled:opacity-60"
                     style={{ backgroundColor: accent }}
                   >
-                    {status === "submitting" ? "Signing up…" : "Sign me up"}
+                    {status === "submitting" ? "Registering…" : "Register"}
                   </button>
-                  {status === "error" && (
-                    <span className="text-sm font-medium text-red-600">
-                      Something went wrong. Please try again.
-                    </span>
-                  )}
+                  {errorMsg && <span className="text-sm font-medium text-red-600">{errorMsg}</span>}
                 </div>
 
                 <p className="text-xs leading-relaxed text-[#0B1526]/45">
-                  By signing up you agree we may contact you about this program.
+                  By registering you agree we may contact you about this class.
                 </p>
               </form>
             </>

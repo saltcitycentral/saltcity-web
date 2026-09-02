@@ -1,18 +1,11 @@
-import type { Metadata } from "next";
-import FathersBlessingClient from "./FathersBlessingClient";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "A Father's Blessing | SaltCity",
-  description:
-    "A Father's Blessing — an evening for pastors and ministers. Wednesday, August 19, 2026, 5pm at 20 Okumagba Avenue, Warri. Register to attend.",
-  openGraph: {
-    title: "A Father's Blessing",
-    description:
-      "An evening for pastors and ministers. Wednesday, August 19, 2026, 5pm · 20 Okumagba Avenue, Warri.",
-    images: ["/images/fathers-blessing/poster.jpg"],
-  },
-};
-
-export default function FathersBlessingPage() {
-  return <FathersBlessingClient />;
+// A Father's Blessing ran on Tue 18 Aug 2026. Registration is closed, so this
+// path now sends old/shared links to the homepage rather than showing a form
+// for a finished event.
+//
+// To bring the event back: restore this file and FathersBlessingClient.tsx
+// from git history — the /api/fathers-blessing route is still wired up.
+export default function FathersBlessingRedirect() {
+  redirect("/");
 }

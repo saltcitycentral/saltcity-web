@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 /**
  * "A Father's Blessing" — minister/pastor registrations.
  * Posts to a DEDICATED Apps Script web app (its own spreadsheet), separate
- * from /api/conference, /api/program-signup, /api/forms and /api/first-time.
+ * from /api/conference, /api/class-signup, /api/forms and /api/first-time.
  *
  * Env:
  *   FATHERS_BLESSING_WEBAPP_URL  — the Apps Script "/exec" URL (required)
