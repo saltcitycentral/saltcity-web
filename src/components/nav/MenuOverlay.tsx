@@ -41,6 +41,11 @@ const TOP_ITEMS: NavItem[] = [
   href: "/contact",
 },
   { title: "Blog", desc: "Articles, stories, and updates.", href: "/blog" }, // Added Blog
+  {
+    title: "The CityBuilders",
+    desc: "The NGO we founded — building cities by building people.",
+    href: "/citybuilders",
+  },
   { title: "Resources", desc: "Tools and guides to grow.", href: "/resources" },
   { title: "Give", desc: "Simple ways to give.", href: "/giving" },
   { title: "Who We Are", desc: "Our story, beliefs, leadership.", href: "/who-we-are" },

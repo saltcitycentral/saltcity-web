@@ -10,6 +10,7 @@ const ROUTES: { path: string; priority: number; changeFrequency: MetadataRoute.S
   { path: "/who-we-are/what-to-expect", priority: 0.8, changeFrequency: "monthly" },
   { path: "/who-we-are/our-beliefs", priority: 0.7, changeFrequency: "yearly" },
   { path: "/next-steps", priority: 0.8, changeFrequency: "monthly" },
+  { path: "/citybuilders", priority: 0.8, changeFrequency: "monthly" },
   { path: "/learn-to-pray", priority: 0.7, changeFrequency: "monthly" },
   { path: "/read-your-bible", priority: 0.7, changeFrequency: "monthly" },
   { path: "/contact", priority: 0.7, changeFrequency: "yearly" },
