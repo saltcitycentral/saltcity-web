@@ -63,7 +63,7 @@ export default function DearGovernorPage() {
               #DEARGOVERNOR2026
             </div>
             <h2 className="mt-4 text-3xl font-black leading-[1.08] tracking-tight sm:text-4xl">
-              CITYBUILDERS — A Warri We&apos;d live in not a Warri We&apos;d leaving.
+              CITYBUILDERS — A Warri We&apos;d live in not a Warri We&apos;d be leaving.
             </h2>
 
             <div className="mt-6 space-y-5 text-lg leading-relaxed text-[#1F2328]/75">
