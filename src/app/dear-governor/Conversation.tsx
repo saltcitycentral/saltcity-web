@@ -72,7 +72,7 @@ export default function Conversation() {
             rows={5}
             value={body}
             onChange={(e) => setBody(e.target.value)}
-            placeholder="Why do gifted people leave Warri — and is there anything we can do about it?"
+            placeholder="Why are the brilliant minds leaving Warri — and is there anything we can do about it?"
             className={`${field} mt-2`}
           />
         </label>
