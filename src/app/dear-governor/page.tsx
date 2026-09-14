@@ -6,10 +6,10 @@ import Conversation from "./Conversation";
 export const metadata: Metadata = {
   title: "Dear Governor '26 — City Builders",
   description:
-    "#DEARGOVERNOR2026 — CITYBUILDERS. Why do gifted people leave Warri? Join the conversation ahead of the Citizens' Town Hall on 1 Oct 2026, 10AM, COD, 20 Okumagba Avenue, Warri.",
+    "#DEARGOVERNOR2026 — CITYBUILDERS. Why are the brilliant minds leaving Warri? Join the conversation ahead of the Citizens' Town Hall on 1 Oct 2026, 10AM, COD, 20 Okumagba Avenue, Warri.",
   alternates: { canonical: "/dear-governor" },
   openGraph: {
-    title: "Why do gifted people leave Warri? — #DEARGOVERNOR2026",
+    title: "Why are the brilliant minds leaving Warri? — #DEARGOVERNOR2026",
     description: "Join the conversation — Dear Governor '26: City Builders, 1 Oct 2026, Warri.",
     images: ["/images/dear-governor-wordmark.png"],
   },
@@ -100,7 +100,7 @@ export default function DearGovernorPage() {
                 To the best of your knowledge, the question is simple:
               </p>
               <h3 className="mt-2 text-4xl font-black leading-[1.02] tracking-tight sm:text-5xl">
-                Why do gifted people leave Warri?
+                Why are the brilliant minds leaving Warri?
               </h3>
             </div>
 
