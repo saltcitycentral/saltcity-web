@@ -6,10 +6,10 @@ import Conversation from "./Conversation";
 export const metadata: Metadata = {
   title: "Dear Governor '26 — City Builders",
   description:
-    "Why are brilliant minds leaving Warri? Join the conversation ahead of Dear Governor '26 — City Builders: Building the Delta we want. 1 Oct 2026, 10AM, COD, 20 Okumagba Avenue, Warri.",
+    "#DEARGOVERNOR2026 — CITYBUILDERS. Why do gifted people leave Warri? Join the conversation ahead of the Citizens' Town Hall on 1 Oct 2026, 10AM, COD, 20 Okumagba Avenue, Warri.",
   alternates: { canonical: "/dear-governor" },
   openGraph: {
-    title: "Why are brilliant minds leaving Warri?",
+    title: "Why do gifted people leave Warri? — #DEARGOVERNOR2026",
     description: "Join the conversation — Dear Governor '26: City Builders, 1 Oct 2026, Warri.",
     images: ["/images/dear-governor-wordmark.png"],
   },
@@ -60,16 +60,49 @@ export default function DearGovernorPage() {
         <Container>
           <div className="mx-auto max-w-[760px] py-16 md:py-20">
             <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#1BA3D6]">
-              The conversation
+              #DEARGOVERNOR2026
             </div>
-            <h2 className="mt-4 text-4xl font-black leading-[1.02] tracking-tight sm:text-5xl">
-              Why are brilliant minds leaving Warri?
+            <h2 className="mt-4 text-3xl font-black leading-[1.08] tracking-tight sm:text-4xl">
+              CITYBUILDERS — A Warri We&apos;d live in not a Warri We&apos;d leaving.
             </h2>
-            <p className="mt-5 text-lg leading-relaxed text-[#1F2328]/70">
-              Talent, founders and professionals keep moving out. Tell us why — from
-              your own story or what you&apos;ve seen — and what would make them stay.
-              The voices here help shape the conversation at Dear Governor &apos;26.
-            </p>
+
+            <div className="mt-6 space-y-5 text-lg leading-relaxed text-[#1F2328]/75">
+              <p>
+                <strong className="font-bold text-[#1F2328]">#DEARGOVERNOR</strong> is a
+                Citizens&apos; Town Hall where local thought leaders share knowledge and
+                experience, providing practical solutions to the challenges facing our city.
+                The goal is to broaden perspectives, foster dialogue with policymakers and
+                stakeholders as we initiate a process of real urban development.
+              </p>
+              <p>
+                While many citizens advocate for their rights and try to hold the government
+                to a standstill, we are embracing our responsibilities as citizens and
+                starting the conversation about growth.
+              </p>
+              <p>
+                We want to reinvent our city&apos;s economic structure, transition into a
+                smart, inclusive city, and approach urban challenges systematically.
+              </p>
+              <p>
+                DearGovernor is for the thought leaders, decision-makers, and people who seek
+                change and improvement in the city.
+              </p>
+              <p>
+                For the 2026 edition, happening on October 1st, we are starting a conversation
+                about why the wealth of highly skilled and gifted locals leaves the city sooner
+                or later for cities like Lagos, Abuja, Port Harcourt, London, New York, etc.
+                And is there anything we can do about it?
+              </p>
+            </div>
+
+            <div className="mt-12 border-t border-black/10 pt-10">
+              <p className="text-sm font-semibold text-[#1F2328]/60">
+                To the best of your knowledge, the question is simple:
+              </p>
+              <h3 className="mt-2 text-4xl font-black leading-[1.02] tracking-tight sm:text-5xl">
+                Why do gifted people leave Warri?
+              </h3>
+            </div>
 
             <Conversation />
           </div>
