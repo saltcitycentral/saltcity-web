@@ -62,6 +62,31 @@ export default function DearGovernorPage() {
             <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#1BA3D6]">
               #DEARGOVERNOR2026
             </div>
+            <p className="mt-4 text-sm font-semibold text-[#1F2328]/60">
+              To the best of your knowledge, the question is simple:
+            </p>
+            <h2 className="mt-2 text-4xl font-black leading-[1.02] tracking-tight sm:text-5xl">
+              Why are the brilliant minds leaving Warri?
+            </h2>
+            <a
+              href="#about"
+              className="mt-4 inline-block text-sm font-semibold text-[#1F2328]/60 underline decoration-black/20 underline-offset-4 transition hover:text-[#1F2328] hover:decoration-black/50"
+            >
+              What is #DEARGOVERNOR? ↓
+            </a>
+
+            <Conversation />
+          </div>
+        </Container>
+      </section>
+
+      {/* about — the intro */}
+      <section id="about" className="scroll-mt-20 border-t border-black/10">
+        <Container>
+          <div className="mx-auto max-w-[760px] py-16 md:py-20">
+            <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#1BA3D6]">
+              About #DEARGOVERNOR2026
+            </div>
             <h2 className="mt-4 text-3xl font-black leading-[1.08] tracking-tight sm:text-4xl">
               CITYBUILDERS — A Warri We&apos;d live in not a Warri We&apos;d be leaving.
             </h2>
@@ -95,16 +120,12 @@ export default function DearGovernorPage() {
               </p>
             </div>
 
-            <div className="mt-12 border-t border-black/10 pt-10">
-              <p className="text-sm font-semibold text-[#1F2328]/60">
-                To the best of your knowledge, the question is simple:
-              </p>
-              <h3 className="mt-2 text-4xl font-black leading-[1.02] tracking-tight sm:text-5xl">
-                Why are the brilliant minds leaving Warri?
-              </h3>
-            </div>
-
-            <Conversation />
+            <a
+              href="#conversation"
+              className="mt-10 inline-flex items-center gap-2 rounded-full bg-[#1F2328] px-8 py-4 text-sm font-bold text-white transition hover:opacity-90"
+            >
+              Add your voice ↑
+            </a>
           </div>
         </Container>
       </section>
