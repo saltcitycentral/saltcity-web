@@ -82,9 +82,12 @@ export async function POST(req: NextRequest) {
 
     const name = String(b?.name ?? "").trim().slice(0, 60);
     const context = String(b?.context ?? "").trim().slice(0, 80);
-    const body = String(b?.body ?? "").trim().slice(0, 2000);
+    const body = String(b?.body ?? "").trim();
     if (!name) return NextResponse.json({ ok: false, error: "Please add your name." }, { status: 400 });
     if (body.length < 2) return NextResponse.json({ ok: false, error: "Please write a little more." }, { status: 400 });
+    if (body.length > 5000) {
+      return NextResponse.json({ ok: false, error: "Please keep it under 5,000 characters." }, { status: 400 });
+    }
     if ((body.match(/https?:\/\//g) ?? []).length > 2) {
       return NextResponse.json({ ok: false, error: "Please limit links in your comment." }, { status: 400 });
     }
@@ -119,7 +122,12 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify(payload),
     });
     if (!res.ok) {
-      console.error("dg_comments insert failed:", res.status, await res.text());
+      const text = await res.text();
+      if (text.includes("dg_comments_body_check")) {
+        // The database still has the original 2,000 limit (conversation migration not run yet).
+        return NextResponse.json({ ok: false, error: "Please keep it under 2,000 characters for now." }, { status: 400 });
+      }
+      console.error("dg_comments insert failed:", res.status, text);
       return NextResponse.json({ ok: false, error: "Couldn't post right now. Please try again." }, { status: 500 });
     }
     const [row] = (await res.json()) as Record<string, unknown>[];

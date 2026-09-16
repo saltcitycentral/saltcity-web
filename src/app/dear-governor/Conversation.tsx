@@ -18,7 +18,7 @@ type ReplyTarget = { threadId: string; commentId: string; name: string };
 
 const API = "/api/dear-governor/comments";
 const IDENTITY_KEY = "dg_identity";
-const MAX = 2000;
+const MAX = 5000;
 const REPLY_PREVIEW = 2;
 // Pulled from the City Builders wordmark
 const PALETTE = ["#1BA3D6", "#12A38A", "#6FAE2A", "#E07B18", "#2F6FDB", "#0E8FA8"];
@@ -307,9 +307,11 @@ function Composer({
                 Cancel
               </button>
             )}
-            <span className={`ml-auto text-xs tabular-nums ${body.length > MAX - 150 ? "text-[#E07B18]" : "text-black/35"}`}>
-              {body.length}/{MAX}
-            </span>
+            {body.length > MAX * 0.8 && (
+              <span className={`ml-auto text-xs tabular-nums ${body.length > MAX - 200 ? "text-[#E07B18]" : "text-black/35"}`}>
+                {body.length.toLocaleString()}/{MAX.toLocaleString()}
+              </span>
+            )}
           </div>
 
           {error && (
