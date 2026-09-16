@@ -80,7 +80,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const name = String(b?.name ?? "").trim().slice(0, 60);
+    // Anonymous posts never carry the person's name, even if one was sent.
+    const name = b?.anonymous === true ? "Anonymous" : String(b?.name ?? "").trim().slice(0, 60);
     const context = String(b?.context ?? "").trim().slice(0, 80);
     const body = String(b?.body ?? "").trim();
     if (!name) return NextResponse.json({ ok: false, error: "Please add your name." }, { status: 400 });

@@ -19,6 +19,7 @@ type ReplyTarget = { threadId: string; commentId: string; name: string };
 const API = "/api/dear-governor/comments";
 const IDENTITY_KEY = "dg_identity";
 const MAX = 5000;
+const ANONYMOUS = "Anonymous";
 const REPLY_PREVIEW = 2;
 // Pulled from the City Builders wordmark
 const PALETTE = ["#1BA3D6", "#12A38A", "#6FAE2A", "#E07B18", "#2F6FDB", "#0E8FA8"];
@@ -132,6 +133,19 @@ function LinkIcon() {
 /* ─────────────────────────────── pieces */
 
 function Avatar({ name, small = false }: { name: string; small?: boolean }) {
+  if (name === ANONYMOUS) {
+    return (
+      <span
+        aria-hidden="true"
+        className={`${small ? "h-8 w-8" : "h-10 w-10"} flex shrink-0 items-center justify-center rounded-full bg-[#1F2328]/10 text-[#1F2328]/45`}
+      >
+        <svg viewBox="0 0 24 24" className={small ? "h-4 w-4" : "h-5 w-5"} fill="currentColor">
+          <circle cx="12" cy="8.5" r="4" />
+          <path d="M4 20.5c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5z" />
+        </svg>
+      </span>
+    );
+  }
   return (
     <span
       aria-hidden="true"
@@ -184,6 +198,9 @@ function Composer({
   const [name, setName] = useState(identity.name);
   const [context, setContext] = useState(identity.context);
   const [editing, setEditing] = useState(!identity.name);
+  const [anon, setAnon] = useState(false);
+  // Kept apart from the saved identity so a remembered job title can't give someone away.
+  const [anonContext, setAnonContext] = useState("");
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const mountedAt = useRef(0);
@@ -203,9 +220,9 @@ function Composer({
     setError(null);
     const text = body.trim();
     if (text.length < 2) return setError("Please write a little more.");
-    if (!name.trim()) {
+    if (!anon && !name.trim()) {
       setEditing(true);
-      return setError("Please add your name.");
+      return setError("Please add your name — or post anonymously.");
     }
     const hp = (e.currentTarget.elements.namedItem("website") as HTMLInputElement | null)?.value ?? "";
 
@@ -218,8 +235,9 @@ function Composer({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: name.trim(),
-          context: context.trim(),
+          anonymous: anon,
+          name: anon ? "" : name.trim(),
+          context: (anon ? anonContext : context).trim(),
           body: text,
           parentId: parentId ?? null,
           website: hp,
@@ -228,8 +246,10 @@ function Composer({
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.ok || !data.comment) throw new Error(data.error || "Couldn't post right now. Please try again.");
-      onIdentity({ name: name.trim(), context: context.trim() });
-      setEditing(false);
+      if (!anon) {
+        onIdentity({ name: name.trim(), context: context.trim() });
+        setEditing(false);
+      }
       setBody("");
       onPosted(data.comment as Row);
     } catch (err) {
@@ -249,7 +269,7 @@ function Composer({
       </div>
 
       <div className="flex gap-3">
-        <Avatar name={name} small={isReply} />
+        <Avatar name={anon ? ANONYMOUS : name} small={isReply} />
         <div className="min-w-0 flex-1">
           <textarea
             ref={textarea}
@@ -264,7 +284,22 @@ function Composer({
             className={`${field} resize-y`}
           />
 
-          {editing ? (
+          {anon ? (
+            <div className="mt-3 grid gap-3 sm:grid-cols-2">
+              <input
+                value={anonContext}
+                onChange={(e) => setAnonContext(e.target.value)}
+                maxLength={80}
+                placeholder="What you do (optional)"
+                aria-label="What you do (optional)"
+                className={field}
+              />
+              <p className="self-center text-sm text-black/55">
+                Posting as <span className="font-semibold text-[#1F2328]">{ANONYMOUS}</span>. Your name isn&apos;t
+                shown or stored.
+              </p>
+            </div>
+          ) : editing ? (
             <div className="mt-3 grid gap-3 sm:grid-cols-2">
               <input
                 value={name}
@@ -293,6 +328,15 @@ function Composer({
               </button>
             </p>
           )}
+
+          <label className="mt-3 inline-flex cursor-pointer select-none items-center gap-2.5 text-sm font-medium text-[#1F2328]/75">
+            <input type="checkbox" checked={anon} onChange={(e) => setAnon(e.target.checked)} className="peer sr-only" />
+            <span
+              aria-hidden="true"
+              className="relative h-5 w-9 rounded-full bg-black/15 transition-colors after:absolute after:left-0.5 after:top-0.5 after:h-4 after:w-4 after:rounded-full after:bg-white after:shadow-sm after:transition-transform peer-checked:bg-[#1F2328] peer-checked:after:translate-x-4 peer-focus-visible:ring-4 peer-focus-visible:ring-[#1BA3D6]/30"
+            />
+            Post anonymously
+          </label>
 
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <button
