@@ -9,6 +9,11 @@ alter table public.dg_comments
 
 create index if not exists dg_comments_parent_idx on public.dg_comments (parent_id);
 
+-- Allow longer comments (was 2,000 characters)
+alter table public.dg_comments drop constraint if exists dg_comments_body_check;
+alter table public.dg_comments
+  add constraint dg_comments_body_check check (char_length(body) between 2 and 5000);
+
 -- 2. One like per visitor per comment (visitor = anonymous id stored in a cookie)
 create table if not exists public.dg_likes (
   comment_id uuid not null references public.dg_comments(id) on delete cascade,
