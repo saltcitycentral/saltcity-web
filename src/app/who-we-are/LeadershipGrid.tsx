@@ -98,28 +98,6 @@ export default function LeadershipGrid() {
         focusY: -1,
       },
       {
-        key: "mercy",
-        name: "Pastor Mercy Chuks",
-        title: "Pastor, Media",
-        image: "/images/PM.jpg",
-        button: "About",
-        modalTitle: "Pastor Mercy Chuks",
-        modalBody:
-          "Pastor Mercy Chuks oversees the use of media to support worship, service delivery, and ministry expression both on ground and across digital platforms. Her work helps ensure that the message and ministry of the church are communicated clearly and effectively.",
-        focusY: 14,
-      },
-      {
-        key: "axcel",
-        name: "Pastor Axcel Chuks",
-        title: "Pastor, LifeCity",
-        image: "/images/PA.jpg",
-        button: "About",
-        modalTitle: "Pastor Axcel Chuks",
-        modalBody:
-          "Pastor Axcel Chuks serves as the Pastor over the youth expression of SaltCity Church. He is committed to reaching and discipling energetic young people with the gospel, helping them channel their strength toward God and the work of ministry.",
-        focusY: 15,
-      },
-      {
         key: "sam",
         name: "Pastor Sam Igurube",
         title: "Pastor, Church Administration",
