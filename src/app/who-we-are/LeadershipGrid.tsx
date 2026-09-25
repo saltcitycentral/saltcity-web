@@ -97,50 +97,6 @@ export default function LeadershipGrid() {
           "Pastor Victor Samuel serves as the Pastor over the teenage ministry of SaltCity Church. He is committed to centering teenagers in Christ and helping them recognize their identity in Him early.",
         focusY: -1,
       },
-      {
-        key: "sam",
-        name: "Pastor Sam Igurube",
-        title: "Pastor, Church Administration",
-        image: "/images/PSI.jpg",
-        button: "About",
-        modalTitle: "Pastor Sam Igurube",
-        modalBody:
-          "Pastor Sam Igurube serves as the Pastor overseeing the operations of the Church and manages the facility. His service supports the structural foundations that enable ministry to function smoothly.",
-        focusY: 2,
-      },
-      {
-        key: "stephanie",
-        name: "Pastor Stephanie Innocent",
-        title: "Fruitful Bough Coordinator",
-        image: "/images/PIS.jpg",
-        button: "About",
-        modalTitle: "Pastor Stephanie Innocent",
-        modalBody:
-          "PIT Stephanie prayerfully walks them through the journey of fruitfulness from conception to deliver for pregnant women and women believing GOD for children.",
-        focusY: 14,
-      },
-      {
-        key: "brave",
-        name: "Pastor Providence Brave Iyomih",
-        title: "Pastor, LifeCity",
-        image: "/images/PB.jpg",
-        button: "About",
-        modalTitle: "Pastor Providence Brave Iyomih",
-        modalBody:
-          "Pastor Brave Iyomih serves as a Pastor at LifeCity. He contributes to the ministry through his expression of worship and exhortation, strengthening the spiritual life of the church.",
-        focusY: 12,
-      },
-      {
-        key: "immanuel",
-        name: "Pastor Immanuel Oluwanifise",
-        title: "Pastor, Cityzens Church, FUPRE",
-        image: "/images/PI.jpg",
-        button: "About",
-        modalTitle: "Pastor Immanuel Oluwanifise",
-        modalBody:
-          "PIT Immanuel is the Pastor for the Cityzens expression in FUPRE, practically showing young undergraduates how to have CHRIST as their focus and EXAMPLE.",
-        focusY: 12,
-      },
     ],
     []
   );
