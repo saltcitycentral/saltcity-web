@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import Container from "@/components/ui/Container";
 import Link from "next/link";
 import { Calendar, Clock, ArrowLeft, Share2, Facebook, Twitter } from "lucide-react";
+import Conversation from "@/components/comments/Conversation";
 
 // This would normally come from a database or CMS
 const BLOG_POSTS = {
@@ -349,6 +350,18 @@ export default function BlogPostPage() {
               fontFamily: 'system-ui, -apple-system, sans-serif',
             }}
           />
+
+          {/* Comments */}
+          <Conversation
+            api="/api/blog/comments"
+            thread={postId}
+            title="Join the conversation"
+            intro="What did this stir in you? Share your thoughts with the SaltCity family."
+            placeholder="Share what this article stirred in you…"
+            emptyText="No comments yet — be the first to share."
+          />
+
+          <div className="mb-16" />
 
           {/* Author Bio */}
           <div className="bg-gradient-to-br from-black to-gray-900 rounded-3xl p-8 md:p-12 text-white mb-16">

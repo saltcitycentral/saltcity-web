@@ -8,7 +8,7 @@ import {
   readVoter,
   sbConfigured,
   sbHeaders,
-} from "@/lib/dearGovernor";
+} from "@/lib/comments";
 
 /** Toggle a like on a Dear Governor '26 comment for the current (anonymous) visitor. */
 type RouteContext = { params: Promise<{ id: string }> };
