@@ -7,6 +7,86 @@ import { Calendar, Clock, ArrowLeft, Share2, Facebook, Twitter } from "lucide-re
 
 // This would normally come from a database or CMS
 const BLOG_POSTS = {
+  "the-approval-of-jesus-of-nazareth": {
+    title: "The Approval of Jesus of Nazareth",
+    content: `
+      <p class="scripture-ref">Acts 2:22</p>
+      <blockquote>“Ye men of Israel, hear these words; Jesus of Nazareth, a man approved of GOD among you by miracles and wonders and signs, which God did by him in the midst of you, as ye yourselves also know:”</blockquote>
+
+      <p class="lead">In defense of what the world was witnessing when the Spirit was first poured forth on us in the Upper Room, the Apostle Peter demonstrated what he would instruct us to do in 1 Peter 3:15:</p>
+
+      <blockquote>15 "but sanctify Christ as Lord in your hearts, always being ready to make a defense to everyone who asks you to give an account for the hope that is in you, yet with gentleness and reverence;"</blockquote>
+
+      <p>The onlooking Jews asked the disciples what the meaning was of the manifestation of the Spirit they were witnessing, and Peter was ready to make a defense, being filled with the Spirit, by quoting the Old Testament.</p>
+
+      <p>Defend as in a law court proving beyond doubt that your client is whoever they are saying they are. Peter calls the Jews who crucified the Lord Jesus authoritatively to listen to his defense and be the first people to hear the gospel of the Christ they killed. Where does he get this confidence from? The Holy Spirit!</p>
+
+      <p>Note the name Peter used here: not Son of GOD, but Jesus of Nazareth, which is a derogatory term the Jews used to mock the Lord, confirming among themselves that nothing good comes out of Nazareth (Jn 1:46). Therefore, he was definitely not a prophet, not to mention the Prophet they had been waiting for.</p>
+
+      <p>Remember in John 19:19: “Pilate also wrote an inscription and put it on the cross. It was written, ‘JESUS THE NAZARENE, THE KING OF THE JEWS.’” Undoubtedly, some in Peter's audience had witnessed the crucifixion of Jesus and would have seen this Name on the sign over His head.</p>
+
+      <p>So Peter sarcastically opened his remarks with this Name of Jesus, almost as though he was telling them that now the joke was on them. It is with this intentionality that you should note that every time Peter mentions Jesus in the rest of Acts, he calls Him Jesus of Nazareth (Acts 3:6, Acts 4:10, Acts 10:38). In the next two uses by Peter (Acts 3:6, 4:10), he adds the name "Christ," which would be the equivalent of Messiah.</p>
+
+      <p>Further into the book of Acts, you will see the Lord Jesus identifying Himself with this former derogatory title when He introduced Himself to Saul of Tarsus on the road to Damascus:</p>
+
+      <p class="scripture-ref">Acts 22:8</p>
+      <blockquote>“And I answered, Who art thou, Lord? And he said unto me, I am Jesus of Nazareth, whom thou persecutest.”</blockquote>
+
+      <p>The name Jesus of Nazareth now echoes the gracious humility of our Saviour in leaving the glory of heaven to live in a humble Galilean village. And even after being exalted to the right hand of God, Jesus continued to describe Himself by this Name to Saul (Acts 22:8)!</p>
+
+      <p>This means you do not need to invest all that time trying to correct the derogatory names your naysayers are calling you. Your Lord Jesus brandished Himself and His ministry with the mockery of the Jews. In Acts 24:5, the followers of Jesus were called "the sect of the Nazarenes," among whom Paul was the "ringleader."</p>
+
+      <p>Additionally, Peter describes the Saviour as a man—not a god, but a man who was approved by GOD. The NLT says, "GOD publicly endorsed Jesus the Nazarene." The NIV has, "Jesus of Nazareth was a man accredited by God to you." The idea is that the Father exhibited Jesus of Nazareth or "put Him on display," like He later did with the Apostles:</p>
+
+      <p class="scripture-ref">1 Corinthians 4:9 (NASB95)</p>
+      <blockquote>9 "For, I think, God has exhibited us apostles last of all, as men condemned to death; because we have become a spectacle to the world, both to angels and to men."</blockquote>
+
+      <p>Read this in the AMPC, and you will be truly inspired to know this is what GOD wants to do with your life:</p>
+
+      <blockquote>9 "For it seems to me that God has made an exhibit of us apostles, exposing us to view last [of all, like men in a triumphal procession who are] sentenced to death [and displayed at the end of the line]. For we have become a spectacle to the world [a show in the world’s amphitheater] with both men and angels [as spectators]."</blockquote>
+
+      <p class="shout">GOD WANTS TO MAKE YOU A SPECTACLE!</p>
+
+      <p>The Greek word for "approved" in our text, Acts 2:22, conveys the idea of offering proof; so Jesus of Nazareth was a Man proven by God to be Who He claimed to be. Jesus wrought His miracles by the power of God in the midst of these very people present!</p>
+
+      <p>The word is ‘apodeiknumi’, which means to cause something to be known as genuine, to cause it to become displayed in a manner accessible to or observable by the public. In a nutshell, Peter was saying Jesus' miracles displayed Him or proved Him to be truly GOD.</p>
+
+      <p>This approval was done by GOD for men to see by miracles and wonders and signs. Miracles are the supernatural manifestation of GOD’s power through Jesus meeting the needs of men. Everywhere the Lord Jesus went, He worked works of power—which is what miracles are—to liberate the people on His path. And these miracles He did were the outworking of the Holy Spirit in Him; Luke 4:14 says that "Jesus returned to Galilee in the power of the Spirit…"</p>
+
+      <p>And it is important that I tell you that without works of power, we cannot do real good as Apostles of Christ on this earth. Peter gives a summary explanation of the miracles of Jesus, declaring: "You know of Jesus of Nazareth, how GOD anointed Him with the Holy Spirit and with power, and how He went about doing good and healing all who were oppressed by the devil, for GOD was with Him." Works of power are proofs that GOD is with us.</p>
+
+      <p>As we see explicitly, the Lordship of Jesus Christ was authenticated by miracles, and then wonders, which are works of power that cause those who witness them to marvel because what they see cannot be readily explained. It refers to “something strange,” a phenomenon which compels one's attention and causes one to "look again." These wonders that Jesus worked were mostly accompanied by signs, which are works of power that functioned like a "divine finger" pointing to Jesus as One with divine authority. For example, John records: “This (Jesus' miracle of creating wine out of water) was the beginning of His signs Jesus did in Cana of Galilee, and manifested His glory, and His disciples believed in Him” (John 2:11).</p>
+
+      <p>Signs are mighty manifestations of the power of GOD to get the attention of the people to point them to spiritual truth. Nicodemus exclaimed, "Rabbi, we know that You have come from GOD as a teacher; for no one can do these signs that You do unless GOD is with him" (John 3:2). He knew by the signs. There are those—authorities in the church, which Nicodemus represents—who will not acknowledge our calling and work without real signs.</p>
+
+      <p>John 6:2 says, "a great multitude was following Him, because they were seeing the signs which He was performing on those who were sick." These signs were followed by the sign of feeding the multitude. John writes: "Therefore when the people saw the sign which He had performed, they said, ‘This is truly the Prophet who is to come into the world’" (Jn 6:14). He then used this supernatural manifestation of power to direct their attention to spiritual truth and teach them that He was the Bread of Life (Jn 6:35, 48).</p>
+
+      <p>Similarly, Jesus performed the miracle of Lazarus's resurrection as a sign (cf. Jn 12:17, 18), which Jesus applied to Himself, teaching: “I am the resurrection and the life; he who believes in Me will live even if he dies” (John 11:25).</p>
+
+      <p>In a nutshell, the word miracles identifies the supernatural element of Jesus’ works; wonders describes the effect of the miracle on the witnesses; and signs indicates the purpose of the miracle.</p>
+
+      <p>The miracles, wonders, and signs that Jesus did, witnessed by many eyewitnesses, including His enemies (John 11:47), authenticate Him as Lord and Christ. And Peter said GOD did these in the midst of the Jews, Jesus’ naysayers, so that they themselves would know that He is the Messiah. Many times when we are among people who do not believe in us, or people who are openly vocal about their opposition to our ministry, we think the right thing to do is migrate to a place where everyone believes in us. But that is not what our prototype did; among those same skeptics, He worked many miracles, wonders, and signs, and they knew Him.</p>
+
+      <p>This knowledge is one that erases every shadow of doubt (they had no excuses!). In essence, these Jews were fully aware of the supernatural phenomena because they occurred in their midst, and they knew it! They could not claim ignorance or claim they had not seen the miracles and wonders and signs! This is a clear indictment of Peter's Jewish audience. It is significant that no one protested Peter’s statement, since many of those present had been eyewitnesses to Jesus’ miraculous works. They knew Him! And this is how GOD wants our world today to know us.</p>
+
+      <p>Finally, here in Acts 2:22, the Apostle Peter fulfills Jesus' words in Acts 1:8: "you shall be My witnesses both in Jerusalem." So Peter, empowered by the Spirit, witnessed by miracles, wonders, and signs first in Jerusalem. This means it is the way the Lord Jesus was approved by GOD during His earthly ministry that we will continue to point the world to Him—by miracles, wonders, and signs—and first and beginning at home.</p>
+
+      <p>The Lord Jesus said in Acts 1:8 that it is with a demonstration of power that we can be witnesses (proof-producers) of His resurrection. So the resurrection is not proven with words, but with the showcasing of the same resurrection power.</p>
+
+      <p>Perhaps as you read this, you might be telling yourself you cannot manifest power like this—that that was the Apostle Peter, and you are you, nowhere near an Apostle whom the Lord Jesus Himself trained. Remember, he, like the Lord Jesus, did miracles, wonders, and signs by the Holy Spirit who was within them; and you, like me, have the very same Spirit. Therefore, we can do exactly what they did.</p>
+
+      <p>The approval of our Lord Jesus in this generation is entirely dependent on the miracles, wonders, and signs that we work!</p>
+
+      <p>GOD bless you!</p>
+
+      <p><em>— Tobore David</em></p>
+    `,
+    author: "Tobore David",
+    date: "2026-10-20",
+    readTime: "11 min read",
+    category: "Holy Spirit & Power",
+    image: "/images/blog/approval.jpg",
+  },
   "the-art-of-expectation": {
     title: "The Art of Expectation",
     content: `
@@ -78,7 +158,7 @@ const BLOG_POSTS = {
     date: "2026-02-18",
     readTime: "12 min read",
     category: "Faith & Expectation",
-    image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&auto=format&fit=crop",
+    image: "/images/blog/_FAS9143.jpg",
   },
   "should-gospel-music-be-sold": {
     title: "Should Gospel Music Be Sold?",
@@ -168,7 +248,7 @@ const BLOG_POSTS = {
     date: "2026-02-18",
     readTime: "15 min read",
     category: "Music & Ministry",
-    image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&auto=format&fit=crop",
+    image: "/images/blog/_FAS8258.jpg",
   }
 };
 
@@ -277,13 +357,10 @@ export default function BlogPostPage() {
                 {post.author.charAt(0)}
               </div>
               <div>
-                <h3 className="text-2xl font-black mb-2">About {post.author.includes('&') ? 'the Authors' : post.author}</h3>
+                <h3 className="text-2xl font-black mb-2">About {post.author}</h3>
                 <p className="text-white/80 leading-relaxed">
-                  {post.author.includes('&') 
-                    ? 'Tobore David is the Senior Pastor of SaltCity church, sharing insights on faith, expectation, and practical Christian living.'
-                    : post.author === 'Tobore David'
-                    ? 'Tobore David is a writer and thinker who explores the intersection of faith, culture, and practical Christian living with depth and authenticity.'
-                    : 'Karis Mmaju is a contributor to SaltCity, sharing insights on faith and expectation.'}
+                  Tobore David is the Lead Pastor of SaltCity Church, Warri, sharing teaching on
+                  faith, the Spirit, and practical Christian living.
                 </p>
               </div>
             </div>
@@ -358,6 +435,21 @@ export default function BlogPostPage() {
           font-style: italic;
           font-size: 1.25rem;
           color: rgba(0, 0, 0, 0.7);
+        }
+        .prose .scripture-ref {
+          font-weight: 800;
+          color: #000;
+          margin-bottom: 0.5em;
+        }
+        .prose .scripture-ref + blockquote {
+          margin-top: 0;
+        }
+        .prose .shout {
+          font-size: 1.4rem;
+          font-weight: 900;
+          color: #000;
+          margin: 2em 0;
+          line-height: 1.3;
         }
         .prose .lead {
           font-size: 1.25rem;
