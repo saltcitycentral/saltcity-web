@@ -47,7 +47,7 @@ const BLOG_POSTS: BlogPost[] = [
     date: "2026-02-18",
     readTime: "15 min read",
     category: "Music & Ministry",
-    image: "/images/blog/_FAS8258.jpg",
+    image: "/images/blog/gospel-music-be-sold.jpeg",
   },
 ];
 
