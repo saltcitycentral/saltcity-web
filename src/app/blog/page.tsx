@@ -19,6 +19,17 @@ type BlogPost = {
 
 const BLOG_POSTS: BlogPost[] = [
   {
+    id: "the-approval-of-jesus-of-nazareth",
+    title: "The Approval of Jesus of Nazareth",
+    excerpt: "Peter stood before the very people who crucified Jesus and called Him by the name they used to mock Him. A study of Acts 2:22 on how God publicly endorsed His Son — and how He still approves His church today by miracles, wonders and signs.",
+    author: "Tobore David",
+    date: "2026-10-20",
+    readTime: "11 min read",
+    category: "Holy Spirit & Power",
+    image: "/images/blog/approval.jpg",
+    featured: true,
+  },
+  {
     id: "the-art-of-expectation",
     title: "The Art of Expectation",
     excerpt: "Discover how biblical expectation shapes your faith journey and positions you to receive from God. A deep dive into the Greek words for expectation and what they mean for your daily walk.",
@@ -26,8 +37,7 @@ const BLOG_POSTS: BlogPost[] = [
     date: "2026-02-18",
     readTime: "12 min read",
     category: "Faith & Expectation",
-    image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&auto=format&fit=crop",
-    featured: true,
+    image: "/images/blog/_FAS9143.jpg",
   },
   {
     id: "should-gospel-music-be-sold",
@@ -37,80 +47,13 @@ const BLOG_POSTS: BlogPost[] = [
     date: "2026-02-18",
     readTime: "15 min read",
     category: "Music & Ministry",
-    image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop",
-  },
-  {
-    id: "living-above-fear",
-    title: "Living Above Fear: Walking Boldly in Christ",
-    excerpt: "Pastor Tobore teaches how to silence fear, stand firm in faith, and live with spiritual confidence in uncertain times.",
-    author: "Pastor Tobore",
-    date: "2026-02-07",
-    readTime: "9 min read",
-    category: "Faith & Courage",
-    image: "https://images.unsplash.com/photo-1507692049790-de58290a4334?w=800&auto=format&fit=crop",
-  },
-  {
-    id: "grace-that-sustains",
-    title: "Grace That Sustains: Strength for the Hidden Battles",
-    excerpt: "Pastor Edison shares how God's grace carries believers through seasons no one else sees.",
-    author: "Pastor Edison",
-    date: "2026-02-05",
-    readTime: "7 min read",
-    category: "Spiritual Growth",
-    image: "https://images.unsplash.com/photo-1478146896981-b80fe463b330?w=800&auto=format&fit=crop",
-  },
-  {
-    id: "when-god-says-move",
-    title: "When God Says Move: Obedience and Divine Timing",
-    excerpt: "Pastor Seun explores the power of immediate obedience and how destiny often waits on one decisive step.",
-    author: "Pastor Seun",
-    date: "2026-02-03",
-    readTime: "8 min read",
-    category: "Purpose",
-    image: "https://images.unsplash.com/photo-1492724441997-5dc865305da7?w=800&auto=format&fit=crop",
-  },
-  {
-    id: "identity-in-christ",
-    title: "Identity in Christ: Breaking Free from Labels",
-    excerpt: "Pastor Karis teaches how to reject false identities and embrace who God says you are.",
-    author: "Pastor Karis",
-    date: "2026-02-01",
-    readTime: "6 min read",
-    category: "Identity",
-    image: "https://images.unsplash.com/photo-1485217988980-11786ced9454?w=800&auto=format&fit=crop",
-  },
-  {
-    id: "fire-of-revival",
-    title: "The Fire of Revival: Stirring Hunger for God Again",
-    excerpt: "Pastor Racheal calls the church back to passionate devotion and a fresh encounter with the Holy Spirit.",
-    author: "Pastor Racheal",
-    date: "2026-01-29",
-    readTime: "10 min read",
-    category: "Revival",
-    image: "https://images.unsplash.com/photo-1507692049790-de58290a4334?w=800&auto=format&fit=crop",
-  },
-  {
-    id: "serving-with-excellence",
-    title: "Serving with Excellence: Faithfulness in Small Things",
-    excerpt: "Pastor Tobore reminds believers that greatness in ministry begins with consistency in the unseen places.",
-    author: "Pastor Tobore",
-    date: "2026-01-27",
-    readTime: "5 min read",
-    category: "Leadership",
-    image: "https://images.unsplash.com/photo-1478146896981-b80fe463b330?w=800&auto=format&fit=crop",
+    image: "/images/blog/_FAS8258.jpg",
   },
 ];
 
 const CATEGORIES = [
   "All Posts",
-  "Faith & Expectation",
-  "Music & Ministry",
-  "Faith & Courage",
-  "Spiritual Growth",
-  "Purpose",
-  "Identity",
-  "Revival",
-  "Leadership",
+  ...Array.from(new Set(BLOG_POSTS.map((p) => p.category))),
 ];
 
 export default function BlogPage() {
@@ -335,30 +278,31 @@ export default function BlogPage() {
         </Container>
       </section>
 
-      {/* Newsletter CTA */}
+      {/* CTA */}
       <section className="py-20 bg-black text-white">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-4xl md:text-5xl font-black mb-6">
-              Never Miss an Update
+              Come and Worship With Us
             </h2>
             <p className="text-lg text-white/80 mb-8">
-              Get fresh insights and teachings delivered straight to your inbox weekly.
+              Join us on Sunday, or take your next step with the SaltCity family this week.
             </p>
-            
-            <form className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-6 py-4 rounded-full bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-white/30"
-              />
-              <button
-                type="submit"
-                className="px-8 py-4 rounded-full bg-white text-black font-bold hover:bg-white/90 transition-all duration-300 hover:scale-105"
+
+            <div className="flex flex-wrap gap-4 justify-center">
+              <Link
+                href="/locations"
+                className="px-8 py-4 rounded-full bg-white text-black font-bold hover:bg-white/90 transition"
               >
-                Subscribe
-              </button>
-            </form>
+                Find a Location
+              </Link>
+              <Link
+                href="/next-steps"
+                className="px-8 py-4 rounded-full border-2 border-white/25 text-white font-bold hover:border-white/50 transition"
+              >
+                Take a Next Step
+              </Link>
+            </div>
           </div>
         </Container>
       </section>
