@@ -16,8 +16,27 @@ type Identity = { name: string; context: string };
 type Sort = "top" | "new";
 type ReplyTarget = { threadId: string; commentId: string; name: string };
 
-const API = "/api/dear-governor/comments";
-const IDENTITY_KEY = "dg_identity";
+/**
+ * Public conversation: comments, one level of replies, likes and share links.
+ * Used by the Dear Governor town hall and by blog articles.
+ */
+export type ConversationProps = {
+  /** Comments endpoint, e.g. "/api/blog/comments". Likes post to `${api}/<id>/like`. */
+  api: string;
+  /** Which conversation this is, when one endpoint serves many (a blog post id). */
+  thread?: string;
+  /** Optional section title + standfirst, hidden along with the rest when comments aren't set up. */
+  title?: string;
+  intro?: string;
+  heading?: string;
+  placeholder?: string;
+  emptyText?: string;
+  /** Shown under the composer. */
+  note?: string;
+};
+
+const IDENTITY_KEY = "sc_identity";
+const LEGACY_IDENTITY_KEY = "dg_identity";
 const MAX = 5000;
 const ANONYMOUS = "Anonymous";
 const REPLY_PREVIEW = 2;
@@ -81,7 +100,7 @@ function sortThreads(list: Thread[], sort: Sort) {
 
 function readIdentity(): Identity | null {
   try {
-    const raw = localStorage.getItem(IDENTITY_KEY);
+    const raw = localStorage.getItem(IDENTITY_KEY) ?? localStorage.getItem(LEGACY_IDENTITY_KEY);
     if (!raw) return null;
     const p = JSON.parse(raw);
     return p?.name ? { name: String(p.name), context: String(p.context ?? "") } : null;
@@ -175,6 +194,10 @@ function Body({ text }: { text: string }) {
 }
 
 function Composer({
+  api,
+  thread,
+  placeholder,
+  note,
   parentId,
   replyTo,
   prefill = "",
@@ -184,6 +207,10 @@ function Composer({
   onCancel,
   autoFocus,
 }: {
+  api: string;
+  thread?: string;
+  placeholder: string;
+  note: string;
   parentId?: string;
   replyTo?: string;
   prefill?: string;
@@ -231,10 +258,11 @@ function Composer({
     if (wait > 0) await new Promise((r) => setTimeout(r, wait));
 
     try {
-      const res = await fetch(API, {
+      const res = await fetch(api, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          thread,
           anonymous: anon,
           name: anon ? "" : name.trim(),
           context: (anon ? anonContext : context).trim(),
@@ -278,9 +306,7 @@ function Composer({
             maxLength={MAX}
             rows={isReply ? 3 : 4}
             aria-label={isReply ? `Reply to ${replyTo}` : "Your comment"}
-            placeholder={
-              isReply ? `Reply to ${replyTo}…` : "Why are the brilliant minds leaving Warri — and is there anything we can do about it?"
-            }
+            placeholder={isReply ? `Reply to ${replyTo}…` : placeholder}
             className={`${field} resize-y`}
           />
 
@@ -366,7 +392,7 @@ function Composer({
         </div>
       </div>
 
-      {!isReply && <p className="mt-4 text-xs text-black/45">Comments are public. Be respectful — abusive posts will be removed.</p>}
+      {!isReply && <p className="mt-4 text-xs text-black/45">{note}</p>}
     </form>
   );
 }
@@ -476,10 +502,20 @@ function Skeleton() {
 
 /* ─────────────────────────────── conversation */
 
-export default function Conversation() {
+export default function Conversation({
+  api,
+  thread,
+  title,
+  intro,
+  heading = "Comments",
+  placeholder = "Share your thoughts…",
+  emptyText = "No comments yet — be the first to share.",
+  note = "Comments are public. Be respectful — abusive posts will be removed.",
+}: ConversationProps) {
   const [rows, setRows] = useState<Row[] | null>(null);
   const [liked, setLiked] = useState<Set<string>>(new Set());
   const [features, setFeatures] = useState(false);
+  const [ready, setReady] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [sort, setSort] = useState<Sort>("top");
   const [order, setOrder] = useState<string[]>([]);
@@ -504,11 +540,19 @@ export default function Conversation() {
     pendingRef.current = pending;
   }, [liked, pending]);
 
+  const listUrl = thread ? `${api}?thread=${encodeURIComponent(thread)}` : api;
+
   const load = useCallback(async (initial = false) => {
     try {
-      const res = await fetch(API, { cache: "no-store" });
+      const res = await fetch(listUrl, { cache: "no-store" });
       const data = await res.json();
       if (!data.ok) throw new Error(data.error || "Couldn't load comments.");
+      // The database isn't set up yet — hide the section rather than show a broken one.
+      if (data.ready === false) {
+        setReady(false);
+        setRows([]);
+        return;
+      }
       const list = data.comments as Row[];
       setRows(list);
       setLiked(new Set(data.liked as string[]));
@@ -539,7 +583,7 @@ export default function Conversation() {
         setIdentityReady(true);
       }
     }
-  }, []);
+  }, [listUrl]);
 
   // First load, then refresh quietly while the tab is visible.
   useEffect(() => {
@@ -595,7 +639,8 @@ export default function Conversation() {
     return () => clearTimeout(t);
   }, [notice]);
 
-  const toggleLike = useCallback(async (id: string) => {
+  const toggleLike = useCallback(
+    async (id: string) => {
     if (pendingRef.current.has(id)) return;
     const wasLiked = likedRef.current.has(id);
 
@@ -618,7 +663,7 @@ export default function Conversation() {
     apply(!wasLiked);
     setPending((s) => new Set(s).add(id));
     try {
-      const res = await fetch(`${API}/${id}/like`, { method: "POST" });
+      const res = await fetch(`${api}/${id}/like`, { method: "POST" });
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.ok) throw new Error(data.error || "Couldn't save your like.");
       apply(Boolean(data.liked), Number(data.like_count));
@@ -626,13 +671,15 @@ export default function Conversation() {
       apply(wasLiked);
       setNotice(err instanceof Error ? err.message : "Couldn't save your like.");
     } finally {
-      setPending((s) => {
-        const next = new Set(s);
-        next.delete(id);
-        return next;
-      });
-    }
-  }, []);
+        setPending((s) => {
+          const next = new Set(s);
+          next.delete(id);
+          return next;
+        });
+      }
+    },
+    [api]
+  );
 
   const startReply = useCallback((row: Row) => {
     const threadId = row.parent_id ?? row.id;
@@ -657,14 +704,28 @@ export default function Conversation() {
       return next;
     });
 
+  if (!ready) return null;
+
   return (
     <div className="mt-10">
+      {title && <h2 className="text-3xl font-black leading-tight text-[#1F2328]">{title}</h2>}
+      {intro && <p className="mb-8 mt-2 text-black/60">{intro}</p>}
+
       {/* Remounts once saved name/context is read, so the form starts pre-filled. */}
-      <Composer key={identityReady ? "ready" : "init"} identity={identity} onIdentity={setIdentity} onPosted={handlePosted} />
+      <Composer
+        key={identityReady ? "ready" : "init"}
+        api={api}
+        thread={thread}
+        placeholder={placeholder}
+        note={note}
+        identity={identity}
+        onIdentity={setIdentity}
+        onPosted={handlePosted}
+      />
 
       <div className="mt-12 flex flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-3">
         <h3 className="text-sm font-bold uppercase tracking-[0.16em] text-black/55">
-          Voices
+          {heading}
           {rows && voiceCount > 0 && <span className="ml-2 font-semibold normal-case tracking-normal text-black/40">{voiceCount}</span>}
         </h3>
         {features && threads.length > 1 && (
@@ -691,14 +752,14 @@ export default function Conversation() {
       ) : loadError ? (
         <p className="py-10 text-center text-black/55">{loadError}</p>
       ) : threads.length === 0 ? (
-        <p className="py-10 text-center text-black/55">No voices yet — be the first to speak.</p>
+        <p className="py-10 text-center text-black/55">{emptyText}</p>
       ) : (
         <ul className="divide-y divide-black/10">
-          {threads.map((thread) => {
-            const isOpen = expanded.has(thread.id);
-            const extra = thread.replies.length - REPLY_PREVIEW;
-            const shown = isOpen || extra <= 0 ? thread.replies : thread.replies.slice(0, REPLY_PREVIEW);
-            const replyingHere = replyTarget?.threadId === thread.id;
+          {threads.map((item) => {
+            const isOpen = expanded.has(item.id);
+            const extra = item.replies.length - REPLY_PREVIEW;
+            const shown = isOpen || extra <= 0 ? item.replies : item.replies.slice(0, REPLY_PREVIEW);
+            const replyingHere = replyTarget?.threadId === item.id;
 
             const itemProps = (row: Row) => ({
               row,
@@ -711,10 +772,10 @@ export default function Conversation() {
             });
 
             return (
-              <li key={thread.id} className="py-6">
-                <CommentItem {...itemProps(thread)} />
+              <li key={item.id} className="py-6">
+                <CommentItem {...itemProps(item)} />
 
-                {(thread.replies.length > 0 || replyingHere) && (
+                {(item.replies.length > 0 || replyingHere) && (
                   <div className="ml-5 mt-4 border-l-2 border-black/[0.08] pl-4 sm:pl-5">
                     {shown.length > 0 && (
                       <ul className="space-y-5">
@@ -729,7 +790,7 @@ export default function Conversation() {
                     {extra > 0 && (
                       <button
                         type="button"
-                        onClick={() => toggleExpanded(thread.id)}
+                        onClick={() => toggleExpanded(item.id)}
                         aria-expanded={isOpen}
                         className="mt-4 text-sm font-semibold text-[#1BA3D6] hover:underline"
                       >
@@ -740,9 +801,13 @@ export default function Conversation() {
                     {replyingHere && replyTarget && (
                       <Composer
                         key={replyTarget.commentId}
-                        parentId={thread.id}
+                        api={api}
+                        thread={thread}
+                        placeholder={placeholder}
+                        note={note}
+                        parentId={item.id}
                         replyTo={replyTarget.name}
-                        prefill={replyTarget.commentId !== thread.id ? `@${replyTarget.name} ` : ""}
+                        prefill={replyTarget.commentId !== item.id ? `@${replyTarget.name} ` : ""}
                         identity={identity}
                         onIdentity={setIdentity}
                         onPosted={handlePosted}

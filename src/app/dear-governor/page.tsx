@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Container from "@/components/ui/Container";
-import Conversation from "./Conversation";
+import Conversation from "@/components/comments/Conversation";
 
 export const metadata: Metadata = {
   title: "Dear Governor '26 — City Builders",
@@ -75,7 +75,12 @@ export default function DearGovernorPage() {
               What is #DEARGOVERNOR? ↓
             </a>
 
-            <Conversation />
+            <Conversation
+              api="/api/dear-governor/comments"
+              heading="Voices"
+              placeholder="Why are the brilliant minds leaving Warri — and is there anything we can do about it?"
+              emptyText="No voices yet — be the first to speak."
+            />
           </div>
         </Container>
       </section>

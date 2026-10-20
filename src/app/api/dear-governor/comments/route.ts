@@ -11,7 +11,7 @@ import {
   sbConfigured,
   sbHeaders,
   toPublic,
-} from "@/lib/dearGovernor";
+} from "@/lib/comments";
 
 /**
  * Dear Governor '26 public conversation — list and post comments/replies.
