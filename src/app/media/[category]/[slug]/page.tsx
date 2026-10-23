@@ -5,9 +5,9 @@ import {
   type MediaItem,
 } from "../../mediaData";
 import { getMediaItems } from "../../seriesFromYoutube";
-import { YOUTUBE_REVALIDATE } from "@/lib/youtube";
 
-export const revalidate = YOUTUBE_REVALIDATE;
+// Refresh YouTube-backed series hourly (must be a literal for Next).
+export const revalidate = 3600;
 
 function isCategory(x: string): x is MediaCategory {
   return x in CATEGORY_META;

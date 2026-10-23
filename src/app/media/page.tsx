@@ -1,9 +1,9 @@
 import MediaRail from "@/app/media/MediaRail";
 import { CATEGORY_META, type MediaCategory } from "./mediaData";
 import { getMediaItems } from "./seriesFromYoutube";
-import { YOUTUBE_REVALIDATE } from "@/lib/youtube";
 
-export const revalidate = YOUTUBE_REVALIDATE;
+// Refresh YouTube-backed series hourly (must be a literal for Next).
+export const revalidate = 3600;
 
 type RailConfig = {
   cardWidth: number;
