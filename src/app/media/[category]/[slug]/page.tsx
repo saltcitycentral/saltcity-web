@@ -1,10 +1,13 @@
 import Link from "next/link";
 import {
   CATEGORY_META,
-  MEDIA_ITEMS,
   type MediaCategory,
   type MediaItem,
 } from "../../mediaData";
+import { getMediaItems } from "../../seriesFromYoutube";
+import { YOUTUBE_REVALIDATE } from "@/lib/youtube";
+
+export const revalidate = YOUTUBE_REVALIDATE;
 
 function isCategory(x: string): x is MediaCategory {
   return x in CATEGORY_META;
@@ -25,9 +28,8 @@ export default async function MediaDetailPage({
   }
 
   const meta = CATEGORY_META[category];
-  const item = MEDIA_ITEMS.find(
-    (x) => x.category === category && x.slug === slug
-  );
+  const allItems = await getMediaItems();
+  const item = allItems.find((x) => x.category === category && x.slug === slug);
 
   if (!item) {
     return notFoundUI();
@@ -36,9 +38,9 @@ export default async function MediaDetailPage({
   // Find the episode to play based on the ?play= slug
   const activeEpisode = item.episodes?.find((ep) => ep.slug === play);
 
-  const related = MEDIA_ITEMS.filter(
-    (x) => x.category === category && x.slug !== slug
-  ).slice(0, 6);
+  const related = allItems
+    .filter((x) => x.category === category && x.slug !== slug)
+    .slice(0, 6);
 
   return (
     <main className="pb-16">

@@ -1,5 +1,9 @@
 import MediaRail from "@/app/media/MediaRail";
-import { CATEGORY_META, MEDIA_ITEMS, type MediaCategory } from "./mediaData";
+import { CATEGORY_META, type MediaCategory } from "./mediaData";
+import { getMediaItems } from "./seriesFromYoutube";
+import { YOUTUBE_REVALIDATE } from "@/lib/youtube";
+
+export const revalidate = YOUTUBE_REVALIDATE;
 
 type RailConfig = {
   cardWidth: number;
@@ -29,14 +33,16 @@ const CATEGORY_ORDER: MediaCategory[] = [
   "school-of-marriage",
 ];
 
-export default function MediaPage() {
+export default async function MediaPage() {
+  const all = await getMediaItems();
+
   return (
     <main className="pb-16">
       {CATEGORY_ORDER.map((cat) => {
         const meta = CATEGORY_META[cat];
         const cfg = RAIL_CONFIG[cat];
 
-        const items = MEDIA_ITEMS.filter((x) => x.category === cat).map((x) => ({
+        const items = all.filter((x) => x.category === cat).map((x) => ({
           title: x.title,
           href: `/media/${x.category}/${x.slug}`,
           image: x.cardImage,

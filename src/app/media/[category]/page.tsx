@@ -1,5 +1,9 @@
 import Link from "next/link";
-import { CATEGORY_META, MEDIA_ITEMS, type MediaCategory } from "../mediaData";
+import { CATEGORY_META, type MediaCategory } from "../mediaData";
+import { getMediaItems } from "../seriesFromYoutube";
+import { YOUTUBE_REVALIDATE } from "@/lib/youtube";
+
+export const revalidate = YOUTUBE_REVALIDATE;
 
 function isCategory(x: string): x is MediaCategory {
   return x in CATEGORY_META;
@@ -22,7 +26,7 @@ export default async function MediaCategoryPage({
   }
 
   const meta = CATEGORY_META[category];
-  const items = MEDIA_ITEMS.filter((x) => x.category === category);
+  const items = (await getMediaItems()).filter((x) => x.category === category);
 
   const isDark = meta.theme === "dark";
 
