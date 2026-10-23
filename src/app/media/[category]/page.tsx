@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { CATEGORY_META, type MediaCategory } from "../mediaData";
 import { getMediaItems } from "../seriesFromYoutube";
-import { YOUTUBE_REVALIDATE } from "@/lib/youtube";
 
-export const revalidate = YOUTUBE_REVALIDATE;
+// Refresh YouTube-backed series hourly (must be a literal for Next).
+export const revalidate = 3600;
 
 function isCategory(x: string): x is MediaCategory {
   return x in CATEGORY_META;
