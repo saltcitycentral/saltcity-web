@@ -41,13 +41,14 @@ const DAYS = [
   { day: "Thu", date: "10" },
   { day: "Fri", date: "11" },
   { day: "Sat", date: "12", note: "School of Ministry" },
-  { day: "Sun", date: "13" },
+  { day: "Sun", date: "13", note: "Thanksgiving" },
 ];
 
 const SESSIONS = [
-  { time: "9:00 AM", title: "Mornings", body: "Teaching, Tuesday through Sunday." },
+  { time: "9:00 AM", title: "Mornings", body: "Teaching, each morning." },
   { time: "4:30 PM", title: "Evenings", body: "Worship, then the evening session." },
-  { time: "Sat 9:00 AM", title: "School of Ministry", body: "For members who serve in the house." },
+  { time: "Saturday", title: "School of Ministry", body: "9:00 AM, for members who serve in the house." },
+  { time: "Sunday", title: "Thanksgiving", body: "The week closes with thanksgiving for the year." },
 ];
 
 export default function FaithConventionPage() {
@@ -116,13 +117,14 @@ export default function FaithConventionPage() {
           <div className="grid gap-14 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
             <div>
               <h2 className="text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl">
-                Six days.
+                Six days
                 <br />
-                Mornings and evenings.
+                in December.
               </h2>
               <p className="mt-6 max-w-[30rem] text-lg leading-relaxed text-white/70">
-                The School of Ministry sits inside the week, on Saturday morning. It is the
-                biggest programme in our year.
+                The Faith Convention is the biggest programme in our year. Teaching morning and
+                evening from Tuesday, the School of Ministry on Saturday, and thanksgiving on
+                Sunday to close it.
               </p>
 
               <div className="mt-10 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-white/15 bg-white/15 sm:grid-cols-6">
@@ -134,9 +136,7 @@ export default function FaithConventionPage() {
                     <div className="mt-1.5 text-2xl font-black tabular-nums">{d.date}</div>
                     {d.note && (
                       <div className="mt-2 text-[9px] font-bold uppercase leading-tight tracking-wider text-[#F7B92F]">
-                        School of
-                        <br />
-                        Ministry
+                        {d.note}
                       </div>
                     )}
                   </div>
@@ -178,22 +178,17 @@ export default function FaithConventionPage() {
 
               <div className="mt-7 space-y-5 text-lg leading-relaxed text-white/75">
                 <p>
-                  Once a year the family gathers for six days under biblical teaching. SaltCity
-                  calls it a sharing meeting, because believers come to receive specific
-                  instructions and carry them home.
+                  Israel kept three feasts in the year, and the third, the ingathering, came at
+                  the end of it. The whole house went up together, brought in what the year had
+                  produced and gave thanks over it. December is that feast for us.
                 </p>
                 <p>
-                  Those instructions are meant to be practised, so they outlast the week. Members
-                  keep a Faithlist, the things they are trusting GOD for, and come back to it long
-                  after December. Last year the teaching was INFLUENCE. This year it is MULTIPLY.
+                  SaltCity&apos;s own name for the week carries the rest: a Prophetic Family
+                  Inheritance sharing meeting. An inheritance is what already belongs to the
+                  house, so the six days are given to sharing it out among the family, under
+                  teaching, with instructions to carry home.
                 </p>
-                <p>It is what the church says about itself:</p>
               </div>
-
-              <blockquote className="mt-9 border-l-2 border-[#F7B92F] pl-6 text-lg italic leading-relaxed text-white/85">
-                We teach believers how to live victoriously by practicing the Written Word of GOD
-                and living everyday with JESUS as our EXAMPLE.
-              </blockquote>
 
               <div className="mt-10 border-t border-white/10 pt-8">
                 <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-white/50">
