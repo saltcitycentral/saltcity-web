@@ -178,21 +178,21 @@ export default function FaithConventionPage() {
 
               <div className="mt-7 space-y-5 text-lg leading-relaxed text-white/75">
                 <p>
-                  SaltCity calls it a sharing meeting: the annual gathering of the family, where
-                  believers sit under biblical teaching and receive specific instructions.
+                  Once a year the family gathers for six days under biblical teaching. SaltCity
+                  calls it a sharing meeting, because believers come to receive specific
+                  instructions and carry them home.
                 </p>
                 <p>
-                  Members keep a Faithlist, the things they are trusting GOD for, and come back to
-                  it long after December. Last year the theme was INFLUENCE.
+                  Those instructions are meant to be practised, so they outlast the week. Members
+                  keep a Faithlist, the things they are trusting GOD for, and come back to it long
+                  after December. Last year the teaching was INFLUENCE. This year it is MULTIPLY.
                 </p>
+                <p>It is what the church says about itself:</p>
               </div>
 
               <blockquote className="mt-9 border-l-2 border-[#F7B92F] pl-6 text-lg italic leading-relaxed text-white/85">
                 We teach believers how to live victoriously by practicing the Written Word of GOD
                 and living everyday with JESUS as our EXAMPLE.
-                <span className="mt-3 block text-sm font-bold uppercase not-italic tracking-[0.18em] text-white/45">
-                  SaltCity Church
-                </span>
               </blockquote>
 
               <div className="mt-10 border-t border-white/10 pt-8">
