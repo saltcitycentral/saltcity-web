@@ -24,6 +24,9 @@ const nextConfig: NextConfig = {
       { source: "/company", destination: "/next-steps" },
       { source: "/serve", destination: "/next-steps" },
       { source: "/prayer", destination: "/next-steps" },
+      // The Faith Convention 2026
+      { source: "/tfc", destination: "/the-faith-convention" },
+      { source: "/multiply", destination: "/the-faith-convention" },
     ];
   },
 };

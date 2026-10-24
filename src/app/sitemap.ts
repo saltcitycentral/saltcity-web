@@ -16,6 +16,7 @@ const ROUTES: { path: string; priority: number; changeFrequency: MetadataRoute.S
   { path: "/contact", priority: 0.7, changeFrequency: "yearly" },
   { path: "/media", priority: 0.7, changeFrequency: "weekly" },
   { path: "/blog", priority: 0.7, changeFrequency: "weekly" },
+  { path: "/the-faith-convention", priority: 0.9, changeFrequency: "weekly" },
   { path: "/songs", priority: 0.6, changeFrequency: "monthly" },
   { path: "/worship", priority: 0.6, changeFrequency: "monthly" },
   { path: "/worship/albums", priority: 0.5, changeFrequency: "monthly" },
