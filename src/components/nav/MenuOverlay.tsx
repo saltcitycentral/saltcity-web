@@ -25,6 +25,11 @@ type Expression = {
 
 const TOP_ITEMS: NavItem[] = [
   {
+    title: "The Faith Convention",
+    desc: "MULTIPLY — 8–13 December, Warri.",
+    href: "/the-faith-convention",
+  },
+  {
     title: "The Spirit of Faith",
     desc: "A Holy Ghost Meeting — Conference, June 26–28.",
     href: "/events/spirit-of-faith",

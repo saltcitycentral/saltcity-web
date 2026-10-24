@@ -99,3 +99,58 @@ body {
 }
 
 
+
+/* ─── The Faith Convention 2026 — MULTIPLY ────────────────────────────────
+   The flyer's artwork is concentric rings radiating from a dark centre out
+   through red, orange and amber. Rebuilt here in CSS so the page carries the
+   same motif without shipping a background image. */
+.tfc-field {
+  background-color: #2b0705;
+  background-image:
+    repeating-radial-gradient(
+      circle at var(--tfc-x, 50%) var(--tfc-y, 38%),
+      rgba(0, 0, 0, 0.34) 0 7px,
+      rgba(0, 0, 0, 0) 7px 17px
+    ),
+    repeating-radial-gradient(
+      circle at var(--tfc-x, 50%) var(--tfc-y, 38%),
+      rgba(255, 196, 92, 0.1) 0 2px,
+      rgba(255, 255, 255, 0) 2px 17px
+    ),
+    radial-gradient(
+      circle at var(--tfc-x, 50%) var(--tfc-y, 38%),
+      #3d0907 0%,
+      #7c1108 20%,
+      #c81d0d 42%,
+      #e8540f 62%,
+      #f28b18 78%,
+      #f7b92f 92%,
+      #f8cf4c 100%
+    );
+}
+
+/* The rings breathe, slowly — closer to a ripple than an animation. */
+.tfc-breathe {
+  animation: tfc-breathe 14s ease-in-out infinite;
+}
+
+@keyframes tfc-breathe {
+  0%, 100% { background-size: 100% 100%; }
+  50% { background-size: 106% 106%; }
+}
+
+.tfc-rise {
+  animation: tfc-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes tfc-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tfc-breathe,
+  .tfc-rise {
+    animation: none;
+  }
+}
