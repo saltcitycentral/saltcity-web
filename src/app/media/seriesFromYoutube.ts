@@ -44,6 +44,30 @@ export function slugify(s: string) {
     .replace(/^-|-$/g, "");
 }
 
+/** For matching only: "THE INESCAPABLE WORK" and "Inescapable Work" are the same series. */
+function matchKey(s: string) {
+  return slugify(s).replace(/^the-/, "");
+}
+
+/**
+ * A playlist description makes a far better summary than anything generated,
+ * so it wins when there is one. Links, hashtags and boilerplate are dropped.
+ */
+function summaryFromDescription(description: string) {
+  const first = description
+    .split(/\n\s*\n/)[0]
+    .split("\n")
+    .filter((line) => !/https?:\/\/|^#|^subscribe\b|^follow us\b/i.test(line.trim()))
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (first.length < 20) return null;
+  if (first.length <= 400) return first;
+  const cut = first.slice(0, 400);
+  return `${cut.slice(0, cut.lastIndexOf(" "))}…`;
+}
+
 /** "NEW TESTAMENT GIVING" -> "New Testament Giving"; mixed-case names are left alone. */
 export function tidyTitle(raw: string) {
   const name = raw.split("|")[0].trim();
@@ -74,6 +98,7 @@ function toMediaItem(series: YoutubeSeries, override: Override): MediaItem {
     title,
     summary:
       override.summary ??
+      summaryFromDescription(series.description) ??
       `${count} ${count === 1 ? "message" : "messages"} from the ${title} series, straight from our YouTube channel.`,
     heroImage: image,
     cardImage: image,
@@ -96,8 +121,8 @@ function toMediaItem(series: YoutubeSeries, override: Override): MediaItem {
 function manualKeys() {
   const keys = new Set<string>();
   for (const item of MEDIA_ITEMS) {
-    keys.add(item.slug);
-    keys.add(slugify(item.title));
+    keys.add(matchKey(item.slug));
+    keys.add(matchKey(item.title));
   }
   return keys;
 }
@@ -116,8 +141,8 @@ export async function getMediaItems(): Promise<MediaItem[]> {
   const added: MediaItem[] = [];
 
   for (const s of series) {
-    const key = slugify(s.title);
-    const override = OVERRIDES[key] ?? {};
+    const key = matchKey(s.title);
+    const override = OVERRIDES[slugify(s.title)] ?? OVERRIDES[key] ?? {};
     const lower = s.title.toLowerCase();
 
     if (override.hide) continue;
