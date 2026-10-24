@@ -22,13 +22,15 @@ const CALENDAR =
 export const metadata: Metadata = {
   title: "The Faith Convention 2026 — MULTIPLY",
   description:
-    "MULTIPLY — The Faith Convention 2026, 8–13 December at 20 Okumagba Avenue, Warri. " +
-    "Mornings 9:00 AM, evenings 4:30 PM, School of Ministry on Saturday. " +
-    "Ministering: Pastor Tobore David and Pastor Seun Tobore David.",
+    "MULTIPLY. The Faith Convention 2026 holds 8–13 December at 20 Okumagba Avenue, Warri. " +
+    "Mornings 9:00 AM, evenings 4:30 PM, School of Ministry on Saturday morning. " +
+    "SaltCity's Prophetic Family Inheritance sharing meeting. " +
+    "Teaching by Pastor Tobore David and Pastor Seun Tobore David.",
   alternates: { canonical: "/the-faith-convention" },
   openGraph: {
-    title: "MULTIPLY — The Faith Convention 2026",
-    description: "8–13 December · Warri · SaltCity's prophetic family inheritance gathering.",
+    title: "MULTIPLY. The Faith Convention 2026",
+    description:
+      "8–13 December in Warri. SaltCity's Prophetic Family Inheritance sharing meeting.",
     images: ["/images/tfc/multiply-og.jpg"],
   },
 };
@@ -43,9 +45,9 @@ const DAYS = [
 ];
 
 const SESSIONS = [
-  { time: "9:00 AM", title: "Mornings", body: "Teaching, every day of the week." },
-  { time: "4:30 PM", title: "Evenings", body: "Worship and the evening message." },
-  { time: "Sat 9:00 AM", title: "School of Ministry", body: "For those who serve and want to serve." },
+  { time: "9:00 AM", title: "Mornings", body: "Teaching, Tuesday through Sunday." },
+  { time: "4:30 PM", title: "Evenings", body: "Worship, then the evening session." },
+  { time: "Sat 9:00 AM", title: "School of Ministry", body: "For members who serve in the house." },
 ];
 
 export default function FaithConventionPage() {
@@ -69,8 +71,8 @@ export default function FaithConventionPage() {
               </h1>
 
               <p className="mt-7 max-w-[34rem] text-xl font-medium leading-relaxed text-white/90 sm:text-2xl">
-                SaltCity&apos;s prophetic family inheritance gathering. Six days of teaching,
-                worship and response.
+                SaltCity&apos;s Prophetic Family Inheritance sharing meeting. Six days,
+                mornings and evenings, in Warri.
               </p>
 
               <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-base font-bold sm:text-lg">
@@ -119,8 +121,8 @@ export default function FaithConventionPage() {
                 Mornings and evenings.
               </h2>
               <p className="mt-6 max-w-[30rem] text-lg leading-relaxed text-white/70">
-                The same family, in the same room, under the same Word — long enough for it to
-                settle and start changing things.
+                The School of Ministry sits inside the week, on Saturday morning. It is the
+                biggest programme in our year.
               </p>
 
               <div className="mt-10 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-white/15 bg-white/15 sm:grid-cols-6">
@@ -166,26 +168,32 @@ export default function FaithConventionPage() {
           <div className="grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
             <div className="max-w-[36rem]">
               <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#F7B92F]">
-                Why we gather
+                What it is
               </div>
               <h2 className="mt-5 text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl">
-                Not a conference.
+                Prophetic Family
                 <br />
-                A household.
+                Inheritance.
               </h2>
 
               <div className="mt-7 space-y-5 text-lg leading-relaxed text-white/75">
                 <p>
-                  The Faith Convention is the week in our year when the whole SaltCity family
-                  sits down together under concentrated teaching — not a programme built around
-                  guests, but a house gathered to hear, to receive and to respond.
+                  SaltCity calls it a sharing meeting: the annual gathering of the family, where
+                  believers sit under biblical teaching and receive specific instructions.
                 </p>
                 <p>
-                  Members come with a Faithlist, the things they are trusting GOD for, and leave
-                  with instructions to practise. What is heard in December is meant to be lived
-                  through the year.
+                  Members keep a Faithlist, the things they are trusting GOD for, and come back to
+                  it long after December. Last year the theme was INFLUENCE.
                 </p>
               </div>
+
+              <blockquote className="mt-9 border-l-2 border-[#F7B92F] pl-6 text-lg italic leading-relaxed text-white/85">
+                We teach believers how to live victoriously by practicing the Written Word of GOD
+                and living everyday with JESUS as our EXAMPLE.
+                <span className="mt-3 block text-sm font-bold uppercase not-italic tracking-[0.18em] text-white/45">
+                  SaltCity Church
+                </span>
+              </blockquote>
 
               <div className="mt-10 border-t border-white/10 pt-8">
                 <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-white/50">
@@ -213,7 +221,7 @@ export default function FaithConventionPage() {
                 rel="noopener noreferrer"
                 className="mt-4 inline-block text-sm font-semibold text-white/60 underline decoration-white/25 underline-offset-4 transition hover:text-white"
               >
-                Open the flyer to share it
+                Open the flyer
               </a>
             </div>
           </div>
@@ -229,7 +237,7 @@ export default function FaithConventionPage() {
               <p className="mt-5 text-lg leading-relaxed text-white/75">
                 20 Okumagba Avenue, Warri, Delta State.
                 <br />
-                Doors open before each session. Bring someone with you.
+                Bring someone with you.
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
                 <a
@@ -250,10 +258,11 @@ export default function FaithConventionPage() {
             </div>
 
             <div>
-              <h2 className="text-3xl font-black tracking-tight sm:text-4xl">Or watch from home</h2>
+              <h2 className="text-3xl font-black tracking-tight sm:text-4xl">Watching from elsewhere</h2>
               <p className="mt-5 text-lg leading-relaxed text-white/75">
-                Sessions stream on our YouTube channel. Last year&apos;s convention, INFLUENCE, is
-                there in full.
+                We keep an online community for people who cannot be in Warri, and the sessions
+                go up on our YouTube channel. Last year&apos;s convention, INFLUENCE, is there in
+                full.
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
                 <a

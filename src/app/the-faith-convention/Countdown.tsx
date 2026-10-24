@@ -55,8 +55,8 @@ export default function Countdown({ start, end }: { start: string; end: string }
     return (
       <p className="text-lg font-bold text-white sm:text-xl">
         {now <= endAt
-          ? "Happening now — sessions today at 9:00 AM and 4:30 PM."
-          : "MULTIPLY has ended. The messages are on our channel."}
+          ? "Happening now. Sessions today at 9:00 AM and 4:30 PM."
+          : "MULTIPLY has ended. The sessions are going up on YouTube."}
       </p>
     );
   }
