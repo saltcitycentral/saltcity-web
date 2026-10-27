@@ -24,9 +24,15 @@ const nextConfig: NextConfig = {
       { source: "/company", destination: "/next-steps" },
       { source: "/serve", destination: "/next-steps" },
       { source: "/prayer", destination: "/next-steps" },
-      // The Faith Convention 2026
-      { source: "/tfc", destination: "/the-faith-convention" },
-      { source: "/multiply", destination: "/the-faith-convention" },
+      // The Faith Convention 2026 lives at /tfc
+      { source: "/multiply", destination: "/tfc" },
+    ];
+  },
+
+  async redirects() {
+    return [
+      // The convention page moved to the short URL people are given.
+      { source: "/the-faith-convention", destination: "/tfc", permanent: true },
     ];
   },
 };

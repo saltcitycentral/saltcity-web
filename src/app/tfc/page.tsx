@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     "Mornings 9:00 AM, evenings 4:30 PM, School of Ministry on Saturday morning. " +
     "SaltCity's Prophetic Family Inheritance sharing meeting. " +
     "Teaching by Pastor Tobore David and Pastor Seun Tobore David.",
-  alternates: { canonical: "/the-faith-convention" },
+  alternates: { canonical: "/tfc" },
   openGraph: {
     title: "MULTIPLY. The Faith Convention 2026",
     description:
