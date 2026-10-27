@@ -7,7 +7,7 @@ export type ResourceItem = {
   cover?: string; // /downloads/covers/...
   kind: "pdf" | "audio" | "doc" | "link";
   external?: boolean;
-  badge?: string; // small label like “Chants & Prophecies”
+  badge?: string; // small label like “Rhapsody”
 };
 
 export type ResourceCategory = {
@@ -54,14 +54,14 @@ export const RESOURCE_CATEGORIES: ResourceCategory[] = [
   },
 
   {
-    title: "Chants & Prophecies",
-    description: "Rhapsodies, chants, declarations, and audio/visual downloads.",
-    iconKey: "study",
+    title: "Confessions",
+    description: "Rhapsodies, confessions and declarations, to read aloud or listen to.",
+    iconKey: "confessions",
     resources: [
       {
         id: "life-partner-men",
         title: "Life Partner Rhapsody (Men Only)",
-        description: "Chants & prophecies themed around godly relationships (men’s edition).",
+        description: "Confessions themed around godly relationships (men’s edition).",
         fileSize: "PDF",
         href: "/downloads/life-partner-men.pdf",
         cover: "/downloads/covers/life-partner-men.jpg",
@@ -71,7 +71,7 @@ export const RESOURCE_CATEGORIES: ResourceCategory[] = [
       {
         id: "life-partner-ladies",
         title: "Life Partner Rhapsody (Ladies Only)",
-        description: "Chants & prophecies themed around godly relationships (ladies’ edition).",
+        description: "Confessions themed around godly relationships (ladies’ edition).",
         fileSize: "PDF",
         href: "/downloads/life-partner-ladies.pdf",
         cover: "/downloads/covers/life-partner-women.jpg",
@@ -81,9 +81,9 @@ export const RESOURCE_CATEGORIES: ResourceCategory[] = [
       {
         id: "prosperity-rhapsody-pdf",
         title: "Prosperity Rhapsodies",
-        description: "Chants & prophecies themed around prosperity and kingdom results.",
+        description: "Confessions themed around prosperity and kingdom results.",
         fileSize: "PDF",
-        href: "/downloads/prosperity-rhapsody.pdf",
+        href: "/downloads/prosperity-raphsody.pdf",
         cover: "/downloads/covers/prosperity-rhapsody.jpg",
         kind: "pdf",
         badge: "Rhapsody",
@@ -93,7 +93,7 @@ export const RESOURCE_CATEGORIES: ResourceCategory[] = [
         title: "Prosperity Rhapsodies (Audio)",
         description: "Audio version for easy playback and sharing.",
         fileSize: "Video",
-        href: "/downloads/prosperity-rhapsody.mpeg",
+        href: "/downloads/prosperity-raphsody-video.mpeg",
         cover: "/downloads/covers/prosperity-rhapsody.jpg",
         kind: "audio",
         badge: "Audio",
@@ -103,7 +103,7 @@ export const RESOURCE_CATEGORIES: ResourceCategory[] = [
         title: "In Jesus Rhapsody",
         description: "Confessions anchored on identity and victory in Christ.",
         fileSize: "PDF",
-        href: "/downloads/in-jesus-rhapsody.pdf",
+        href: "/downloads/in-jesus-raphsody.pdf",
         cover: "/downloads/covers/in-jesus-rhapsody.jpg",
         kind: "pdf",
         badge: "Rhapsody",
@@ -113,7 +113,7 @@ export const RESOURCE_CATEGORIES: ResourceCategory[] = [
         title: "Victory Rhapsody",
         description: "Confessions themed around triumph, endurance, and conquest.",
         fileSize: "PDF",
-        href: "/downloads/victory-rhapsody.pdf",
+        href: "/downloads/victory-raphsody.pdf",
         cover: "/downloads/covers/victory-rhapsody.jpg",
         kind: "pdf",
         badge: "Rhapsody",
@@ -123,7 +123,7 @@ export const RESOURCE_CATEGORIES: ResourceCategory[] = [
         title: "For My Husband Rhapsody",
         description: "Confessions and declarations for wives to speak over their husbands.",
         fileSize: "PDF",
-        href: "/downloads/for-my-husband.pdf",
+        href: "/downloads/for-my-husband-raphsody.pdf",
         cover: "/downloads/covers/for-my-husband.jpg",
         kind: "pdf",
         badge: "Rhapsody",
@@ -132,18 +132,18 @@ export const RESOURCE_CATEGORIES: ResourceCategory[] = [
         id: "for-my-wife",
         title: "For My Wife Rhapsody",
         description: "Confessions and declarations for husbands to speak over their wives.",
-        fileSize: "PDF",
-        href: "/downloads/for-my-wife.pdf",
+        fileSize: "Audio",
+        href: "/downloads/for-my-wife.mpeg",
         cover: "/downloads/covers/for-my-wife.jpg",
-        kind: "pdf",
-        badge: "Rhapsody",
+        kind: "audio",
+        badge: "Audio",
       },
      {
         id: "for-my-children",
         title: "For My Children Rhapsody",
         description: "Confessions and declarations for parents to speak over their children.",
         fileSize: "PDF",
-        href: "/downloads/for-children-rhapsody.pdf",
+        href: "/downloads/for-children-raphsody.pdf",
         cover: "/downloads/covers/for-children-rhapsody.jpg",
         kind: "pdf",
         badge: "Rhapsody",
