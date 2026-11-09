@@ -68,7 +68,7 @@ export default function FaithConventionPage() {
 
         <Container className="tfc-above">
           <div className="flex min-h-[86vh] flex-col justify-center py-20 md:min-h-[90vh]">
-            <div className="tfc-rise">
+            <div className="tfc-settle">
               <div className="text-[11px] font-bold uppercase tracking-[0.4em] text-white/80">
                 The Faith Convention · 2026
               </div>
