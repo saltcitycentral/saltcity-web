@@ -70,7 +70,10 @@ export default function Opening() {
       ].join(" ")}
       style={{ ["--tfc-y" as string]: "50%" }}
     >
-      <div className="px-6 text-center">
+      <div className="tfc-hue" />
+      <div className="tfc-ring" />
+      <div className="tfc-ring tfc-ring-late" />
+      <div className="tfc-above px-6 text-center">
         <div className="text-[11px] font-bold uppercase tracking-[0.42em] text-white/80 [animation:tfc-rise_0.7s_cubic-bezier(0.22,1,0.36,1)_both]">
           The Faith Convention
         </div>
