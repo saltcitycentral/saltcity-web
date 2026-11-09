@@ -57,10 +57,16 @@ export default function FaithConventionPage() {
       <Opening />
 
       {/* Hero — the flyer's rings, rebuilt in CSS */}
-      <section className="tfc-field tfc-breathe relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-[#170504]" />
+      <section className="tfc-field">
+        <div aria-hidden="true" className="tfc-hue" />
+        <div aria-hidden="true" className="tfc-ring" />
+        <div aria-hidden="true" className="tfc-ring tfc-ring-late" />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 z-[2] bg-gradient-to-b from-black/50 via-transparent to-[#170504]"
+        />
 
-        <Container className="relative">
+        <Container className="tfc-above">
           <div className="flex min-h-[86vh] flex-col justify-center py-20 md:min-h-[90vh]">
             <div className="tfc-rise">
               <div className="text-[11px] font-bold uppercase tracking-[0.4em] text-white/80">
@@ -93,7 +99,7 @@ export default function FaithConventionPage() {
                   href={CALENDAR}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full bg-white px-7 py-3.5 text-sm font-bold text-[#170504] transition hover:bg-white/90"
+                  className="tfc-cta rounded-full bg-white px-7 py-3.5 text-sm font-bold text-[#170504] transition hover:bg-white/90"
                 >
                   Add to calendar
                 </a>
@@ -101,7 +107,7 @@ export default function FaithConventionPage() {
                   href={MAP}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full border-2 border-white/35 px-7 py-3.5 text-sm font-bold text-white transition hover:border-white/70"
+                  className="tfc-cta tfc-cta-ghost rounded-full border-2 px-7 py-3.5 text-sm font-bold text-white transition hover:border-white/70"
                 >
                   Get directions
                 </a>
@@ -112,8 +118,10 @@ export default function FaithConventionPage() {
       </section>
 
       {/* The week */}
-      <section className="border-b border-white/10 py-20 md:py-28">
-        <Container>
+      <section className="tfc-wash tfc-wash-ember border-b border-white/10 py-20 md:py-28">
+        <div aria-hidden="true" className="tfc-wash-layer" />
+        <div aria-hidden="true" className="tfc-wash-layer tfc-wash-layer-late" />
+        <Container className="tfc-above">
           <div className="grid gap-14 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
             <div>
               <h2 className="text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl">
@@ -163,8 +171,10 @@ export default function FaithConventionPage() {
       </section>
 
       {/* Why we gather */}
-      <section className="border-b border-white/10 py-20 md:py-28">
-        <Container>
+      <section className="tfc-wash tfc-wash-crimson border-b border-white/10 py-20 md:py-28">
+        <div aria-hidden="true" className="tfc-wash-layer" />
+        <div aria-hidden="true" className="tfc-wash-layer tfc-wash-layer-late" />
+        <Container className="tfc-above">
           <div className="grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
             <div className="max-w-[36rem]">
               <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#F7B92F]">
@@ -224,8 +234,10 @@ export default function FaithConventionPage() {
       </section>
 
       {/* Visit / watch */}
-      <section className="py-20 md:py-28">
-        <Container>
+      <section className="tfc-wash tfc-wash-amber py-20 md:py-28">
+        <div aria-hidden="true" className="tfc-wash-layer" />
+        <div aria-hidden="true" className="tfc-wash-layer tfc-wash-layer-late" />
+        <Container className="tfc-above">
           <div className="grid gap-12 md:grid-cols-2">
             <div>
               <h2 className="text-3xl font-black tracking-tight sm:text-4xl">Join us in Warri</h2>
@@ -239,13 +251,13 @@ export default function FaithConventionPage() {
                   href={MAP}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full bg-white px-7 py-3.5 text-sm font-bold text-[#170504] transition hover:bg-white/90"
+                  className="tfc-cta rounded-full bg-white px-7 py-3.5 text-sm font-bold text-[#170504] transition hover:bg-white/90"
                 >
                   Get directions
                 </a>
                 <Link
                   href="/locations"
-                  className="rounded-full border-2 border-white/35 px-7 py-3.5 text-sm font-bold transition hover:border-white/70"
+                  className="tfc-cta tfc-cta-ghost rounded-full border-2 px-7 py-3.5 text-sm font-bold transition hover:border-white/70"
                 >
                   All locations
                 </Link>
@@ -264,13 +276,13 @@ export default function FaithConventionPage() {
                   href="https://youtube.com/@saltcitycentral"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full border-2 border-white/35 px-7 py-3.5 text-sm font-bold transition hover:border-white/70"
+                  className="tfc-cta tfc-cta-ghost rounded-full border-2 px-7 py-3.5 text-sm font-bold transition hover:border-white/70"
                 >
                   YouTube channel
                 </a>
                 <Link
                   href="/media/the-faith-convention"
-                  className="rounded-full border-2 border-white/35 px-7 py-3.5 text-sm font-bold transition hover:border-white/70"
+                  className="tfc-cta tfc-cta-ghost rounded-full border-2 px-7 py-3.5 text-sm font-bold transition hover:border-white/70"
                 >
                   Past conventions
                 </Link>

@@ -101,42 +101,217 @@ body {
 
 
 /* ─── The Faith Convention 2026 — MULTIPLY ────────────────────────────────
-   The flyer's artwork is concentric rings radiating from a dark centre out
-   through red, orange and amber. Rebuilt here in CSS so the page carries the
-   same motif without shipping a background image. */
+   The flyer is concentric rings radiating from a dark centre out through red,
+   orange and amber. Here the rings actually travel: they grow outward from the
+   centre and the colour drifts as they go, which is the point of MULTIPLY —
+   something spreading out from one place. Rebuilt in CSS, no image shipped.
+
+   Everything animated below is transform and opacity on a handful of layers,
+   so it stays on the GPU, and all of it stops for prefers-reduced-motion. */
+
 .tfc-field {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   background-color: #2b0705;
-  background-image:
+}
+
+/* The colour itself, drifting through the flyer's palette. */
+.tfc-hue {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--tfc-x, 50%) var(--tfc-y, 38%),
+    #3d0907 0%,
+    #7c1108 20%,
+    #c81d0d 42%,
+    #e8540f 62%,
+    #f28b18 78%,
+    #f7b92f 92%,
+    #f8cf4c 100%
+  );
+  animation: tfc-drift 30s ease-in-out infinite;
+}
+
+/* Rings growing outward from the centre. Two copies, half a cycle apart, so
+   there is always one arriving as another fades. */
+.tfc-ring {
+  position: absolute;
+  inset: -30%;
+  z-index: 1;
+  pointer-events: none;
+  transform-origin: var(--tfc-x, 50%) var(--tfc-y, 38%);
+  will-change: transform, opacity;
+  background:
     repeating-radial-gradient(
       circle at var(--tfc-x, 50%) var(--tfc-y, 38%),
-      rgba(0, 0, 0, 0.34) 0 7px,
+      rgba(0, 0, 0, 0.36) 0 7px,
       rgba(0, 0, 0, 0) 7px 17px
     ),
     repeating-radial-gradient(
       circle at var(--tfc-x, 50%) var(--tfc-y, 38%),
-      rgba(255, 196, 92, 0.1) 0 2px,
+      rgba(255, 201, 102, 0.12) 0 2px,
       rgba(255, 255, 255, 0) 2px 17px
-    ),
-    radial-gradient(
-      circle at var(--tfc-x, 50%) var(--tfc-y, 38%),
-      #3d0907 0%,
-      #7c1108 20%,
-      #c81d0d 42%,
-      #e8540f 62%,
-      #f28b18 78%,
-      #f7b92f 92%,
-      #f8cf4c 100%
     );
+  animation: tfc-spread 12s linear infinite;
 }
 
-/* The rings breathe, slowly — closer to a ripple than an animation. */
-.tfc-breathe {
-  animation: tfc-breathe 14s ease-in-out infinite;
+.tfc-ring-late {
+  animation-delay: -6s;
 }
 
-@keyframes tfc-breathe {
-  0%, 100% { background-size: 100% 100%; }
-  50% { background-size: 106% 106%; }
+/* Content sits above both layers. */
+.tfc-above {
+  position: relative;
+  z-index: 2;
+}
+
+/* The quieter version for the sections below the hero. The glow is always
+   there, painted on the section itself, and two ring layers half a cycle apart
+   keep something arriving, so the page never goes flat. */
+.tfc-wash {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-image: radial-gradient(
+    circle at 50% 45%,
+    var(--tfc-wash-glow, rgba(232, 84, 15, 0.5)) 0%,
+    rgba(23, 5, 4, 0) 58%
+  );
+}
+
+.tfc-wash-layer {
+  position: absolute;
+  inset: -40%;
+  z-index: 0;
+  pointer-events: none;
+  transform-origin: 50% 45%;
+  will-change: transform, opacity;
+  background: repeating-radial-gradient(
+    circle at 50% 45%,
+    var(--tfc-wash-ring, rgba(248, 207, 76, 0.3)) 0 2px,
+    rgba(0, 0, 0, 0) 2px 22px
+  );
+  animation: tfc-spread-slow 18s linear infinite;
+}
+
+.tfc-wash-layer-late {
+  animation-delay: -9s;
+}
+
+/* The spread keeps going down the page, arriving in a different colour each
+   time: ember, then crimson, then amber. */
+.tfc-wash-ember {
+  --tfc-wash-ring: rgba(248, 207, 76, 0.3);
+  --tfc-wash-glow: rgba(232, 84, 15, 0.42);
+}
+
+.tfc-wash-crimson {
+  --tfc-wash-ring: rgba(255, 150, 120, 0.28);
+  --tfc-wash-glow: rgba(200, 29, 13, 0.46);
+}
+
+.tfc-wash-amber {
+  --tfc-wash-ring: rgba(255, 224, 150, 0.26);
+  --tfc-wash-glow: rgba(247, 140, 30, 0.34);
+}
+
+@keyframes tfc-spread {
+  0% {
+    transform: scale(0.45);
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.85);
+    opacity: 0;
+  }
+}
+
+@keyframes tfc-spread-slow {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+@keyframes tfc-drift {
+  0%,
+  100% {
+    filter: hue-rotate(0deg) saturate(1);
+  }
+  30% {
+    filter: hue-rotate(28deg) saturate(1.06);
+  }
+  65% {
+    filter: hue-rotate(-22deg) saturate(1.1);
+  }
+}
+
+/* Buttons carry the same idea: a ring leaves the button and spreads. */
+.tfc-cta {
+  position: relative;
+}
+
+.tfc-cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 2px solid currentColor;
+  opacity: 0;
+  pointer-events: none;
+  animation: tfc-emit 3.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+/* On the outlined buttons the ring only leaves on hover, and the border itself
+   drifts through the palette. */
+.tfc-cta-ghost {
+  animation: tfc-border 18s ease-in-out infinite;
+}
+
+.tfc-cta-ghost::after {
+  animation-play-state: paused;
+}
+
+.tfc-cta-ghost:hover::after {
+  animation-play-state: running;
+}
+
+@keyframes tfc-emit {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  70%,
+  100% {
+    transform: scale(1.28);
+    opacity: 0;
+  }
+}
+
+@keyframes tfc-border {
+  0%,
+  100% {
+    border-color: rgba(247, 185, 47, 0.5);
+  }
+  33% {
+    border-color: rgba(232, 84, 15, 0.55);
+  }
+  66% {
+    border-color: rgba(200, 29, 13, 0.55);
+  }
 }
 
 .tfc-rise {
@@ -144,13 +319,44 @@ body {
 }
 
 @keyframes tfc-rise {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: none; }
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tfc-breathe,
+  .tfc-hue,
+  .tfc-ring,
+  .tfc-wash-layer,
+  .tfc-wash-layer-late,
+  .tfc-cta::after,
+  .tfc-cta-ghost,
   .tfc-rise {
     animation: none;
+  }
+
+  /* Without movement the rings should still be visible, just still. */
+  .tfc-ring {
+    transform: none;
+    opacity: 1;
+  }
+
+  .tfc-ring-late,
+  .tfc-wash-layer-late {
+    display: none;
+  }
+
+  .tfc-wash-layer {
+    transform: none;
+    opacity: 0.6;
+  }
+
+  .tfc-cta::after {
+    opacity: 0;
   }
 }
