@@ -5,13 +5,13 @@ import { useSyncExternalStore } from "react";
 /**
  * Counts down to the first session, then changes its mind: during the week it
  * says we're in it, and afterwards it points at the recordings instead of
- * sitting on four zeros.
+ * sitting on a row of zeros.
  */
 const UNITS = [
-  { key: "days", label: "Days" },
-  { key: "hours", label: "Hours" },
-  { key: "minutes", label: "Minutes" },
-  { key: "seconds", label: "Seconds" },
+  { key: "days", label: "days" },
+  { key: "hours", label: "hrs" },
+  { key: "minutes", label: "mins" },
+  { key: "seconds", label: "secs" },
 ] as const;
 
 // The visitor's clock is an external store: read it, don't mirror it in state.
@@ -45,7 +45,7 @@ export default function Countdown({ start, end }: { start: string; end: string }
   const now = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   if (now === 0) {
-    return <div className="h-[92px]" aria-hidden="true" />;
+    return <div className="h-[62px]" aria-hidden="true" />;
   }
 
   const startAt = new Date(start).getTime();
@@ -64,20 +64,24 @@ export default function Countdown({ start, end }: { start: string; end: string }
   const t = split(startAt - now);
 
   return (
-    <div>
-      <div className="flex items-start gap-5 sm:gap-8">
+    <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+      <span className="text-sm font-bold text-white/70">Opens in</span>
+      <div className="flex gap-1.5">
         {UNITS.map(({ key, label }) => (
-          <div key={key}>
-            <div className="text-4xl font-black leading-none tabular-nums sm:text-5xl">
+          <div
+            key={key}
+            className="min-w-[3.6rem] border-b-2 border-[#F7B92F] bg-white/10 px-2.5 pb-1.5 pt-2 text-center sm:min-w-[4.2rem]"
+          >
+            <div className="text-2xl font-black leading-none tabular-nums sm:text-3xl">
               {String(t[key]).padStart(2, "0")}
             </div>
-            <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white/60">
+            <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white/60">
               {label}
             </div>
           </div>
         ))}
       </div>
-      <p className="mt-4 text-sm text-white/60">Until the first session.</p>
+      <span className="text-sm font-bold text-white">Tue 8 Dec, 9:00 AM WAT</span>
     </div>
   );
 }
