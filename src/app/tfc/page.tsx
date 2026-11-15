@@ -1,31 +1,41 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { preload } from "react-dom";
 import Container from "@/components/ui/Container";
+import CopyAccount from "./CopyAccount";
 import Countdown from "./Countdown";
-import Opening from "./Opening";
-
-/** First session: Tuesday 8 December 2026, 9:00 AM WAT. Last: Sunday 13th. */
-const START = "2026-12-08T09:00:00+01:00";
-const END = "2026-12-13T21:00:00+01:00";
-
-const VENUE = "20 Okumagba Avenue, Warri";
-const MAP =
-  "https://www.google.com/maps/search/?api=1&query=20+Okumagba+Avenue+Warri+Delta+State";
-const CALENDAR =
-  "https://calendar.google.com/calendar/render?action=TEMPLATE" +
-  "&text=The+Faith+Convention+2026+%E2%80%94+MULTIPLY" +
-  "&dates=20261208T080000Z/20261213T200000Z" +
-  "&details=Mornings+9%3A00+AM+and+evenings+4%3A30+PM.+School+of+Ministry+Saturday+9%3A00+AM." +
-  "&location=20+Okumagba+Avenue%2C+Warri%2C+Delta+State";
+import HeroSlices, { ReplayIntro } from "./HeroSlices";
+import Intro from "./Intro";
+import InviteVideo from "./InviteVideo";
+import PastEditions from "./PastEditions";
+import {
+  CALENDAR_URL,
+  COMMUNITY_URL,
+  END,
+  EXPECT,
+  FAQS,
+  INTRO,
+  INVITE_STILL,
+  INVITE_VIDEO_ID,
+  JOIN,
+  MAP_URL,
+  PARTNER_ACCOUNT,
+  PARTNER_IMAGE,
+  PAST,
+  START,
+  TELEGRAM_URL,
+  VENUE_ADDRESS,
+  VENUE_NAME,
+  YOUTUBE_URL,
+} from "./data";
 
 export const metadata: Metadata = {
   title: "The Faith Convention 2026 — MULTIPLY",
   description:
-    "MULTIPLY. The Faith Convention 2026 holds 8–13 December at 20 Okumagba Avenue, Warri. " +
-    "Mornings 9:00 AM, evenings 4:30 PM, School of Ministry on Saturday morning. " +
-    "SaltCity's Prophetic Family Inheritance sharing meeting. " +
-    "Teaching by Pastor Tobore David and Pastor Seun Tobore David.",
+    "MULTIPLY. The Faith Convention 2026 holds 8–13 December at the Centre of Discipleship, " +
+    "20 Okumagba Avenue, Warri. Mornings 9:00 AM, evenings 4:30 PM. " +
+    "SaltCity's Prophetic Family Inheritance sharing meeting.",
   alternates: { canonical: "/tfc" },
   openGraph: {
     title: "MULTIPLY. The Faith Convention 2026",
@@ -35,151 +45,100 @@ export const metadata: Metadata = {
   },
 };
 
-const DAYS = [
-  { day: "Tue", date: "8" },
-  { day: "Wed", date: "9" },
-  { day: "Thu", date: "10" },
-  { day: "Fri", date: "11" },
-  { day: "Sat", date: "12", note: "School of Ministry" },
-  { day: "Sun", date: "13", note: "Thanksgiving" },
-];
+/**
+ * Runs before the hero paints: if the opening sequence is going to play, put a
+ * plain cover up so the hero doesn't flash first. The timeout is a failsafe in
+ * case the page's script never arrives.
+ */
+const COVER_SCRIPT =
+  "try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&sessionStorage.getItem('tfc26-intro')!=='1'){" +
+  "var c=document.getElementById('tfc-cover');c.style.display='block';" +
+  "setTimeout(function(){c.style.display='none'},8000)}}catch(e){}";
 
-const SESSIONS = [
-  { time: "9:00 AM", title: "Mornings", body: "Teaching, each morning." },
-  { time: "4:30 PM", title: "Evenings", body: "Worship, then the evening session." },
-  { time: "Saturday", title: "School of Ministry", body: "9:00 AM, for members who serve in the house." },
-  { time: "Sunday", title: "Thanksgiving", body: "The week closes with thanksgiving for the year." },
-];
+function Btn({
+  href,
+  children,
+  variant = "solid",
+  external = false,
+}: {
+  href: string;
+  children: React.ReactNode;
+  variant?: "solid" | "line" | "dark";
+  external?: boolean;
+}) {
+  const cls = ["tfc-btn", variant === "line" ? "tfc-btn-line" : variant === "dark" ? "tfc-btn-dark" : ""].join(" ");
+  return external ? (
+    <a href={href} target="_blank" rel="noopener noreferrer" className={cls}>
+      <span>{children}</span>
+    </a>
+  ) : (
+    <a href={href} className={cls}>
+      <span>{children}</span>
+    </a>
+  );
+}
 
 export default function FaithConventionPage() {
+  // The opening columns' first photos, fetched early so they are there when the columns land.
+  for (const col of INTRO) preload(col.photos[0].src, { as: "image", fetchPriority: "high" });
+
   return (
     <main className="bg-[#170504] font-sans text-white">
-      <Opening />
+      {/* The script changes this element before React hydrates it, hence the suppression. */}
+      <div id="tfc-cover" aria-hidden="true" className="tfc-cover" suppressHydrationWarning />
+      <script dangerouslySetInnerHTML={{ __html: COVER_SCRIPT }} />
+      <Intro />
 
-      {/* Hero — the flyer's rings, rebuilt in CSS */}
-      <section className="tfc-field">
-        <div aria-hidden="true" className="tfc-hue" />
-        <div aria-hidden="true" className="tfc-ring" />
-        <div aria-hidden="true" className="tfc-ring tfc-ring-late" />
+      {/* ── Hero ── */}
+      <section className="relative isolate flex min-h-[min(100svh,58rem)] items-center overflow-hidden bg-[#170504]">
+        <HeroSlices />
+        {/* Keeps the copy readable where it crosses the photographs. */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 z-[2] bg-gradient-to-b from-black/50 via-transparent to-[#170504]"
+          className="absolute inset-0 z-[1] bg-gradient-to-t from-[#170504] via-[#170504]/55 to-[#170504]/10 lg:bg-[linear-gradient(90deg,#170504_0%,#170504_30%,rgba(23,5,4,0.6)_50%,rgba(23,5,4,0)_76%)]"
         />
 
-        <Container className="tfc-above">
-          <div className="flex min-h-[86vh] flex-col justify-center py-20 md:min-h-[90vh]">
-            <div className="tfc-settle">
-              <div className="text-[11px] font-bold uppercase tracking-[0.4em] text-white/80">
-                The Faith Convention · 2026
-              </div>
+        <Container className="relative z-[2]">
+          <div className="max-w-[44rem] pb-16 pt-32 lg:py-28">
+            <div className="text-sm font-bold text-[#F7B92F]">SaltCity · The Faith Convention</div>
 
-              <h1 className="mt-6 text-[clamp(4rem,19vw,13rem)] font-black leading-[0.82] tracking-tight">
-                MULTIPLY
-              </h1>
+            <h1 className="mt-3 text-[clamp(3.6rem,13vw,9.5rem)] font-black leading-[0.84] tracking-tight">
+              MULTIPLY
+              <span className="block text-[#F7B92F]">2026</span>
+            </h1>
 
-              <p className="mt-7 max-w-[34rem] text-xl font-medium leading-relaxed text-white/90 sm:text-2xl">
-                SaltCity&apos;s Prophetic Family Inheritance sharing meeting. Six days,
-                mornings and evenings, in Warri.
-              </p>
+            <p className="mt-7 max-w-[30rem] text-xl font-bold leading-snug sm:text-2xl">
+              SaltCity&apos;s Prophetic Family Inheritance sharing meeting.
+            </p>
+            <p className="mt-3 text-base font-medium text-white/75">
+              8–13 December · Tue–Sun · {VENUE_NAME}, {VENUE_ADDRESS}
+            </p>
 
-              <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-base font-bold sm:text-lg">
-                <span>8–13 December</span>
-                <span className="h-1 w-1 rounded-full bg-white/40" />
-                <span>Tue–Sun</span>
-                <span className="hidden h-1 w-1 rounded-full bg-white/40 sm:block" />
-                <span className="w-full font-medium text-white/80 sm:w-auto">{VENUE}</span>
-              </div>
+            <div className="mt-9">
+              <Countdown start={START} end={END} />
+            </div>
 
-              <div className="mt-12">
-                <Countdown start={START} end={END} />
-              </div>
-
-              <div className="mt-10 flex flex-wrap gap-3">
-                <a
-                  href={CALENDAR}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="tfc-cta rounded-full bg-white px-7 py-3.5 text-sm font-bold text-[#170504] transition hover:bg-white/90"
-                >
-                  Add to calendar
-                </a>
-                <a
-                  href={MAP}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="tfc-cta tfc-cta-ghost rounded-full border-2 px-7 py-3.5 text-sm font-bold text-white transition hover:border-white/70"
-                >
-                  Get directions
-                </a>
-              </div>
+            <div className="mt-9 flex flex-wrap items-center gap-x-4 gap-y-4">
+              <Btn href={CALENDAR_URL} external>
+                Add to calendar
+              </Btn>
+              <Btn href="#partner" variant="line">
+                Partner
+              </Btn>
+              <span className="ml-2">
+                <ReplayIntro />
+              </span>
             </div>
           </div>
         </Container>
       </section>
 
-      {/* The week */}
-      <section className="tfc-wash tfc-wash-ember border-b border-white/10 py-20 md:py-28">
-        <div aria-hidden="true" className="tfc-wash-layer" />
-        <div aria-hidden="true" className="tfc-wash-layer tfc-wash-layer-late" />
-        <Container className="tfc-above">
-          <div className="grid gap-14 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
-            <div>
-              <h2 className="text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl">
-                Six days
-                <br />
-                in December.
-              </h2>
-              <p className="mt-6 max-w-[30rem] text-lg leading-relaxed text-white/70">
-                The Faith Convention is the biggest programme in our year. Teaching morning and
-                evening from Tuesday, the School of Ministry on Saturday, and thanksgiving on
-                Sunday to close it.
-              </p>
-
-              <div className="mt-10 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-white/15 bg-white/15 sm:grid-cols-6">
-                {DAYS.map((d) => (
-                  <div key={d.date} className="bg-[#170504] px-3 py-5 text-center">
-                    <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/50">
-                      {d.day}
-                    </div>
-                    <div className="mt-1.5 text-2xl font-black tabular-nums">{d.date}</div>
-                    {d.note && (
-                      <div className="mt-2 text-[9px] font-bold uppercase leading-tight tracking-wider text-[#F7B92F]">
-                        {d.note}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-              <p className="mt-4 text-sm text-white/50">December 2026</p>
-            </div>
-
-            <ul className="divide-y divide-white/10 border-y border-white/10">
-              {SESSIONS.map((s) => (
-                <li key={s.title} className="flex flex-wrap items-baseline gap-x-8 gap-y-2 py-7">
-                  <span className="w-[7.5rem] shrink-0 text-xl font-black tabular-nums text-[#F7B92F]">
-                    {s.time}
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block text-lg font-bold">{s.title}</span>
-                    <span className="mt-1 block text-white/65">{s.body}</span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Container>
-      </section>
-
-      {/* Why we gather */}
-      <section className="tfc-wash tfc-wash-crimson border-b border-white/10 py-20 md:py-28">
-        <div aria-hidden="true" className="tfc-wash-layer" />
-        <div aria-hidden="true" className="tfc-wash-layer tfc-wash-layer-late" />
-        <Container className="tfc-above">
-          <div className="grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
+      {/* ── What it is ── */}
+      <section id="about" className="scroll-mt-16 border-t border-white/10 py-20 md:py-28">
+        <Container>
+          <div className="grid items-center gap-14 lg:grid-cols-[1fr_1.05fr] lg:gap-20">
             <div className="max-w-[36rem]">
-              <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#F7B92F]">
-                What it is
-              </div>
+              <div className="tfc-label">What it is</div>
               <h2 className="mt-5 text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl">
                 Prophetic Family
                 <br />
@@ -212,81 +171,229 @@ export default function FaithConventionPage() {
               </div>
             </div>
 
+            <InviteVideo videoId={INVITE_VIDEO_ID} still={INVITE_STILL} />
+          </div>
+        </Container>
+      </section>
+
+      {/* ── What to expect ── */}
+      <section id="expect" className="scroll-mt-16 border-t border-white/10 py-20 md:py-28">
+        <Container>
+          <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
+              <div className="tfc-label">What to expect</div>
+              <h2 className="mt-5 text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl">
+                Six days, and a place
+                <br />
+                in them for everyone.
+              </h2>
+            </div>
+            <p className="max-w-[22rem] text-white/60">
+              Teaching every morning at 9:00 AM and every evening at 4:30 PM. Inside the week,
+              these.
+            </p>
+          </div>
+
+          <div className="tfc-expect-grid mt-12">
+            {EXPECT.map((card) => (
+              <article key={card.key} tabIndex={0} className="tfc-photo tfc-expect">
+                <Image
+                  src={card.image}
+                  alt={card.alt}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
+                  quality={70}
+                  className="object-cover"
+                  style={{ objectPosition: card.position ?? "50% 50%" }}
+                />
+                <div className="absolute inset-0 z-[1] bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+
+                <div className="absolute inset-x-0 bottom-0 z-[2] p-6 sm:p-7">
+                  <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#F7B92F]">
+                    {card.when}
+                  </div>
+                  <h3 className="mt-2 text-2xl font-black leading-tight tracking-tight sm:text-3xl">
+                    {card.title}
+                  </h3>
+
+                  <div className="tfc-expect-more">
+                    <div>
+                      {card.list && (
+                        <p className="pt-3 text-sm font-bold text-white">{card.list.join(" · ")}</p>
+                      )}
+                      <p className="max-w-[34rem] pt-3 leading-relaxed text-white/85">{card.body}</p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* ── How to take part ── */}
+      <section id="take-part" className="scroll-mt-16 border-t border-white/10 py-20 md:py-28">
+        <Container>
+          <div className="tfc-label">How to take part</div>
+          <h2 className="mt-5 text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl">
+            All roads lead to Okumagba Avenue.
+          </h2>
+
+          <div className="mt-12 grid gap-4 lg:grid-cols-2">
+            <div className="tfc-photo relative flex min-h-[30rem] flex-col justify-end">
               <Image
-                src="/images/tfc/multiply-poster.jpg"
-                alt="MULTIPLY — The Faith Convention 2026, 8–13 December, 20 Okumagba Avenue, Warri"
-                width={1100}
-                height={1560}
-                className="h-auto w-full rounded-2xl shadow-2xl"
+                src={JOIN.ground.image}
+                alt={JOIN.ground.alt}
+                fill
+                sizes="(max-width: 1024px) 100vw, 600px"
+                quality={70}
+                className="object-cover"
               />
-              <a
-                href="/images/tfc/multiply-poster.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-block text-sm font-semibold text-white/60 underline decoration-white/25 underline-offset-4 transition hover:text-white"
-              >
-                Open the flyer
-              </a>
+              <div className="absolute inset-0 z-[1] bg-gradient-to-t from-black/90 via-black/45 to-black/10" />
+              <div className="relative z-[2] p-7 sm:p-9">
+                <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#F7B92F]">
+                  In Warri
+                </div>
+                <h3 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">Come to the house</h3>
+                <p className="mt-4 max-w-[30rem] leading-relaxed text-white/85">
+                  Every SaltCity church is gathering in one place: the {VENUE_NAME},{" "}
+                  {VENUE_ADDRESS}. Bring someone with you.
+                </p>
+                <div className="mt-7 flex flex-wrap gap-4">
+                  <Btn href={CALENDAR_URL} external>
+                    Add to calendar
+                  </Btn>
+                  <Btn href={MAP_URL} variant="line" external>
+                    Get directions
+                  </Btn>
+                </div>
+              </div>
+            </div>
+
+            <div className="tfc-photo relative flex min-h-[30rem] flex-col justify-end">
+              <Image
+                src={JOIN.online.image}
+                alt={JOIN.online.alt}
+                fill
+                sizes="(max-width: 1024px) 100vw, 600px"
+                quality={70}
+                className="object-cover"
+                style={{ objectPosition: "50% 30%" }}
+              />
+              <div className="absolute inset-0 z-[1] bg-gradient-to-t from-black/90 via-black/45 to-black/10" />
+              <div className="relative z-[2] p-7 sm:p-9">
+                <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#F7B92F]">
+                  Online
+                </div>
+                <h3 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">
+                  Join from where you are
+                </h3>
+                <p className="mt-4 max-w-[30rem] leading-relaxed text-white/85">
+                  If you cannot be in Warri, join the convention&apos;s online community on WhatsApp.
+                  Someone from the church hosts it through the week, answers questions and keeps
+                  everyone together.
+                </p>
+                <div className="mt-7 flex flex-wrap gap-4">
+                  <Btn href={COMMUNITY_URL} external>
+                    Join the community
+                  </Btn>
+                  <Btn href={YOUTUBE_URL} variant="line" external>
+                    Watch on YouTube
+                  </Btn>
+                </div>
+              </div>
             </div>
           </div>
         </Container>
       </section>
 
-      {/* Visit / watch */}
-      <section className="tfc-wash tfc-wash-amber py-20 md:py-28">
-        <div aria-hidden="true" className="tfc-wash-layer" />
-        <div aria-hidden="true" className="tfc-wash-layer tfc-wash-layer-late" />
-        <Container className="tfc-above">
-          <div className="grid gap-12 md:grid-cols-2">
-            <div>
-              <h2 className="text-3xl font-black tracking-tight sm:text-4xl">Join us in Warri</h2>
-              <p className="mt-5 text-lg leading-relaxed text-white/75">
-                20 Okumagba Avenue, Warri, Delta State.
-                <br />
-                Bring someone with you.
-              </p>
-              <div className="mt-7 flex flex-wrap gap-3">
-                <a
-                  href={MAP}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="tfc-cta rounded-full bg-white px-7 py-3.5 text-sm font-bold text-[#170504] transition hover:bg-white/90"
-                >
-                  Get directions
-                </a>
-                <Link
-                  href="/locations"
-                  className="tfc-cta tfc-cta-ghost rounded-full border-2 px-7 py-3.5 text-sm font-bold transition hover:border-white/70"
-                >
-                  All locations
-                </Link>
-              </div>
+      {/* ── Partner ── */}
+      <section id="partner" className="tfc-cut scroll-mt-10 bg-[#F7B92F] text-[#170504]">
+        <Container>
+          <div className="grid items-center gap-10 py-24 md:py-32 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+            <div className="relative mx-auto aspect-[4/5] w-full max-w-[26rem] overflow-hidden shadow-2xl">
+              <Image
+                src={PARTNER_IMAGE.src}
+                alt={PARTNER_IMAGE.alt}
+                fill
+                sizes="(max-width: 1024px) 90vw, 420px"
+                quality={72}
+                className="object-cover"
+                style={{ objectPosition: "50% 20%" }}
+              />
             </div>
 
             <div>
-              <h2 className="text-3xl font-black tracking-tight sm:text-4xl">Watching from elsewhere</h2>
-              <p className="mt-5 text-lg leading-relaxed text-white/75">
-                We keep an online community for people who cannot be in Warri, and the sessions
-                go up on our YouTube channel. Last year&apos;s convention, INFLUENCE, is there in
-                full.
-              </p>
-              <div className="mt-7 flex flex-wrap gap-3">
-                <a
-                  href="https://youtube.com/@saltcitycentral"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="tfc-cta tfc-cta-ghost rounded-full border-2 px-7 py-3.5 text-sm font-bold transition hover:border-white/70"
-                >
-                  YouTube channel
-                </a>
-                <Link
-                  href="/media/the-faith-convention"
-                  className="tfc-cta tfc-cta-ghost rounded-full border-2 px-7 py-3.5 text-sm font-bold transition hover:border-white/70"
-                >
-                  Past conventions
-                </Link>
+              <div className="tfc-label" style={{ color: "rgba(23,5,4,0.7)" }}>
+                Give
               </div>
+              <h2 className="mt-5 text-4xl font-black leading-[1.02] tracking-tight sm:text-6xl">
+                Partner with
+                <br />
+                the convention.
+              </h2>
+              <p className="mt-6 max-w-[34rem] text-lg leading-relaxed text-[#170504]/80">
+                The Faith Convention is carried by the giving of the family. To partner with this
+                year&apos;s convention, give into the partnership account below.
+              </p>
+
+              <div className="mt-9 border-t border-[#170504]/20 pt-7">
+                <div className="text-sm font-bold uppercase tracking-[0.18em] text-[#170504]/60">
+                  {PARTNER_ACCOUNT.bank} · {PARTNER_ACCOUNT.name}
+                </div>
+                <div className="mt-3">
+                  <CopyAccount number={PARTNER_ACCOUNT.number} />
+                </div>
+              </div>
+
+              <Link
+                href="/giving"
+                className="mt-8 inline-block text-sm font-bold underline decoration-[#170504]/35 underline-offset-4 transition hover:decoration-[#170504]"
+              >
+                Other ways to give
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* ── Past conventions ── */}
+      <section id="past" className="scroll-mt-16 py-20 md:py-28">
+        <Container>
+          <div className="tfc-label">Past conventions</div>
+          <h2 className="mt-5 text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl">
+            What the week has been.
+          </h2>
+          <div className="mt-12">
+            <PastEditions editions={PAST} telegram={TELEGRAM_URL} />
+          </div>
+        </Container>
+      </section>
+
+      {/* ── Questions ── */}
+      <section id="questions" className="scroll-mt-16 border-t border-white/10 py-20 md:py-28">
+        <Container>
+          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+            <div>
+              <div className="tfc-label">Questions</div>
+              <h2 className="mt-5 text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl">
+                Before you come.
+              </h2>
+            </div>
+
+            <div className="divide-y divide-white/12 border-y border-white/12">
+              {FAQS.map((f) => (
+                <details key={f.q} className="group">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-6 text-lg font-bold [&::-webkit-details-marker]:hidden">
+                    {f.q}
+                    <span
+                      aria-hidden="true"
+                      className="relative h-4 w-4 shrink-0 before:absolute before:left-0 before:top-1/2 before:h-0.5 before:w-4 before:-translate-y-1/2 before:bg-[#F7B92F] after:absolute after:left-1/2 after:top-0 after:h-4 after:w-0.5 after:-translate-x-1/2 after:bg-[#F7B92F] after:transition-transform group-open:after:rotate-90"
+                    />
+                  </summary>
+                  <p className="max-w-[40rem] pb-6 leading-relaxed text-white/70">{f.a}</p>
+                </details>
+              ))}
             </div>
           </div>
         </Container>
