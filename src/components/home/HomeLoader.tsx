@@ -1,6 +1,11 @@
+import { LOGO_CENTRAL, LOGO_MARK, LOGO_VIEWBOX, LOGO_WORD } from "./logoPaths";
+
 /**
- * The loading screen: the logo rises, a count runs to 100 over a line that
- * crosses the foot of the screen, and the whole thing lifts away.
+ * The loading screen, made from the logo.
+ *
+ * The roofline draws itself as a line and fills in. The name rises in beneath
+ * it, letter by letter. Then the space under the roof opens like a doorway:
+ * a window in the shape of the logo grows until the page has come through it.
  *
  * It is plain server-rendered markup and CSS, switched on by the inline script
  * below, so it is in place before React hydrates and the hero never shows
@@ -11,23 +16,31 @@ const SCRIPT =
   "try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&sessionStorage.getItem('sc-loader')!=='1'){" +
   "sessionStorage.setItem('sc-loader','1');" +
   "var l=document.getElementById('sc-loader');l.classList.add('is-on');" +
-  "setTimeout(function(){l.style.display='none'},2900)}}catch(e){}";
+  "setTimeout(function(){l.style.display='none'},3600)}}catch(e){}";
 
 export default function HomeLoader() {
   return (
     <>
       {/* The script edits this element before hydration, hence the suppression. */}
       <div id="sc-loader" className="sc-loader" aria-hidden="true" suppressHydrationWarning>
-        <div className="sc-loader-logo">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo-white.svg" alt="" width={190} height={113} />
-        </div>
+        {/* The dark screen. The doorway is cut out of this, not out of the logo. */}
+        <div className="sc-loader-bg" />
 
-        <div className="sc-loader-foot">
-          <span className="sc-loader-place">Warri, Delta State</span>
-          <span className="sc-loader-count" />
-        </div>
-        <div className="sc-loader-line" />
+        <svg className="sc-loader-logo" viewBox={LOGO_VIEWBOX} fill="#fff">
+          <path className="sc-lm-mark" d={LOGO_MARK.d} pathLength={1} />
+          <g className="sc-lm-text">
+            <g className="sc-lm-word">
+              {LOGO_WORD.map((d, i) => (
+                <path key={i} d={d} style={{ ["--i" as string]: i }} />
+              ))}
+            </g>
+            <g className="sc-lm-central">
+              {LOGO_CENTRAL.map((d, i) => (
+                <path key={i} d={d} />
+              ))}
+            </g>
+          </g>
+        </svg>
       </div>
       <script dangerouslySetInnerHTML={{ __html: SCRIPT }} />
     </>
