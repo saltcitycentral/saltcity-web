@@ -1,288 +1,265 @@
-"use client";
-
-import { useRef } from "react";
-import Container from "@/components/ui/Container";
-import Link from "next/link";
+import type { Metadata } from "next";
+import fs from "node:fs";
+import path from "node:path";
 import Image from "next/image";
-import {
-  Download,
-  ExternalLink,
-  FileText,
-  BookOpen,
-  MessageSquare,
-  Heart,
-  Play,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
-import { RESOURCE_CATEGORIES, type ResourceCategory, type ResourceItem } from "./resourcesData";
+import Link from "next/link";
+import Container from "@/components/ui/Container";
+import HomeMotion from "@/components/home/HomeMotion";
+import { RESOURCE_CATEGORIES, type ResourceItem } from "./resourcesData";
 
-function IconForCategory({ iconKey }: { iconKey: ResourceCategory["iconKey"] }) {
-  const cls =
-    "w-16 h-16 rounded-2xl bg-black text-white flex items-center justify-center shadow-[0_12px_30px_rgba(0,0,0,0.18)]";
-  switch (iconKey) {
-    case "forms":
-      return (
-        <div className={cls}>
-          <FileText size={26} />
-        </div>
-      );
-    case "confessions":
-      return (
-        <div className={cls}>
-          <MessageSquare size={26} />
-        </div>
-      );
-    case "prayer":
-      return (
-        <div className={cls}>
-          <Heart size={26} />
-        </div>
-      );
-    case "study":
-    default:
-      return (
-        <div className={cls}>
-          <BookOpen size={26} />
-        </div>
-      );
+export const metadata: Metadata = {
+  title: "Resources",
+  description: "Download forms, confessions, and faith-building materials.",
+};
+
+/** "2.6 MB", read from the file itself so it is never out of date. */
+function sizeOf(href: string) {
+  try {
+    const bytes = fs.statSync(path.join(process.cwd(), "public", href)).size;
+    if (bytes >= 1024 * 1024) {
+      const mb = bytes / (1024 * 1024);
+      return `${mb >= 10 ? Math.round(mb) : mb.toFixed(1)} MB`;
+    }
+    return `${Math.max(1, Math.round(bytes / 1024))} KB`;
+  } catch {
+    return "";
   }
 }
 
-function KindPill({ kind, badge }: { kind: ResourceItem["kind"]; badge?: string }) {
-  const label = badge ?? kind.toUpperCase();
-  const icon =
-    kind === "audio" ? <Play size={14} /> : <FileText size={14} />;
+type Action = { label: string; href: string; download: boolean; external: boolean; size: string };
 
-  return (
-    <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/90 text-black text-xs font-semibold shadow">
-      {icon}
-      {label}
-    </span>
-  );
+function actionFor(r: ResourceItem): Action {
+  const external = Boolean(r.external) || r.kind === "link";
+  if (external) return { label: "Open", href: r.href, download: false, external: true, size: "" };
+  if (r.kind === "audio") return { label: "Listen", href: r.href, download: false, external: false, size: sizeOf(r.href) };
+  return { label: "Download", href: r.href, download: true, external: false, size: sizeOf(r.href) };
 }
 
-function ResourceCard({ r, priority }: { r: ResourceItem; priority?: boolean }) {
-  const isExternal = Boolean(r.external) || r.kind === "link";
-
-  const ActionButton = () => {
-    if (isExternal) {
-      return (
-        <a
-          href={r.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-black text-white text-sm font-semibold hover:bg-black/90 transition-colors"
-        >
-          <ExternalLink size={16} />
-          Open
-        </a>
-      );
-    }
-
-    if (r.kind === "audio") {
-      return (
-        <a
-          href={r.href}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-black text-white text-sm font-semibold hover:bg-black/90 transition-colors"
-        >
-          <Play size={16} />
-          Play / Download
-        </a>
-      );
-    }
-
-    // pdf | doc default to download
-    return (
-      <a
-        href={r.href}
-        download
-        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-black text-white text-sm font-semibold hover:bg-black/90 transition-colors"
-      >
-        <Download size={16} />
-        Download
-      </a>
-    );
-  };
-
-  return (
-    <div className="group rounded-3xl overflow-hidden border border-black/10 bg-white shadow-[0_18px_45px_rgba(0,0,0,0.08)] hover:shadow-[0_22px_65px_rgba(0,0,0,0.14)] transition-all duration-300 hover:-translate-y-1">
-      {/* Cover */}
-      <div className="relative aspect-[16/11] bg-neutral-100">
-        {r.cover ? (
-          <Image
-            src={r.cover}
-            alt={r.title}
-            fill
-            className="object-cover"
-            sizes="(max-width: 1024px) 92vw, 380px"
-            priority={priority}
-          />
-        ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 to-black" />
-        )}
-
-        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
-
-        <div className="absolute top-4 left-4">
-          <KindPill kind={r.kind} badge={r.badge} />
-        </div>
-
-        {r.fileSize && (
-          <div className="absolute top-4 right-4">
-            <span className="px-3 py-1 rounded-full bg-black/55 text-white text-xs font-semibold">
-              {r.fileSize}
-            </span>
-          </div>
-        )}
-      </div>
-
-      {/* Body */}
-      <div className="p-7">
-        <h3 className="font-black text-lg leading-snug mb-2">{r.title}</h3>
-        <p className="text-sm text-black/70 leading-relaxed mb-6">{r.description}</p>
-
-        <div className="flex items-center gap-3">
-          <ActionButton />
-        </div>
-      </div>
-    </div>
-  );
+/**
+ * A written version and its audio are listed as two entries in the data. Here
+ * they become one row with two things to do: "Prosperity Rhapsodies (Audio)"
+ * folds into "Prosperity Rhapsodies".
+ */
+function mergeFormats(resources: ResourceItem[]) {
+  const rows: { item: ResourceItem; actions: Action[] }[] = [];
+  for (const r of resources) {
+    const base = r.title.replace(/\s*\(audio\)\s*$/i, "");
+    const twin = base !== r.title ? rows.find((row) => row.item.title === base) : undefined;
+    if (twin) twin.actions.push(actionFor(r));
+    else rows.push({ item: r, actions: [actionFor(r)] });
+  }
+  return rows;
 }
 
-function ScrollRail({
-  ariaLabel,
-  children,
-}: {
-  ariaLabel: string;
-  children: React.ReactNode;
-}) {
-  const ref = useRef<HTMLDivElement | null>(null);
-
-  const scrollByAmount = (dir: -1 | 1) => {
-    const el = ref.current;
-    if (!el) return;
-    const amount = Math.round(el.clientWidth * 0.82) * dir;
-    el.scrollBy({ left: amount, behavior: "smooth" });
-  };
-
+function ActionLink({ a }: { a: Action }) {
   return (
-    <div className="relative">
-      {/* Buttons */}
-      <button
-        type="button"
-        onClick={() => scrollByAmount(-1)}
-        aria-label="Scroll left"
-        className="hidden lg:grid absolute -left-3 top-1/2 -translate-y-1/2 z-10 h-12 w-12 place-items-center rounded-full bg-white border border-black/10 shadow-[0_12px_30px_rgba(0,0,0,0.12)] hover:shadow-[0_18px_45px_rgba(0,0,0,0.18)] transition"
-      >
-        <ChevronLeft size={20} />
-      </button>
-
-      <button
-        type="button"
-        onClick={() => scrollByAmount(1)}
-        aria-label="Scroll right"
-        className="hidden lg:grid absolute -right-3 top-1/2 -translate-y-1/2 z-10 h-12 w-12 place-items-center rounded-full bg-white border border-black/10 shadow-[0_12px_30px_rgba(0,0,0,0.12)] hover:shadow-[0_18px_45px_rgba(0,0,0,0.18)] transition"
-      >
-        <ChevronRight size={20} />
-      </button>
-
-      {/* Rail */}
-      <div
-        ref={ref}
-        aria-label={ariaLabel}
-        className={[
-          "flex gap-8 overflow-x-auto pb-2",
-          "scroll-smooth snap-x snap-mandatory",
-          "pr-6",
-          "[scrollbar-width:none] [-ms-overflow-style:none]",
-        ].join(" ")}
-      >
-        {/* Hide webkit scrollbar */}
-        <style>{`
-          div[aria-label="${ariaLabel}"]::-webkit-scrollbar { display: none; }
-        `}</style>
-
-        {children}
-      </div>
-
-      {/* Edge fades */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-white to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-white to-transparent" />
-    </div>
+    <a
+      href={a.href}
+      {...(a.download ? { download: true } : {})}
+      {...(a.external || !a.download ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      className="sc-link text-sm"
+    >
+      {a.label}
+      <span aria-hidden="true">{a.download ? "↓" : "↗"}</span>
+    </a>
   );
 }
 
 export default function ResourcesPage() {
   return (
-    <main>
-      {/* Hero */}
-      <section className="py-20 bg-gradient-to-br from-neutral-900 to-black">
+    <main data-home>
+      {/* Opening */}
+      <section className="bg-white">
         <Container>
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-5xl lg:text-6xl font-black text-white mb-6">
-              Resources
+          <div className="pb-14 pt-16 md:pb-20 md:pt-24">
+            <div
+              className="sc-fade text-xs font-bold uppercase tracking-[0.28em] text-black/50"
+              style={{ ["--i" as string]: 0 }}
+            >
+              Free to download
+            </div>
+            <h1 className="mt-5 text-[clamp(3.25rem,12.5vw,11rem)] font-black leading-[0.86] tracking-tight">
+              <span className="sc-line" style={{ ["--i" as string]: 0 }}>
+                <span>Resources</span>
+              </span>
             </h1>
-            <p className="text-xl text-white/80 leading-relaxed">
-              Download forms, confessions, and faith-building materials—beautifully organised and easy to access.
+            <p
+              className="sc-fade mt-8 max-w-[34rem] text-lg leading-relaxed text-black/70 md:text-xl"
+              style={{ ["--i" as string]: 2 }}
+            >
+              Download forms, confessions, and faith-building materials.
             </p>
+
+            <nav
+              aria-label="On this page"
+              className="sc-fade mt-10 flex flex-wrap gap-x-8 gap-y-3"
+              style={{ ["--i" as string]: 3 }}
+            >
+              {RESOURCE_CATEGORIES.map((c, i) => (
+                <a key={c.title} href={`#section-${i + 1}`} className="sc-link text-sm">
+                  {c.title}
+                  <span aria-hidden="true">↓</span>
+                </a>
+              ))}
+            </nav>
           </div>
         </Container>
       </section>
 
-      {/* Categories */}
-      <section className="py-20 bg-white">
-        <Container>
-          <div className="space-y-24">
-            {RESOURCE_CATEGORIES.map((category, idx) => (
-              <div key={category.title}>
-                {/* Header */}
-                <div className="flex items-start gap-6 mb-10">
-                  <IconForCategory iconKey={category.iconKey} />
-                  <div className="pt-1">
-                    <h2 className="text-3xl font-black">{category.title}</h2>
-                    <p className="text-black/70 mt-2 max-w-2xl">{category.description}</p>
+      {RESOURCE_CATEGORIES.map((category, idx) => {
+        const withCovers = category.iconKey === "study";
+        const rows = mergeFormats(category.resources);
 
-                    <div className="mt-4 text-sm text-black/60">
-                      {category.resources.length} item{category.resources.length === 1 ? "" : "s"}
+        return (
+          <section
+            key={category.title}
+            id={`section-${idx + 1}`}
+            className="scroll-mt-24 border-t border-black/10 bg-white"
+          >
+            <Container>
+              <div className="grid gap-10 py-20 md:grid-cols-12 md:gap-16 md:py-28">
+                <div className="md:col-span-4">
+                  <div className="md:sticky md:top-32">
+                    <div data-reveal className="text-xs font-bold tabular-nums tracking-[0.2em] text-black/40">
+                      0{idx + 1}
                     </div>
+                    <h2
+                      data-reveal
+                      style={{ ["--d" as string]: 60 }}
+                      className="mt-4 text-[clamp(2.25rem,4.4vw,3.75rem)] font-black leading-[0.95] tracking-tight"
+                    >
+                      {category.title}
+                    </h2>
+                    <p
+                      data-reveal
+                      style={{ ["--d" as string]: 120 }}
+                      className="mt-5 max-w-[24rem] text-lg leading-relaxed text-black/65"
+                    >
+                      {category.description}
+                    </p>
                   </div>
                 </div>
 
-                {/* Slider */}
-                <ScrollRail ariaLabel={`Resources: ${category.title}`}>
-                  {category.resources.map((r, i) => (
-                    <div
-                      key={r.id}
-                      className="snap-start shrink-0 w-[86vw] sm:w-[420px] lg:w-[380px]"
-                    >
-                      <ResourceCard r={r} priority={idx === 0 && i < 2} />
+                <div className="md:col-span-8">
+                  {withCovers ? (
+                    <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2">
+                      {rows.map(({ item, actions }, i) => (
+                        <div key={item.id}>
+                          <div data-reveal="shutter" style={{ ["--d" as string]: i * 90 }}>
+                            <a
+                              href={actions[0].href}
+                              download
+                              aria-label={`Download ${item.title}`}
+                              className="group relative block aspect-[16/11] overflow-hidden border border-black/10 bg-neutral-100"
+                            >
+                              {item.cover ? (
+                                <Image
+                                  src={item.cover}
+                                  alt=""
+                                  fill
+                                  sizes="(max-width: 640px) 100vw, 380px"
+                                  quality={75}
+                                  className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                                />
+                              ) : null}
+                            </a>
+                          </div>
+                          <div data-reveal style={{ ["--d" as string]: i * 90 + 120 }} className="mt-5">
+                            <h3 className="text-xl font-black leading-snug tracking-tight md:text-2xl">
+                              {item.title}
+                            </h3>
+                            <p className="mt-2 text-base leading-relaxed text-black/65">{item.description}</p>
+                            <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2">
+                              {actions.map((a) => (
+                                <ActionLink key={a.href} a={a} />
+                              ))}
+                              <span className="text-xs font-bold uppercase tracking-[0.18em] text-black/40">
+                                PDF{actions[0].size ? ` · ${actions[0].size}` : ""}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </ScrollRail>
+                  ) : (
+                    <ul className="border-t border-black/10">
+                      {rows.map(({ item, actions }, i) => (
+                        <li
+                          key={item.id}
+                          data-reveal
+                          style={{ ["--d" as string]: Math.min(i, 6) * 50 }}
+                          className="sc-step flex-wrap sm:flex-nowrap"
+                          // The row itself is not a link, so it keeps its place on hover.
+                        >
+                          <div className="min-w-0 flex-1 basis-full sm:basis-0">
+                            <h3 className="text-xl font-black leading-snug tracking-tight md:text-2xl">
+                              {item.title}
+                            </h3>
+                            <p className="mt-1.5 max-w-[34rem] text-base leading-relaxed text-black/65">
+                              {item.description}
+                            </p>
+                          </div>
+                          <div className="flex shrink-0 flex-wrap items-center gap-x-6 gap-y-2">
+                            {actions.map((a) => (
+                              <span key={a.href} className="flex items-baseline gap-2.5">
+                                <ActionLink a={a} />
+                                {a.size ? (
+                                  <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-black/35">
+                                    {a.size}
+                                  </span>
+                                ) : null}
+                              </span>
+                            ))}
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
               </div>
-            ))}
+            </Container>
+          </section>
+        );
+      })}
+
+      {/* Closing */}
+      <section className="bg-black text-white">
+        <Container>
+          <div className="py-24 md:py-32">
+            <h2
+              data-reveal
+              className="max-w-[14ch] text-[clamp(2.5rem,6vw,5rem)] font-black leading-[0.95] tracking-tight"
+            >
+              Need Something Specific?
+            </h2>
+            <p
+              data-reveal
+              style={{ ["--d" as string]: 80 }}
+              className="mt-7 max-w-[32rem] text-lg leading-relaxed text-white/75"
+            >
+              If you can’t find what you’re looking for, reach out and we’ll send it.
+            </p>
+            <div
+              data-reveal
+              style={{ ["--d" as string]: 160 }}
+              className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4"
+            >
+              <Link
+                href="/contact"
+                className="rounded-full bg-white px-8 py-4 text-sm font-bold text-black transition hover:bg-white/90"
+              >
+                Contact Us
+              </Link>
+              <Link href="/media" className="sc-link text-sm text-white">
+                Sermons
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
           </div>
         </Container>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 bg-neutral-50">
-        <Container>
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-black mb-6">Need Something Specific?</h2>
-            <p className="text-lg text-black/70 mb-8">
-              If you can’t find what you’re looking for, reach out and we’ll send it.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-block px-8 py-3.5 rounded-full bg-black text-white font-semibold hover:bg-black/90 transition-colors"
-            >
-              Contact Us
-            </Link>
-          </div>
-        </Container>
-      </section>
+      <HomeMotion />
     </main>
   );
 }

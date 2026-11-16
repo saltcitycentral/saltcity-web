@@ -168,7 +168,7 @@ export const RESOURCE_CATEGORIES: ResourceCategory[] = [
       },
       {
         id: "personal-devotion",
-        title: "Personal devotion",
+        title: "Personal Devotion",
         description: "A structured insightful guide on how to start, maintain, and maximize your personal devotion time.",
         fileSize: "PDF",
         href: "/downloads/personal-devotion.pdf",
