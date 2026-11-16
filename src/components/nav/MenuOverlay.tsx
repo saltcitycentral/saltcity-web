@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Container from "@/components/ui/Container";
-import { User, Instagram, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
 type Props = {
@@ -106,270 +105,159 @@ function isExternal(href: string) {
   return href.startsWith("http");
 }
 
+/**
+ * The menu. A black panel comes down over the page like a blind; the links,
+ * set large, rise out of their lines behind it. Reach for one and the others
+ * step back. The styles are .sc-menu-* in globals.css.
+ */
 export default function MenuOverlay({ open, onClose }: Props) {
-  // Two-step animation: mount first, then animate in next frame.
+  // Mount first, then open on the next frame so the transition has a start.
   const [mounted, setMounted] = useState(false);
   const [active, setActive] = useState(false);
 
   useEffect(() => {
     if (!open) {
-      setActive(false);
-      return;
+      const t = requestAnimationFrame(() => setActive(false));
+      return () => cancelAnimationFrame(t);
     }
-    setMounted(true);
-    const t = requestAnimationFrame(() => setActive(true));
-    return () => cancelAnimationFrame(t);
+    let inner = 0;
+    const outer = requestAnimationFrame(() => {
+      setMounted(true);
+      inner = requestAnimationFrame(() => setActive(true));
+    });
+    return () => {
+      cancelAnimationFrame(outer);
+      cancelAnimationFrame(inner);
+    };
   }, [open]);
 
   useEffect(() => {
     if (!mounted) return;
-
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
-
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [mounted, onClose]);
 
-  // Unmount after close transition
+  // Unmount once the blind has gone back up.
   useEffect(() => {
-    if (!mounted) return;
-    if (open) return;
-
-    const timeout = window.setTimeout(() => setMounted(false), 520);
+    if (!mounted || open) return;
+    const timeout = window.setTimeout(() => setMounted(false), 850);
     return () => window.clearTimeout(timeout);
   }, [open, mounted]);
-
-  const ExpressionCards = useMemo(() => {
-    return EXPRESSIONS.map((x) => (
-      <a
-        key={x.title}
-        href={x.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={[
-          "group rounded-2xl border border-black/10 bg-white",
-          "px-5 py-4",
-          "shadow-[0_10px_40px_rgba(0,0,0,0.06)]",
-          "hover:shadow-[0_18px_60px_rgba(0,0,0,0.10)] hover:-translate-y-[1px]",
-          "transition-all duration-200",
-        ].join(" ")}
-      >
-        <div className="flex items-start justify-between gap-4">
-          <div className="min-w-0">
-            <div className="text-sm font-extrabold text-black/90 truncate">
-              {x.title}
-            </div>
-            <div className="mt-1 text-xs text-black/55 truncate">{x.handle}</div>
-            {x.note ? (
-              <div className="mt-2 text-xs text-black/60 leading-relaxed">
-                {x.note}
-              </div>
-            ) : null}
-          </div>
-
-          <div
-            className={[
-              "shrink-0 grid place-items-center",
-              "h-10 w-10 rounded-full border border-black/10",
-              "text-black/60",
-              "group-hover:text-black group-hover:border-black/20",
-              "transition-colors",
-            ].join(" ")}
-            aria-hidden="true"
-          >
-            <Instagram className="h-4 w-4" />
-          </div>
-        </div>
-
-        <div className="mt-3 inline-flex items-center gap-2 text-xs font-semibold text-black/60 group-hover:text-black transition-colors">
-          View on Instagram
-          <ArrowUpRight className="h-3.5 w-3.5" />
-        </div>
-      </a>
-    ));
-  }, []);
 
   if (!mounted) return null;
 
   return (
     <div
-      className="fixed inset-0 z-50"
+      className={["sc-menu fixed inset-0 z-50", active ? "is-open" : ""].join(" ")}
       role="dialog"
       aria-modal="true"
       aria-label="Menu"
     >
-      {/* Backdrop */}
-      <button
-        type="button"
-        aria-label="Close menu"
-        onClick={onClose}
-        className={[
-          "bg-black/45 backdrop-blur-md",
-          "transition-opacity duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-          active ? "opacity-100" : "opacity-0",
-        ].join(" ")}
-      />
+      <div className="sc-menu-panel absolute inset-0 flex flex-col bg-[#0b0b0b] text-white">
+        {/* Top bar, in the header's place */}
+        <Container>
+          <div className="flex items-center justify-between py-5">
+            <Link href="/" className="flex items-center" onClick={onClose}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo-white.svg" alt="SaltCity" className="h-8 w-auto" />
+            </Link>
 
-      {/* Panel */}
-      <div
-        className={[
-          "absolute inset-0 bg-white",
-          "transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-          "will-change-[transform,opacity]",
-          active
-            ? "translate-y-0 opacity-100"
-            : "-translate-y-4 opacity-0",
-        ].join(" ")}
-      >
-        {/* Top bar mirrors header */}
-        <div className="border-b border-black/10">
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Close menu"
+              className="flex items-center gap-3.5 py-1 text-xs font-bold uppercase tracking-[0.2em] text-white/80 transition-colors hover:text-white"
+            >
+              <span>Close</span>
+              <span className="sc-close" aria-hidden="true" />
+            </button>
+          </div>
+        </Container>
+
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
           <Container>
-            <div className="flex items-center justify-between py-6">
-              <Link href="/" className="flex items-center" onClick={onClose}>
-                <img src="/logo.svg" alt="SaltCity" className="h-8 w-auto" />
-              </Link>
-
-              <div className="flex items-center gap-6">
-                <Link
-                  href="/login"
-                  onClick={onClose}
-                  className="hidden sm:flex items-center gap-2 uppercase text-sm font-semibold tracking-wide text-black/70 hover:text-black"
-                >
-                  <div className="grid h-7 w-7 place-items-center rounded-full border border-black/20 text-black/50">
-                    <User className="h-4 w-4" />
-                  </div>
-                  <span>LOG IN</span>
-                </Link>
-
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="flex items-center gap-3 uppercase text-sm font-semibold tracking-wide text-black/70 hover:text-black"
-                  aria-label="Close menu"
-                >
-                  <span className="text-xl leading-none">×</span>
-                  <span>MENU</span>
-                </button>
-              </div>
-            </div>
-          </Container>
-        </div>
-
-        {/* Content */}
-        <div className="h-[calc(100vh-81px)] overflow-y-auto">
-          <Container>
-            <div className="py-10">
-              {/* Header block */}
-              <div className="mb-10">
-                <div className="text-xs font-bold uppercase tracking-wider text-black/45">
-                  Navigation
-                </div>
-                <div className="mt-2 text-3xl md:text-4xl font-extrabold tracking-tight text-black">
-                  Welcome to SaltCity
-                </div>
-                <div className="mt-3 max-w-2xl text-sm text-black/65 leading-relaxed">
-                  Find where you belong and stay connected with what God is doing across our expressions.
-                </div>
-              </div>
-
-              {/* Layout */}
-              <div className="grid gap-10 lg:grid-cols-12">
-                {/* LEFT: Explore */}
-                <div className="lg:col-span-4">
-                  <div className="text-xs font-bold uppercase tracking-wider text-black/45">
-                    Explore
-                  </div>
-
-                  <div className="mt-5 space-y-2">
-                    {TOP_ITEMS.map((x) => {
-                      const ext = isExternal(x.href);
-                      return (
+            <div className="grid gap-14 pb-16 pt-8 lg:grid-cols-[1.25fr_0.75fr] lg:gap-20 lg:pt-12">
+              {/* The pages, set large */}
+              <nav aria-label="Pages">
+                <ul className="sc-menu-list">
+                  {TOP_ITEMS.map((x, i) => {
+                    const ext = isExternal(x.href);
+                    return (
+                      <li key={x.title}>
                         <Link
-                          key={x.title}
                           href={x.href}
                           onClick={onClose}
                           target={ext ? "_blank" : undefined}
                           rel={ext ? "noopener noreferrer" : undefined}
-                          className={[
-                            "block rounded-xl border border-black/10 bg-white",
-                            "px-4 py-3",
-                            "hover:border-black/20 hover:shadow-[0_10px_40px_rgba(0,0,0,0.06)]",
-                            "transition-all duration-200",
-                          ].join(" ")}
+                          className="sc-menu-link sc-menu-rise py-[0.18em] text-[clamp(1.9rem,4.6vw,3.9rem)] font-black leading-[1.02] tracking-tight"
                         >
-                          <div className="text-sm font-extrabold text-black/90">
+                          <span style={{ ["--i" as string]: i }}>
                             {x.title}
-                          </div>
-                          {x.desc ? (
-                            <div className="mt-1 text-xs text-black/60 leading-relaxed">
-                              {x.desc}
-                            </div>
-                          ) : null}
+                            <span className="sc-menu-arrow ml-[0.35em] text-[0.6em]" aria-hidden="true">
+                              {ext ? "↗" : "→"}
+                            </span>
+                          </span>
                         </Link>
-                      );
-                    })}
-                  </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </nav>
 
-                  {/* Quick links */}
-                  <div className="mt-8">
-                    <div className="text-xs font-bold uppercase tracking-wider text-black/45">
-                      Quick links
-                    </div>
-                    <div className="mt-4 space-y-2">
-                      {QUICK_LINKS.map((x) => (
-                        <Link
-                          key={x.title}
-                          href={x.href}
-                          onClick={onClose}
-                          className="inline-flex items-center gap-2 rounded-full border border-black/15 px-4 py-2 text-xs font-semibold text-black/70 hover:text-black hover:border-black/25 transition"
-                        >
-                          {x.title}
-                          <ArrowUpRight className="h-3.5 w-3.5" />
-                        </Link>
-                      ))}
-                    </div>
+              {/* Everything smaller */}
+              <div className="space-y-12 lg:pt-3">
+                <div className="sc-menu-fade" style={{ ["--i" as string]: 0 }}>
+                  <div className="text-[11px] font-bold uppercase tracking-[0.28em] text-white/40">
+                    Expressions
                   </div>
+                  <ul className="mt-4 border-t border-white/12">
+                    {EXPRESSIONS.map((x) => (
+                      <li key={x.title}>
+                        <a
+                          href={x.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group flex items-baseline justify-between gap-4 border-b border-white/12 py-3.5"
+                        >
+                          <span className="font-bold">{x.title}</span>
+                          <span className="text-sm text-white/45 transition-colors group-hover:text-white">
+                            {x.handle} ↗
+                          </span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
-                {/* RIGHT: Expressions */}
-                <div className="lg:col-span-8">
-                  <div className="flex items-end justify-between gap-6">
-                    <div>
-                      <div className="text-xs font-bold uppercase tracking-wider text-black/45">
-                        Expressions
-                      </div>
-                      <div className="mt-2 text-xl md:text-2xl font-extrabold text-black">
-                        Follow the one closest to you.
-                      </div>
-                      <div className="mt-2 text-sm text-black/60 max-w-2xl">
-                        Each expression shares updates, gatherings, and moments on Instagram.
-                      </div>
-                    </div>
+                <div className="sc-menu-fade" style={{ ["--i" as string]: 1 }}>
+                  <div className="text-[11px] font-bold uppercase tracking-[0.28em] text-white/40">
+                    Also
                   </div>
+                  <ul className="mt-4 flex flex-wrap gap-x-7 gap-y-2">
+                    {QUICK_LINKS.map((x) => (
+                      <li key={x.title}>
+                        <Link href={x.href} onClick={onClose} className="sc-link text-sm text-white">
+                          {x.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
-                  <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                    {ExpressionCards}
+                <div className="sc-menu-fade text-sm leading-relaxed text-white/55" style={{ ["--i" as string]: 2 }}>
+                  <div className="text-[11px] font-bold uppercase tracking-[0.28em] text-white/40">
+                    Join us
                   </div>
-
-                  <div className="mt-10 border-t border-black/10 pt-8">
-                    <div className="text-xs font-bold uppercase tracking-wider text-black/45">
-                      About
-                    </div>
-                    <div className="mt-2 text-sm text-black/65">
-                      Want leadership, beliefs, and our story? Use{" "}
-                      <Link href="/who-we-are" onClick={onClose} className="font-semibold text-black underline">
-                        Who We Are
-                      </Link>
-                      .
-                    </div>
-                  </div>
+                  <p className="mt-4">
+                    Sundays, 9:00 AM
+                    <br />
+                    20 Okumagba Avenue, Warri
+                  </p>
                 </div>
               </div>
-
-              {/* Bottom spacing */}
-              <div className="h-10" />
             </div>
           </Container>
         </div>

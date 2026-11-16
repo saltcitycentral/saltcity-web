@@ -100,6 +100,12 @@ body {
 
 
 
+@property --sc-n {
+  syntax: "<integer>";
+  inherits: true;
+  initial-value: 0;
+}
+
 @layer components {
   /* ─── The Faith Convention 2026 — MULTIPLY ──────────────────────────────
      Photographs carry this page. They sit under the three colours of the
@@ -543,17 +549,57 @@ body {
 
   .sc-loader-logo img {
     display: block;
-    width: clamp(120px, 18vw, 190px);
+    width: clamp(130px, 17vw, 200px);
     height: auto;
     animation: sc-logo-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
   }
 
+  /* Along the foot: where we are on the left, the count on the right. */
+  .sc-loader-foot {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 clamp(1.25rem, 4vw, 3.5rem) clamp(1.1rem, 2.6vw, 2rem);
+    color: #fff;
+  }
+
+  .sc-loader-place {
+    padding-bottom: 0.9rem;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    animation: sc-fade 0.8s ease 0.35s both;
+  }
+
+  /* 00 to 100, counted by the browser from a registered integer. */
+  .sc-loader-count {
+    font-size: clamp(4rem, 13vw, 11rem);
+    font-weight: 900;
+    line-height: 0.8;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+    animation: sc-count 1.55s cubic-bezier(0.65, 0, 0.35, 1) 0.2s both;
+  }
+
+  .sc-loader-count::after {
+    counter-reset: sc-n var(--sc-n);
+    content: counter(sc-n, decimal-leading-zero);
+  }
+
+  /* The line runs the full width of the screen, under everything. */
   .sc-loader-line {
-    margin: 22px auto 0;
-    height: 1px;
-    width: clamp(120px, 18vw, 190px);
-    background: rgba(255, 255, 255, 0.18);
-    overflow: hidden;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.14);
   }
 
   .sc-loader-line::after {
@@ -562,7 +608,12 @@ body {
     height: 100%;
     background: #fff;
     transform-origin: left center;
-    animation: sc-line 1.45s cubic-bezier(0.65, 0, 0.35, 1) 0.3s both;
+    animation: sc-line 1.55s cubic-bezier(0.65, 0, 0.35, 1) 0.2s both;
+  }
+
+  @keyframes sc-count {
+    from { --sc-n: 0; }
+    to { --sc-n: 100; }
   }
 
   @keyframes sc-logo-in {
@@ -608,6 +659,48 @@ body {
   @keyframes sc-settle {
     from { transform: scale(1.16); }
     to { transform: none; }
+  }
+
+  /* The photographs turn over: the next one wipes in across the last from
+     the right, then settles slowly while it is up. */
+  .sc-slide {
+    position: absolute;
+    inset: 0;
+    visibility: hidden;
+  }
+
+  .sc-slide.is-prev {
+    visibility: visible;
+    z-index: 1;
+  }
+
+  .sc-slide.is-active {
+    visibility: visible;
+    z-index: 2;
+    animation: sc-slide-in 1.5s cubic-bezier(0.76, 0, 0.24, 1) both;
+  }
+
+  .sc-slide.is-first {
+    animation: none;
+  }
+
+  .sc-slide-img {
+    position: absolute;
+    inset: 0;
+  }
+
+  .sc-slide.is-active:not(.is-first) .sc-slide-img {
+    animation: sc-slide-settle 8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes sc-slide-in {
+    from { clip-path: inset(0 0 0 100%); }
+    to { clip-path: inset(0); }
+  }
+
+  @keyframes sc-slide-settle {
+    from { transform: scale(1.14); }
+    to { transform: scale(1.02); }
   }
 
   /* A soft light that follows the pointer across the room. It rests on the
@@ -704,6 +797,112 @@ body {
     will-change: transform;
   }
 
+  /* ── Menu button ──────────────────────────────────────────────────────── */
+  /* Two lines. The lower one is short until you reach for it. */
+  .sc-burger {
+    display: grid;
+    gap: 6px;
+    width: 26px;
+  }
+
+  .sc-burger span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: currentColor;
+    transform-origin: right center;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .sc-burger span:last-child {
+    transform: scaleX(0.55);
+  }
+
+  .sc-menu-btn:hover .sc-burger span:last-child {
+    transform: scaleX(1);
+  }
+
+  /* ── Menu ─────────────────────────────────────────────────────────────── */
+  /* The panel comes down like a blind; the links rise out of their lines
+     behind it, one after another. Closing runs the blind back up. */
+  .sc-menu-panel {
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  .sc-menu.is-open .sc-menu-panel {
+    clip-path: inset(0);
+  }
+
+  .sc-menu-rise {
+    display: block;
+    overflow: hidden;
+  }
+
+  .sc-menu-rise > span {
+    display: block;
+    transform: translateY(110%);
+    transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  .sc-menu.is-open .sc-menu-rise > span {
+    transform: none;
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: calc(0.28s + var(--i, 0) * 45ms);
+  }
+
+  .sc-menu-fade {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .sc-menu.is-open .sc-menu-fade {
+    opacity: 1;
+    transition: opacity 0.8s ease;
+    transition-delay: calc(0.5s + var(--i, 0) * 60ms);
+  }
+
+  /* Reach for one link and the others step back. */
+  .sc-menu-link {
+    transition: opacity 0.35s ease;
+  }
+
+  .sc-menu-link .sc-menu-arrow {
+    display: inline-block;
+    opacity: 0;
+    transform: translateX(-0.4em);
+    transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .sc-menu-list:hover .sc-menu-link { opacity: 0.32; }
+    .sc-menu-list .sc-menu-link:hover { opacity: 1; }
+    .sc-menu-link:hover .sc-menu-arrow { opacity: 1; transform: none; }
+  }
+
+  /* The close mark: the two lines of the menu button, crossed. */
+  .sc-close {
+    position: relative;
+    display: block;
+    width: 26px;
+    height: 26px;
+  }
+
+  .sc-close::before,
+  .sc-close::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 12px;
+    height: 2px;
+    width: 100%;
+    background: currentColor;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
+  }
+
+  .sc-menu.is-open .sc-close::before { transform: rotate(45deg); }
+  .sc-menu.is-open .sc-close::after { transform: rotate(-45deg); }
+
   /* ── Next steps: a list, not cards ────────────────────────────────────── */
   .sc-step {
     position: relative;
@@ -794,8 +993,17 @@ body {
 
     .sc-hero-settle,
     .sc-line > span,
-    .sc-fade {
+    .sc-fade,
+    .sc-slide.is-active,
+    .sc-slide.is-active .sc-slide-img {
       animation: none;
+    }
+
+    .sc-menu-panel,
+    .sc-menu-rise > span,
+    .sc-menu-fade,
+    .sc-burger span {
+      transition: none;
     }
 
     .sc-step,

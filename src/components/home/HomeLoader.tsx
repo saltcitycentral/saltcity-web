@@ -1,5 +1,6 @@
 /**
- * The loading screen: the logo rises, a hairline fills, the screen lifts.
+ * The loading screen: the logo rises, a count runs to 100 over a line that
+ * crosses the foot of the screen, and the whole thing lifts away.
  *
  * It is plain server-rendered markup and CSS, switched on by the inline script
  * below, so it is in place before React hydrates and the hero never shows
@@ -17,13 +18,16 @@ export default function HomeLoader() {
     <>
       {/* The script edits this element before hydration, hence the suppression. */}
       <div id="sc-loader" className="sc-loader" aria-hidden="true" suppressHydrationWarning>
-        <div>
-          <div className="sc-loader-logo">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo-white.svg" alt="" width={190} height={113} />
-          </div>
-          <div className="sc-loader-line" />
+        <div className="sc-loader-logo">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo-white.svg" alt="" width={190} height={113} />
         </div>
+
+        <div className="sc-loader-foot">
+          <span className="sc-loader-place">Warri, Delta State</span>
+          <span className="sc-loader-count" />
+        </div>
+        <div className="sc-loader-line" />
       </div>
       <script dangerouslySetInnerHTML={{ __html: SCRIPT }} />
     </>

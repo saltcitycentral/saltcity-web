@@ -1,12 +1,12 @@
-import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
+import HeroPhotos from "./HeroPhotos";
 
 /**
- * The homepage hero: one photograph, held still, and a headline.
+ * The homepage hero: a few photographs turning over slowly, and a headline.
  *
  * The motion is in CSS (see .sc-hero-* in globals.css) and HomeMotion: the
- * photograph settles as the page opens, a soft light follows the pointer
+ * first photograph settles as the page opens, a soft light follows the pointer
  * across the room, and as you scroll the frame draws in from the edges while
  * the copy lifts away.
  */
@@ -16,16 +16,7 @@ export default function HeroStill() {
       <div className="sc-hero-frame bg-black">
         <div className="sc-hero-drift">
           <div className="sc-hero-settle">
-            <Image
-              src="/images/home/hero-pulpit.jpg"
-              alt="Pastor Tobore David teaching at SaltCity Central"
-              fill
-              priority
-              sizes="100vw"
-              quality={75}
-              className="object-cover"
-              style={{ objectPosition: "50% 45%" }}
-            />
+            <HeroPhotos />
           </div>
         </div>
 
