@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import Container from "@/components/ui/Container";
+import HomeMotion from "@/components/home/HomeMotion";
 import { CATEGORY_META, type MediaCategory } from "../mediaData";
 import { getMediaItems } from "../seriesFromYoutube";
+import SeriesBrowser from "../SeriesBrowser";
+import { hasContent, toCard } from "../shared";
 
 // Refresh YouTube-backed series hourly (must be a literal for Next).
 export const revalidate = 3600;
@@ -9,120 +15,70 @@ function isCategory(x: string): x is MediaCategory {
   return x in CATEGORY_META;
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}): Promise<Metadata> {
+  const { category } = await params;
+  if (!isCategory(category)) return {};
+  return { title: CATEGORY_META[category].title, description: CATEGORY_META[category].subtitle };
+}
+
 export default async function MediaCategoryPage({
   params,
 }: {
   params: Promise<{ category: string }>;
 }) {
   const { category } = await params;
-
-  if (!isCategory(category)) {
-    return (
-      <main className="mx-auto max-w-[1200px] px-6 py-12">
-        <h1 className="text-3xl font-extrabold">Not found</h1>
-        <p className="mt-3 text-black/70">Unknown media category.</p>
-      </main>
-    );
-  }
+  if (!isCategory(category)) notFound();
 
   const meta = CATEGORY_META[category];
-  const items = (await getMediaItems()).filter((x) => x.category === category);
-
-  const isDark = meta.theme === "dark";
+  const items = (await getMediaItems()).filter((x) => x.category === category && hasContent(x));
 
   return (
-    <main className="pb-16">
-      {/* Hero */}
-      <section
-        className={[
-          "border-b",
-          isDark ? "bg-black text-white border-white/10" : "bg-white text-black border-black/10",
-        ].join(" ")}
-      >
-        <div className="mx-auto max-w-[1200px] px-6 py-10">
-          <div className="text-xs font-semibold tracking-wide opacity-70">
-            {meta.title.toUpperCase()}
+    <main data-home>
+      <section className="bg-white">
+        <Container>
+          <div className="pb-12 pt-14 md:pb-16 md:pt-20">
+            <Link
+              href="/media"
+              className="sc-fade sc-link text-xs uppercase tracking-[0.2em] text-black/60"
+              style={{ ["--i" as string]: 0 }}
+            >
+              <span aria-hidden="true">←</span>
+              Sermons
+            </Link>
+            <h1 className="mt-8 text-[clamp(3rem,10vw,8.5rem)] font-black leading-[0.88] tracking-tight">
+              <span className="sc-line" style={{ ["--i" as string]: 0 }}>
+                <span>{meta.title}</span>
+              </span>
+            </h1>
+            <p
+              className="sc-fade mt-7 max-w-[34rem] text-lg leading-relaxed text-black/70 md:text-xl"
+              style={{ ["--i" as string]: 2 }}
+            >
+              {meta.subtitle}
+            </p>
           </div>
 
-          <h1 className="mt-3 text-[44px] font-extrabold leading-[1.05] tracking-tight">
-            {meta.title}
-          </h1>
-
-          <p className={["mt-4 max-w-[720px] text-[16px] leading-[28px]", isDark ? "text-white/80" : "text-black/70"].join(" ")}>
-            {meta.subtitle}
-          </p>
-
-          {/* Simple “chips” row (optional) */}
-          <div className="mt-6 flex flex-wrap gap-2">
-            <span className={chipClass(isDark)}>Latest</span>
-            <span className={chipClass(isDark)}>Most Played</span>
-            <span className={chipClass(isDark)}>Topics</span>
+          <div className="pb-24 md:pb-32">
+            {items.length === 0 ? (
+              <p className="border-t border-black/10 pt-10 text-lg text-black/60">
+                Nothing here yet.{" "}
+                <Link href="/media/sermon-series" className="sc-link text-black">
+                  See the sermon series
+                  <span aria-hidden="true">→</span>
+                </Link>
+              </p>
+            ) : (
+              <SeriesBrowser cards={items.map(toCard)} noun="series" />
+            )}
           </div>
-        </div>
+        </Container>
       </section>
 
-      {/* Grid */}
-      <section className="mx-auto max-w-[1200px] px-6 pt-10">
-        <div className="flex items-center justify-between gap-4">
-          <h2 className="text-xl font-extrabold">All {meta.title}</h2>
-
-          <Link
-            href="/media"
-            className="rounded-full border border-black/15 px-4 py-2 text-xs font-semibold hover:border-black/25"
-          >
-            Back to Media
-          </Link>
-        </div>
-
-        {items.length === 0 ? (
-          <div className="mt-8 rounded-2xl border border-black/10 bg-white p-8 text-black/70">
-            No items yet. Add entries in <code>mediaData.ts</code>.
-          </div>
-        ) : (
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {items.map((it) => (
-              <Link
-                key={it.slug}
-                href={`/media/${it.category}/${it.slug}`}
-                className="group"
-              >
-                <div
-                  className="overflow-hidden rounded-2xl border border-black/10 bg-white"
-                  style={{ boxShadow: "0 14px 34px rgba(0,0,0,0.12)" }}
-                >
-                  <div className="relative h-[200px]">
-                    <img
-                      src={it.cardImage}
-                      alt={it.title}
-                      className="h-full w-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-                  </div>
-
-                  <div className="p-5">
-                    <div className="text-sm font-extrabold">{it.title}</div>
-                    <div className="mt-2 text-sm leading-[22px] text-black/70 line-clamp-3">
-                      {it.summary}
-                    </div>
-
-                    <div className="mt-4 text-xs font-semibold text-black/60">
-                      {it.episodes?.length ? `${it.episodes.length} items` : "Open"}
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        )}
-      </section>
+      <HomeMotion />
     </main>
   );
-}
-
-function chipClass(isDark: boolean) {
-  return [
-    "inline-flex items-center rounded-full px-4 py-2 text-xs font-semibold",
-    "border",
-    isDark ? "border-white/20 bg-white/10 text-white" : "border-black/15 bg-black/5 text-black",
-  ].join(" ");
 }
