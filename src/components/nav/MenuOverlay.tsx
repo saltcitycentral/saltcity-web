@@ -29,11 +29,6 @@ const TOP_ITEMS: NavItem[] = [
     href: "/tfc",
   },
   {
-    title: "The Spirit of Faith",
-    desc: "A Holy Ghost Meeting — Conference, June 26–28.",
-    href: "/events/spirit-of-faith",
-  },
-  {
     title: "Attend Online",
     desc: "Watch a message live with our online community.",
     href: "https://www.youtube.com/@saltcitycentral",
