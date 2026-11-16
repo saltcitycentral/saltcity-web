@@ -1,29 +1,18 @@
 import type { Metadata } from "next";
-import fs from "node:fs";
-import path from "node:path";
 import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import HomeMotion from "@/components/home/HomeMotion";
 import { RESOURCE_CATEGORIES, type ResourceItem } from "./resourcesData";
+import { FILE_SIZES } from "./fileSizes";
 
 export const metadata: Metadata = {
   title: "Resources",
   description: "Download forms, confessions, and faith-building materials.",
 };
 
-/** "2.6 MB", read from the file itself so it is never out of date. */
 function sizeOf(href: string) {
-  try {
-    const bytes = fs.statSync(path.join(process.cwd(), "public", href)).size;
-    if (bytes >= 1024 * 1024) {
-      const mb = bytes / (1024 * 1024);
-      return `${mb >= 10 ? Math.round(mb) : mb.toFixed(1)} MB`;
-    }
-    return `${Math.max(1, Math.round(bytes / 1024))} KB`;
-  } catch {
-    return "";
-  }
+  return FILE_SIZES[href] ?? "";
 }
 
 type Action = { label: string; href: string; download: boolean; external: boolean; size: string };
