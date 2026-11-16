@@ -105,8 +105,8 @@ export const MEDIA_ITEMS: MediaItem[] = [
     title: "New Creation Realities",
     summary:
       "Ignorance of who we are is as good as being unbelievers. We explore identity in this series.",
-    heroImage: img("/images/new-creation-realities.jpeg"),
-    cardImage: img("/images/new-creation-realities.jpeg"),
+    heroImage: "https://i.ytimg.com/vi/zh3tK31TITQ/maxresdefault.jpg",
+    cardImage: "https://i.ytimg.com/vi/zh3tK31TITQ/maxresdefault.jpg",
     primaryCta: { label: "Watch on YouTube", href: "https://youtube.com/saltcitycentral" },
     secondaryCta: { label: "Listen on Telegram", href: "https://t.me/mysaltcity" },
     episodes: [
@@ -115,7 +115,7 @@ export const MEDIA_ITEMS: MediaItem[] = [
         title: "New Creation Realities",
         part: "PART 1",
         duration: "1:10:54",
-        image: img("/images/new-creation-realities.jpeg"),
+        image: "https://i.ytimg.com/vi/zh3tK31TITQ/maxresdefault.jpg",
         youtubeID: "zh3tK31TITQ"
       },
       {
@@ -123,7 +123,7 @@ export const MEDIA_ITEMS: MediaItem[] = [
         title: "New Creation Realities 2.0",
         part: "PART 2",
         duration: "1:13:08",
-        image: img("/images/new-creation-realities.jpeg"),
+        image: "https://i.ytimg.com/vi/zh3tK31TITQ/maxresdefault.jpg",
         youtubeID: "ZH-UkzYsLQE"
       },
       {
@@ -131,7 +131,7 @@ export const MEDIA_ITEMS: MediaItem[] = [
         title: "New Creation Realities 3.0",
         part: "PART 3",
         duration: "1:26:33",
-        image: img("/images/new-creation-realities.jpeg"),
+        image: "https://i.ytimg.com/vi/zh3tK31TITQ/maxresdefault.jpg",
         youtubeID: "rRq7sK2fKOg"
       },
       {
@@ -139,7 +139,7 @@ export const MEDIA_ITEMS: MediaItem[] = [
         title: "New Creation Realities 4.0",
         part: "PART 4",
         duration: "1:12:25",
-        image: img("/images/new-creation-realities.jpeg"),
+        image: "https://i.ytimg.com/vi/zh3tK31TITQ/maxresdefault.jpg",
         youtubeID: "4oOBHcGU2zo"
       },
       {
@@ -147,7 +147,7 @@ export const MEDIA_ITEMS: MediaItem[] = [
         title: "New Creation Realities 5.0",
         part: "PART 5",
         duration: "1:15:57",
-        image: img("/images/new-creation-realities.jpeg"),
+        image: "https://i.ytimg.com/vi/zh3tK31TITQ/maxresdefault.jpg",
         youtubeID: "FHGk5wrlN9s"
       },
       {
@@ -155,7 +155,7 @@ export const MEDIA_ITEMS: MediaItem[] = [
         title: "New Creation Realities 6.0",
         part: "PART 6",
         duration: "1:55:20",
-        image: img("/images/new-creation-realities.jpeg"),
+        image: "https://i.ytimg.com/vi/zh3tK31TITQ/maxresdefault.jpg",
         youtubeID: "fs8IxtCQfbk"
       },
       
@@ -171,8 +171,8 @@ export const MEDIA_ITEMS: MediaItem[] = [
     title: "The Saltcity",
     summary:
       "An expose on the identity and responsibility of this local church and the church at large.",
-    heroImage: img("/images/the-saltcity.jpeg"),
-    cardImage: img("/images/the-saltcity.jpeg"),
+    heroImage: "https://i.ytimg.com/vi/h-M5CBnkYu4/maxresdefault.jpg",
+    cardImage: "https://i.ytimg.com/vi/h-M5CBnkYu4/maxresdefault.jpg",
     primaryCta: { label: "Watch on YouTube", href: "https://youtube.com/saltcitycentral" },
     secondaryCta: { label: "Listen on Telegram", href: "https://t.me/mysaltcity" },
     episodes: [
@@ -181,7 +181,7 @@ export const MEDIA_ITEMS: MediaItem[] = [
         title: "The Saltcity",
         part: "PART 1",
         duration: "1:10:54",
-        image: img("/images/the-saltcity.jpeg"),
+        image: "https://i.ytimg.com/vi/h-M5CBnkYu4/maxresdefault.jpg",
         youtubeID: "h-M5CBnkYu4"
       },
       {
@@ -189,7 +189,7 @@ export const MEDIA_ITEMS: MediaItem[] = [
         title: "The Saltcity 2.0",
         part: "PART 2",
         duration: "1:13:08",
-        image: img("/images/the-saltcity.jpeg"),
+        image: "https://i.ytimg.com/vi/h-M5CBnkYu4/maxresdefault.jpg",
         youtubeID: "RzNPbTn3qJo"
       },
       {
@@ -197,7 +197,7 @@ export const MEDIA_ITEMS: MediaItem[] = [
         title: "The Saltcity 3.0",
         part: "PART 3",
         duration: "1:26:33",
-        image: img("/images/the-saltcity.jpeg"),
+        image: "https://i.ytimg.com/vi/h-M5CBnkYu4/maxresdefault.jpg",
         youtubeID: "gSr12bCbdkU"
       },
       {
@@ -205,7 +205,7 @@ export const MEDIA_ITEMS: MediaItem[] = [
         title: "The Saltcity 4.0",
         part: "PART 4",
         duration: "1:12:25",
-        image: img("/images/the-saltcity.jpeg"),
+        image: "https://i.ytimg.com/vi/h-M5CBnkYu4/maxresdefault.jpg",
         youtubeID: "B8fzhYj2Luo"
       },
       {
@@ -213,7 +213,7 @@ export const MEDIA_ITEMS: MediaItem[] = [
         title: "The Saltcity 5.0",
         part: "PART 5",
         duration: "1:15:57",
-        image: img("/images/the-saltcity.jpeg"),
+        image: "https://i.ytimg.com/vi/h-M5CBnkYu4/maxresdefault.jpg",
         youtubeID: "RoPCWgFIufo"
       },
       {
@@ -221,7 +221,7 @@ export const MEDIA_ITEMS: MediaItem[] = [
         title: "The Saltcity 6.0",
         part: "PART 6",
         duration: "1:55:20",
-        image: img("/images/the-saltcity.jpeg"),
+        image: "https://i.ytimg.com/vi/h-M5CBnkYu4/maxresdefault.jpg",
         youtubeID: "BhBQo5Rmhgs"
       },
       {
@@ -229,7 +229,7 @@ export const MEDIA_ITEMS: MediaItem[] = [
         title: "The Saltcity 7.0",
         part: "PART 7",
         duration: "1:25:14",
-        image: img("/images/the-saltcity.jpeg"),
+        image: "https://i.ytimg.com/vi/h-M5CBnkYu4/maxresdefault.jpg",
         youtubeID: "bjTwILN2h8A"
       },
     ],
@@ -451,8 +451,8 @@ export const MEDIA_ITEMS: MediaItem[] = [
     title: "Resurrection Faith Seminar",
     summary:
       "focuses on completely expelling doubt from your heart so that your faith can function exactly how God intended.",
-    heroImage: img("/images/resurrection-faith-seminar.jpg"),
-    cardImage: img("/images/resurrection-faith-seminar.jpg"),
+    heroImage: "https://i.ytimg.com/vi/MV6afMJ8zIw/maxresdefault.jpg",
+    cardImage: "https://i.ytimg.com/vi/MV6afMJ8zIw/maxresdefault.jpg",
     primaryCta: { label: "Watch on YouTube", href: "https://youtube.com/saltcitycentral" },
     secondaryCta: { label: "Listen on Telegram", href: "https://t.me/mysaltcity" },
     episodes: [
