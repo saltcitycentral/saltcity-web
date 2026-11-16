@@ -15,31 +15,12 @@ function cx(...classes: (string | false | undefined | null)[]) {
 
 export default function NextSteps() {
   const [activeModal, setActiveModal] = useState<ActiveModal>(null);
-  const [inView, setInView] = useState(false);
   const pathname = usePathname();
 
   // The /new-here short link opens the First Time form directly.
   useEffect(() => {
     if (pathname === "/new-here") setActiveModal("firstTime");
   }, [pathname]);
-
-  useEffect(() => {
-    const el = document.querySelector("[data-next-steps]");
-    if (!el) return;
-
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.18 }
-    );
-
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
 
   const NEXT_STEPS = useMemo(
     () => [
@@ -102,167 +83,66 @@ export default function NextSteps() {
 
   return (
     <>
-      <section className="py-20 bg-white" data-next-steps>
+      <section className="bg-white py-24 md:py-36" data-next-steps>
         <Container>
-          <div
-            className={cx(
-              "transition-all duration-700",
-              inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-            )}
-          >
-            {/* Heading + context */}
-            <div className="text-center mb-10">
+          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+            <div data-reveal className="lg:sticky lg:top-32 lg:self-start">
               <div className="text-xs font-bold uppercase tracking-[0.28em] text-black/45">
-                Next Steps
+                Next steps
               </div>
-
-              <h2 className="mt-5 text-center text-4xl md:text-5xl font-black tracking-tight">
-                Take Your Next Step
+              <h2 className="mt-6 text-[clamp(2.5rem,5vw,4.25rem)] font-black leading-[0.98] tracking-tight">
+                Take your
+                <br />
+                next step.
               </h2>
-
-              <p className="mt-4 max-w-2xl mx-auto text-lg text-black/70 leading-relaxed">
-                Pick the step that matches where you are right now. No pressure — just direction.
+              <p className="mt-6 max-w-sm text-lg leading-relaxed text-black/60">
+                Pick the one that matches where you are right now.
               </p>
             </div>
 
-            {/* Background depth + watermark */}
-            <div className="relative max-w-6xl mx-auto">
-              {/* soft background wash */}
-              <div className="pointer-events-none absolute inset-0 -z-10 rounded-[28px] bg-gradient-to-b from-black/[0.03] to-transparent" />
-
-              {/* watermark */}
-              <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center overflow-hidden rounded-[28px]">
-                <div className="select-none whitespace-nowrap text-[84px] sm:text-[120px] lg:text-[160px] font-black tracking-tight text-black/[0.03]">
-                  SALTCITY
-                </div>
-              </div>
-
-              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 p-4 sm:p-6 rounded-[28px]">
-                {NEXT_STEPS.map((step, idx) => {
-                  const isPrimary = step.title === "First Time Here?";
-
-                  const CardInner = (
-                    <div
-                      className={cx(
-                        "relative h-full flex flex-col",
-                        "rounded-2xl p-8 border bg-white",
-                        "shadow-[0_6px_26px_rgba(0,0,0,0.08)]",
-                        "transition-all duration-300",
-                        "hover:-translate-y-1 hover:shadow-[0_16px_46px_rgba(0,0,0,0.14)]",
-                        "active:translate-y-0.5 active:shadow-[0_10px_28px_rgba(0,0,0,0.12)]",
-                        "group overflow-hidden",
-                        isPrimary ? "border-black/15" : "border-black/8"
-                      )}
-                      style={{ transitionDelay: inView ? `${idx * 70}ms` : "0ms" }}
-                    >
-                      {/* hover glow */}
-                      <div className="pointer-events-none absolute inset-0">
-                        <div className="absolute -left-24 -top-24 h-52 w-52 rounded-full bg-black/0 group-hover:bg-black/[0.06] blur-3xl transition-colors duration-300" />
-                        <div className="absolute -right-24 -bottom-24 h-52 w-52 rounded-full bg-black/0 group-hover:bg-black/[0.05] blur-3xl transition-colors duration-300" />
-                      </div>
-
-                      {/* subtle top accent */}
-                      <div className="pointer-events-none absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-black/0 via-black/25 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                      {/* Badge for primary */}
-                      {isPrimary && (
-                        <div className="absolute top-6 right-6 text-xs font-bold tracking-wide uppercase">
-                          <span className="rounded-full border border-black/10 bg-black/[0.03] px-3 py-1 text-black/70">
-                            Start here
-                          </span>
-                        </div>
-                      )}
-
-                      {/* Icon */}
-                      <div className="mb-6">
-                        <div
-                          className={cx(
-                            "w-16 h-16 rounded-2xl flex items-center justify-center",
-                            "border border-black/10",
-                            "text-black",
-                            "transition-all duration-300",
-                            "group-hover:scale-110"
-                          )}
-                          style={{
-                            background:
-                              "linear-gradient(180deg, rgba(0,0,0,0.03), rgba(0,0,0,0.00))",
-                          }}
-                        >
-                          {step.icon}
-                        </div>
-                      </div>
-
-                      <h3 className="text-xl font-black mb-3 text-black leading-snug min-h-[3.2rem]">
+            <ul className="border-t border-black/10">
+              {NEXT_STEPS.map((step, idx) => {
+                const inner = (
+                  <>
+                    <span className="w-9 flex-none self-start pt-1.5 text-sm font-bold tabular-nums text-black/35">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-2xl font-black leading-tight tracking-tight sm:text-3xl">
                         {step.title}
-                      </h3>
-
-                      <p className="text-base text-black/70 leading-relaxed min-h-[4.5rem]">
+                      </span>
+                      <span className="mt-2 block max-w-md text-base leading-relaxed text-black/60">
                         {step.desc}
-                      </p>
+                      </span>
+                    </span>
+                    <span aria-hidden="true" className="sc-step-arrow">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                      </svg>
+                    </span>
+                  </>
+                );
 
-                      {/* CTA */}
-                      <div className="mt-6 flex items-center gap-2 text-sm font-semibold">
-                        <span className="text-black/70 group-hover:text-black transition-colors duration-300">
-                          {step.cta}
-                        </span>
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          className="text-black/40 group-hover:text-black group-hover:translate-x-1 transition-all duration-300"
-                        >
-                          <line x1="5" y1="12" x2="19" y2="12" />
-                          <polyline points="12 5 19 12 12 19" />
-                        </svg>
-                      </div>
-                    </div>
-                  );
-
-                  if ("href" in step && step.href) {
-                    return (
-                      <Link key={step.title} href={step.href} className="block">
-                        <div
-                          className={cx(
-                            "transition-all duration-700",
-                            inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-                          )}
-                          style={{ transitionDelay: inView ? `${idx * 70}ms` : "0ms" }}
-                        >
-                          {CardInner}
-                        </div>
+                return (
+                  <li key={step.title} data-reveal style={{ ["--d" as string]: idx * 70 }}>
+                    {"href" in step && step.href ? (
+                      <Link href={step.href} className="sc-step">
+                        {inner}
                       </Link>
-                    );
-                  }
-
-                  return (
-                    <button
-                      key={step.title}
-                      type="button"
-                      onClick={step.action}
-                      className="text-left block"
-                    >
-                      <div
-                        className={cx(
-                          "transition-all duration-700",
-                          inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-                        )}
-                        style={{ transitionDelay: inView ? `${idx * 70}ms` : "0ms" }}
-                      >
-                        {CardInner}
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+                    ) : (
+                      <button type="button" onClick={step.action} className="sc-step">
+                        {inner}
+                      </button>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         </Container>
       </section>
 
-      {/* First Time Modal */}
       <Modal
         open={activeModal === "firstTime"}
         title="First Time Here?"

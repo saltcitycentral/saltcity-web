@@ -13,10 +13,11 @@ export default function CityBuildersStrip() {
   return (
     <section className="bg-white">
       <Container>
-        <div className="grid items-center gap-10 py-20 lg:grid-cols-2 lg:gap-16 lg:py-24">
+        <div className="grid items-center gap-10 py-24 lg:grid-cols-2 lg:gap-20 lg:py-36">
           {/* images */}
           <div className="grid grid-cols-5 gap-3 sm:gap-4">
-            <div className="col-span-3 overflow-hidden rounded-2xl">
+            <div data-reveal="shutter" className="col-span-3 overflow-hidden rounded-2xl">
+              <div data-parallax="0.18" className="h-full">
               <Image
                 src="/images/citybuilders/class-group.jpg"
                 alt="Pupils of The Foundation Montessori standing together in the classroom"
@@ -24,10 +25,12 @@ export default function CityBuildersStrip() {
                 height={1178}
                 loading="lazy"
                 sizes="(max-width: 1024px) 55vw, 330px"
-                className="h-full w-full object-cover"
+                className="h-full w-full scale-110 object-cover"
               />
+              </div>
             </div>
-            <div className="col-span-2 overflow-hidden rounded-2xl">
+            <div data-reveal="shutter" style={{ ["--d" as string]: 140 }} className="col-span-2 mt-10 overflow-hidden rounded-2xl">
+              <div data-parallax="0.32" className="h-full">
               <Image
                 src="/images/citybuilders/pupil-writing.jpg"
                 alt="A pupil writing in a lined exercise book"
@@ -35,13 +38,14 @@ export default function CityBuildersStrip() {
                 height={1447}
                 loading="lazy"
                 sizes="(max-width: 1024px) 35vw, 220px"
-                className="h-full w-full object-cover"
+                className="h-full w-full scale-110 object-cover"
               />
+              </div>
             </div>
           </div>
 
           {/* copy */}
-          <div>
+          <div data-reveal>
             <div
               className="text-[11px] font-bold uppercase tracking-[0.3em]"
               style={{ color: CREST }}

@@ -1,124 +1,56 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Container from "@/components/ui/Container";
-import Button from "@/components/ui/Button";
 
+/**
+ * "New to SaltCity?" The church's own statement, set large over a photograph
+ * that drifts slowly against the scroll.
+ */
 export default function NewHere() {
-  const [ready, setReady] = useState(false);
-
-  // One-time intro animation (per session)
-  useEffect(() => {
-    const key = "sc_intro_newhere";
-    const played =
-      typeof window !== "undefined" && sessionStorage.getItem(key);
-
-    if (played) {
-      setReady(true);
-      return;
-    }
-
-    const t = window.setTimeout(() => {
-      setReady(true);
-      sessionStorage.setItem(key, "1");
-    }, 60);
-
-    return () => window.clearTimeout(t);
-  }, []);
-
   return (
-    <section className="relative overflow-hidden">
-      {/* Background image with slow cinematic motion */}
-      <div className="absolute inset-0 overflow-hidden">
+    <section className="relative overflow-hidden bg-black">
+      <div data-parallax="0.9" className="absolute inset-x-0 -inset-y-[14%]">
         <Image
-          src="/new-here.jpg"
+          src="/images/home/new-here.jpg"
           alt=""
           fill
           sizes="100vw"
-          priority={false}
-          className="
-            object-cover
-            will-change-transform
-            motion-reduce:animate-none
-          "
-          style={{
-            animation: "slow-zoom 24s ease-in-out infinite",
-          }}
+          quality={70}
+          className="object-cover"
         />
       </div>
-
-      {/* Soft overlays */}
-      <div className="absolute inset-0 bg-black/45" />
-      <div className="absolute inset-0 bg-gradient-to-r from-black/35 via-transparent to-black/35" />
-
-      {/* Bottom fade into next section */}
-      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-neutral-900 to-transparent" />
+      <div aria-hidden="true" className="absolute inset-0 bg-black/60" />
 
       <Container className="relative">
-        <div className="py-20 lg:py-24 flex items-center justify-center text-center">
-          <div
-            className={[
-              "max-w-3xl",
-              "transition-all duration-700 will-change-transform",
-              "motion-reduce:transition-none motion-reduce:transform-none motion-reduce:opacity-100",
-              ready
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-4",
-            ].join(" ")}
+        <div className="py-28 md:py-40">
+          <div data-reveal className="text-xs font-bold uppercase tracking-[0.28em] text-white/60">
+            New to SaltCity?
+          </div>
+
+          <p
+            data-reveal
+            style={{ ["--d" as string]: 80 }}
+            className="mt-7 max-w-[20ch] text-[clamp(2rem,5.2vw,4.5rem)] font-black leading-[1.02] tracking-tight text-white sm:max-w-[24ch]"
           >
-            <h2
-              className={[
-                "text-4xl md:text-5xl font-black text-white mb-6",
-                "transition-all duration-700 delay-75",
-                ready
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-3",
-                "motion-reduce:transition-none motion-reduce:transform-none motion-reduce:opacity-100",
-              ].join(" ")}
-            >
-              New to SaltCity?
-            </h2>
+            We teach believers how to live victoriously by practicing the Written Word of GOD and
+            living everyday with JESUS as our EXAMPLE.
+          </p>
 
-            <p
-              className={[
-                "text-lg md:text-xl text-white/90 leading-relaxed mb-10 max-w-2xl mx-auto",
-                "transition-all duration-700 delay-150",
-                ready
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-3",
-                "motion-reduce:transition-none motion-reduce:transform-none motion-reduce:opacity-100",
-              ].join(" ")}
+          <div
+            data-reveal
+            style={{ ["--d" as string]: 160 }}
+            className="mt-11 flex flex-wrap items-center gap-x-8 gap-y-4"
+          >
+            <Link
+              href="/who-we-are"
+              className="rounded-full bg-white px-8 py-4 text-sm font-bold text-black transition hover:bg-white/90"
             >
-              Here at SaltCity, we teach believers how to live victoriously by
-              practicing the Written Word of GOD and living everyday with JESUS
-              as our EXAMPLE.
-            </p>
-
-            <div
-              className={[
-                "flex flex-col sm:flex-row items-center justify-center gap-4",
-                "transition-all duration-700 delay-200",
-                ready
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-2",
-                "motion-reduce:transition-none motion-reduce:transform-none motion-reduce:opacity-100",
-              ].join(" ")}
-            >
-              <Button
-                href="/who-we-are"
-                className="w-full sm:w-auto bg-white text-black hover:bg-white/90"
-              >
-                Who We Are
-              </Button>
-
-              <Button
-                href="/next-steps"
-                className="w-full sm:w-auto bg-transparent text-white ring-1 ring-white/50 hover:ring-white hover:bg-white/10"
-              >
-                Grow With Us
-              </Button>
-            </div>
+              Who we are
+            </Link>
+            <Link href="/next-steps" className="sc-link text-sm text-white">
+              Grow with us
+              <span aria-hidden="true">→</span>
+            </Link>
           </div>
         </div>
       </Container>

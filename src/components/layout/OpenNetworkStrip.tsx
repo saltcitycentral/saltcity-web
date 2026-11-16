@@ -10,7 +10,7 @@ export default function OpenNetworkStrip() {
           </p>
 
           <a
-            href="#"
+            href="/songs"
             className="inline-flex items-center justify-center rounded-full bg-black px-8 py-3 text-sm font-semibold text-white hover:bg-black/90"
           >
             Listen Now

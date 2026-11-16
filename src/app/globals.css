@@ -513,4 +513,493 @@ body {
       transition: none;
     }
   }
+
+  /* ─── Homepage ────────────────────────────────────────────────────────────
+     Black, white and photographs. All motion here is transform and opacity,
+     driven by one small script (HomeMotion) that writes CSS variables instead
+     of re-rendering anything. */
+
+  /* ── Loading screen ───────────────────────────────────────────────────── */
+  /* Made from the logo. The roofline draws itself and fills in, the name rises
+     in beneath it, and then the space under the roof opens like a doorway: a
+     window in the shape of the logo grows until the page has come through.
+
+     Server-rendered and switched on by an inline script, so it is there before
+     the page hydrates. --lw is the width the logo is drawn at; the doorway is
+     placed from it so the two always line up. */
+  .sc-loader {
+    --lw: clamp(170px, 22vw, 270px);
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    place-items: center;
+  }
+
+  .sc-loader.is-on {
+    display: grid;
+  }
+
+  /* The dark screen, with a logo-shaped hole that starts at nothing. The mask
+     is two layers, the doorway and a full sheet, and "exclude" leaves the sheet
+     minus the doorway. The offsets are where the roofline sits in the logo. */
+  .sc-loader-bg {
+    position: absolute;
+    inset: 0;
+    background: #0b0b0b;
+    -webkit-mask-image: url("/logo-door.png"), linear-gradient(#000, #000);
+    mask-image: url("/logo-door.png"), linear-gradient(#000, #000);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: calc(50% - var(--lw) * 0.10125) calc(50% - var(--lw) * 0.1517), 0 0;
+    mask-position: calc(50% - var(--lw) * 0.10125) calc(50% - var(--lw) * 0.1517), 0 0;
+    -webkit-mask-size: 0 0, 100% 100%;
+    mask-size: 0 0, 100% 100%;
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation:
+      sc-door 1.15s cubic-bezier(0.7, 0, 0.85, 0.3) 2.35s forwards,
+      sc-gone 0.2s linear 3.35s forwards;
+  }
+
+  @keyframes sc-door {
+    from {
+      -webkit-mask-size: calc(var(--lw) * 0.5187) auto, 100% 100%;
+      mask-size: calc(var(--lw) * 0.5187) auto, 100% 100%;
+    }
+    to {
+      -webkit-mask-size: 360vmax auto, 100% 100%;
+      mask-size: 360vmax auto, 100% 100%;
+    }
+  }
+
+  .sc-loader-logo {
+    position: relative;
+    display: block;
+    width: var(--lw);
+    height: auto;
+    overflow: visible;
+  }
+
+  /* The roofline: drawn as a line, then filled, then gone as the door opens. */
+  .sc-lm-mark {
+    fill-opacity: 0;
+    stroke: #fff;
+    stroke-width: 1.1;
+    stroke-linejoin: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation:
+      sc-draw 1.25s cubic-bezier(0.65, 0, 0.35, 1) 0.15s forwards,
+      sc-fill 0.45s ease 1.1s forwards,
+      sc-gone 0.4s ease 2.4s forwards;
+  }
+
+  /* The name comes up a piece at a time, left to right. */
+  .sc-lm-word path {
+    opacity: 0;
+    transform: translateY(22px);
+    animation: sc-letter 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: calc(0.85s + var(--i, 0) * 0.06s);
+  }
+
+  .sc-lm-central {
+    opacity: 0;
+    animation: sc-appear 0.6s ease 1.5s forwards;
+  }
+
+  .sc-lm-text {
+    animation: sc-gone 0.3s ease 2.3s forwards;
+  }
+
+  @keyframes sc-draw { to { stroke-dashoffset: 0; } }
+  @keyframes sc-fill { to { fill-opacity: 1; } }
+  @keyframes sc-letter { to { opacity: 1; transform: none; } }
+  @keyframes sc-appear { to { opacity: 1; } }
+  @keyframes sc-gone { to { opacity: 0; } }
+
+  /* ── Hero ─────────────────────────────────────────────────────────────── */
+  /* --p runs 0 → 1 as the hero scrolls away. The frame draws in from the
+     edges and rounds off, the photograph drifts, the copy lifts and fades. */
+  .sc-hero-frame {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    transform: scale(calc(1 - var(--p, 0) * 0.07));
+    border-radius: calc(var(--p, 0) * 40px);
+    will-change: transform;
+  }
+
+  .sc-hero-drift {
+    position: absolute;
+    inset: -6% 0;
+    transform: translate3d(0, calc(var(--p, 0) * 7%), 0);
+    will-change: transform;
+  }
+
+  /* The photograph settles back as the page opens. */
+  .sc-hero-settle {
+    position: absolute;
+    inset: 0;
+    animation: sc-settle 2.6s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
+  }
+
+  @keyframes sc-settle {
+    from { transform: scale(1.16); }
+    to { transform: none; }
+  }
+
+  /* The photographs turn over: the next one wipes in across the last from
+     the right, then settles slowly while it is up. */
+  .sc-slide {
+    position: absolute;
+    inset: 0;
+    visibility: hidden;
+  }
+
+  .sc-slide.is-prev {
+    visibility: visible;
+    z-index: 1;
+  }
+
+  .sc-slide.is-active {
+    visibility: visible;
+    z-index: 2;
+    animation: sc-slide-in 1.5s cubic-bezier(0.76, 0, 0.24, 1) both;
+  }
+
+  .sc-slide.is-first {
+    animation: none;
+  }
+
+  .sc-slide-img {
+    position: absolute;
+    inset: 0;
+  }
+
+  .sc-slide.is-active:not(.is-first) .sc-slide-img {
+    animation: sc-slide-settle 8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes sc-slide-in {
+    from { clip-path: inset(0 0 0 100%); }
+    to { clip-path: inset(0); }
+  }
+
+  @keyframes sc-slide-settle {
+    from { transform: scale(1.14); }
+    to { transform: scale(1.02); }
+  }
+
+  /* A soft light that follows the pointer across the room. It rests on the
+     pulpit until the pointer moves. */
+  .sc-hero-light {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      560px circle at var(--mx, 48%) var(--my, 42%),
+      rgba(255, 255, 255, 0.22),
+      rgba(255, 255, 255, 0) 62%
+    );
+    mix-blend-mode: soft-light;
+  }
+
+  .sc-hero-copy {
+    transform: translate3d(0, calc(var(--p, 0) * -70px), 0);
+    opacity: calc(1 - var(--p, 0) * 1.5);
+    will-change: transform, opacity;
+  }
+
+  /* Lines of the headline rise out of their own baseline, one after another. */
+  .sc-line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+  }
+
+  .sc-line > span {
+    display: block;
+    animation: sc-rise 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(0.15s + var(--i, 0) * 0.09s);
+  }
+
+  .sc-fade {
+    animation: sc-fade 0.9s ease both;
+    animation-delay: calc(0.35s + var(--i, 0) * 0.09s);
+  }
+
+  @keyframes sc-rise {
+    from { transform: translateY(108%); }
+    to { transform: none; }
+  }
+
+  @keyframes sc-fade {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* When the loading screen is playing, the hero waits for it: the photograph
+     starts settling as the doorway opens, and the words follow it through. */
+  .sc-loader.is-on ~ [data-hero] .sc-hero-settle { animation-delay: 2.3s; }
+  .sc-loader.is-on ~ [data-hero] .sc-line > span { animation-delay: calc(3.05s + var(--i, 0) * 0.09s); }
+  .sc-loader.is-on ~ [data-hero] .sc-fade { animation-delay: calc(3.3s + var(--i, 0) * 0.09s); }
+
+  /* ── Arriving on scroll ───────────────────────────────────────────────── */
+  /* Only hidden once the script has said it is running (html.sc-motion), so
+     nothing stays invisible if it never does. */
+  .sc-motion [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+    transition:
+      opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: calc(var(--d, 0) * 1ms);
+  }
+
+  .sc-motion [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Photographs that open like a shutter as they arrive. The clip sits on the
+     child: an element clipped away to nothing never counts as in view, so the
+     observed element itself has to keep its box. */
+  .sc-motion [data-reveal="shutter"] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .sc-motion [data-reveal="shutter"] > * {
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 1.2s cubic-bezier(0.65, 0, 0.35, 1);
+    transition-delay: calc(var(--d, 0) * 1ms);
+  }
+
+  .sc-motion [data-reveal="shutter"].is-in > * {
+    clip-path: inset(0);
+  }
+
+  /* Anything with data-parallax drifts against the scroll; the script sets --y. */
+  [data-parallax] {
+    transform: translate3d(0, var(--y, 0px), 0);
+    will-change: transform;
+  }
+
+  /* ── Menu button ──────────────────────────────────────────────────────── */
+  /* Two lines. The lower one is short until you reach for it. */
+  .sc-burger {
+    display: grid;
+    gap: 6px;
+    width: 26px;
+  }
+
+  .sc-burger span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: currentColor;
+    transform-origin: right center;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .sc-burger span:last-child {
+    transform: scaleX(0.55);
+  }
+
+  .sc-menu-btn:hover .sc-burger span:last-child {
+    transform: scaleX(1);
+  }
+
+  /* ── Menu ─────────────────────────────────────────────────────────────── */
+  /* The panel comes down like a blind; the links rise out of their lines
+     behind it, one after another. Closing runs the blind back up. */
+  .sc-menu-panel {
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  .sc-menu.is-open .sc-menu-panel {
+    clip-path: inset(0);
+  }
+
+  .sc-menu-rise {
+    display: block;
+    overflow: hidden;
+  }
+
+  .sc-menu-rise > span {
+    display: block;
+    transform: translateY(110%);
+    transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  .sc-menu.is-open .sc-menu-rise > span {
+    transform: none;
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: calc(0.28s + var(--i, 0) * 45ms);
+  }
+
+  .sc-menu-fade {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .sc-menu.is-open .sc-menu-fade {
+    opacity: 1;
+    transition: opacity 0.8s ease;
+    transition-delay: calc(0.5s + var(--i, 0) * 60ms);
+  }
+
+  /* Reach for one link and the others step back. */
+  .sc-menu-link {
+    transition: opacity 0.35s ease;
+  }
+
+  .sc-menu-link .sc-menu-arrow {
+    display: inline-block;
+    opacity: 0;
+    transform: translateX(-0.4em);
+    transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .sc-menu-list:hover .sc-menu-link { opacity: 0.32; }
+    .sc-menu-list .sc-menu-link:hover { opacity: 1; }
+    .sc-menu-link:hover .sc-menu-arrow { opacity: 1; transform: none; }
+  }
+
+  /* The close mark: the two lines of the menu button, crossed. */
+  .sc-close {
+    position: relative;
+    display: block;
+    width: 26px;
+    height: 26px;
+  }
+
+  .sc-close::before,
+  .sc-close::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 12px;
+    height: 2px;
+    width: 100%;
+    background: currentColor;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
+  }
+
+  .sc-menu.is-open .sc-close::before { transform: rotate(45deg); }
+  .sc-menu.is-open .sc-close::after { transform: rotate(-45deg); }
+
+  /* ── Next steps: a list, not cards ────────────────────────────────────── */
+  .sc-step {
+    position: relative;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.9rem 0;
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    transition: padding 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* A black rule draws across the bottom of the row you are on. */
+  .sc-step::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 1px;
+    background: #000;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .sc-step-arrow {
+    display: grid;
+    height: 3rem;
+    width: 3rem;
+    flex: none;
+    place-items: center;
+    border-radius: 9999px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .sc-step:hover { padding-left: 1rem; }
+    .sc-step:hover::after { transform: scaleX(1); }
+    .sc-step:hover .sc-step-arrow {
+      background: #000;
+      border-color: #000;
+      color: #fff;
+      transform: rotate(-45deg);
+    }
+  }
+
+  .sc-step:focus-visible { outline: 2px solid #000; outline-offset: 4px; }
+
+  /* A text link with a rule that redraws itself on hover. */
+  .sc-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding-bottom: 0.35rem;
+    font-weight: 700;
+  }
+
+  .sc-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: currentColor;
+    transform-origin: right center;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .sc-link:hover::after {
+      transform: scaleX(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sc-hero-frame,
+    .sc-hero-drift,
+    .sc-hero-copy,
+    [data-parallax] {
+      transform: none;
+      opacity: 1;
+    }
+
+    .sc-hero-settle,
+    .sc-line > span,
+    .sc-fade,
+    .sc-slide.is-active,
+    .sc-slide.is-active .sc-slide-img {
+      animation: none;
+    }
+
+    .sc-menu-panel,
+    .sc-menu-rise > span,
+    .sc-menu-fade,
+    .sc-burger span {
+      transition: none;
+    }
+
+    .sc-step,
+    .sc-step::after,
+    .sc-step-arrow,
+    .sc-link::after {
+      transition: none;
+    }
+  }
 }

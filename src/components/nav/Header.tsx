@@ -1,6 +1,5 @@
 "use client";
 
-import { User } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
@@ -76,12 +75,6 @@ useEffect(() => {
     ? "text-white/90 hover:text-white drop-shadow"
     : "text-black/65 hover:text-black";
 
-  const iconRingClass = overlayActive
-    ? "border-white/30 text-white"
-    : "border-black/15 text-black/55";
-
-  const burgerBarClass = overlayActive ? "bg-white" : "bg-black/60";
-
   const logoSrc = overlayActive ? "/logo-white.svg" : "/logo.svg";
 
   return (
@@ -122,37 +115,20 @@ useEffect(() => {
             </div>
 
             <div className="flex items-center gap-6">
-              {/* <Link
-                href="/login"
-                className={[
-                  "hidden sm:flex items-center gap-2 uppercase text-xs font-semibold tracking-wide transition-colors",
-                  rightTextClass,
-                ].join(" ")}
-              >
-                <div
-                  className={[
-                    "grid h-8 w-8 place-items-center rounded-full border",
-                    iconRingClass,
-                  ].join(" ")}
-                >
-                  <User className="h-4 w-4" />
-                </div>
-                <span>LOG IN</span>
-              </Link> */}
-
               <button
+                type="button"
                 onClick={() => setMenuOpen(true)}
+                aria-label="Open menu"
                 className={[
-                  "flex items-center gap-3 uppercase text-xs font-semibold tracking-wide transition-colors",
+                  "sc-menu-btn flex items-center gap-3.5 py-1 uppercase text-xs font-bold tracking-[0.2em] transition-colors",
                   rightTextClass,
                 ].join(" ")}
               >
-                <div className="grid gap-1">
-                  <span className={`h-[2px] w-5 ${burgerBarClass}`} />
-                  <span className={`h-[2px] w-5 ${burgerBarClass}`} />
-                  <span className={`h-[2px] w-5 ${burgerBarClass}`} />
-                </div>
-                <span>MENU</span>
+                <span>Menu</span>
+                <span className="sc-burger" aria-hidden="true">
+                  <span />
+                  <span />
+                </span>
               </button>
             </div>
           </nav>
