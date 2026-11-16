@@ -3,12 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-type Tab = {
-  label: string;
-  href: string;
-};
-
-const tabs: Tab[] = [
+const tabs = [
   { label: "Who We Are", href: "/who-we-are" },
   { label: "What to Expect", href: "/who-we-are/what-to-expect" },
   { label: "Our Beliefs", href: "/who-we-are/our-beliefs" },
@@ -23,50 +18,29 @@ export default function WhoWeAreNavBar() {
   const pathname = usePathname();
 
   return (
-    <nav className="w-full bg-white border-b border-black/10 sticky top-[73px] z-30">
-      <div className="mx-auto w-full max-w-[1200px] px-6">
-        {/* Desktop */}
-        <div className="hidden md:flex items-center justify-center gap-1 h-14">
-          {tabs.map((t) => {
-            const active = isActive(pathname, t.href);
-            return (
-              <Link
-                key={t.href}
-                href={t.href}
-                className={`relative px-6 h-full flex items-center text-sm font-semibold transition-colors ${
-                  active ? "text-black" : "text-black/50 hover:text-black/75"
+    <nav aria-label="Who We Are" className="sticky top-[73px] z-30 w-full border-b border-black/10 bg-white">
+      <div className="no-scrollbar mx-auto flex w-full max-w-[1200px] gap-6 overflow-x-auto px-6 sm:gap-10">
+        {tabs.map((t) => {
+          const active = isActive(pathname, t.href);
+          return (
+            <Link
+              key={t.href}
+              href={t.href}
+              aria-current={active ? "page" : undefined}
+              className={`relative flex h-12 shrink-0 items-center text-[11px] font-bold uppercase tracking-[0.18em] transition-colors sm:text-xs sm:tracking-[0.2em] ${
+                active ? "text-black" : "text-black/45 hover:text-black"
+              }`}
+            >
+              {t.label}
+              <span
+                aria-hidden="true"
+                className={`absolute inset-x-0 bottom-0 h-[2px] origin-left bg-black transition-transform duration-500 ${
+                  active ? "scale-x-100" : "scale-x-0"
                 }`}
-              >
-                {t.label}
-                {active && (
-                  <span className="absolute bottom-0 left-0 right-0 h-[3px] bg-black" />
-                )}
-              </Link>
-            );
-          })}
-        </div>
-
-        {/* Mobile */}
-        <div className="md:hidden py-4">
-          <div className="flex gap-2 overflow-x-auto no-scrollbar">
-            {tabs.map((t) => {
-              const active = isActive(pathname, t.href);
-              return (
-                <Link
-                  key={t.href}
-                  href={t.href}
-                  className={`shrink-0 px-5 py-2 rounded-full text-sm font-semibold transition-colors ${
-                    active
-                      ? "bg-black text-white"
-                      : "bg-neutral-100 text-black/70 hover:bg-neutral-200"
-                  }`}
-                >
-                  {t.label}
-                </Link>
-              );
-            })}
-          </div>
-        </div>
+              />
+            </Link>
+          );
+        })}
       </div>
     </nav>
   );
