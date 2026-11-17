@@ -14,4 +14,5 @@ export const FILE_SIZES: Record<string, string> = {
   "/downloads/for-children-raphsody.pdf": "2.4 MB",
   "/downloads/how-to-study-bible.pdf": "451 KB",
   "/downloads/personal-devotion.pdf": "24 MB",
+  "/downloads/how-to-meditate-on-the-word.pdf": "549 KB",
 };

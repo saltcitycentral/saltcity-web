@@ -869,6 +869,21 @@ body {
     .sc-menu-link:hover .sc-menu-arrow { opacity: 1; transform: none; }
   }
 
+  /* A link has been followed and its page is on the way: the others step back
+     and the chosen one keeps its arrow out, nudging forward, until the page
+     arrives and the menu lifts away. */
+  .sc-menu-list.is-going .sc-menu-link { opacity: 0.32; }
+  .sc-menu-list.is-going .sc-menu-link.is-target { opacity: 1; }
+  .sc-menu-link.is-target .sc-menu-arrow {
+    opacity: 1;
+    transform: none;
+    animation: sc-menu-nudge 0.9s cubic-bezier(0.22, 1, 0.36, 1) infinite alternate;
+  }
+
+  @keyframes sc-menu-nudge {
+    to { transform: translateX(0.3em); }
+  }
+
   /* The close mark: the two lines of the menu button, crossed. */
   .sc-close {
     position: relative;
@@ -985,6 +1000,10 @@ body {
     .sc-fade,
     .sc-slide.is-active,
     .sc-slide.is-active .sc-slide-img {
+      animation: none;
+    }
+
+    .sc-menu-link.is-target .sc-menu-arrow {
       animation: none;
     }
 
