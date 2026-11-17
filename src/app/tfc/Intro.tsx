@@ -17,6 +17,7 @@ const LENGTH = 6050;
 export const REPLAY_EVENT = "tfc:replay-intro";
 
 let decision: boolean | null = null;
+let mountedCount = 0;
 
 function shouldPlay() {
   if (decision === null) {
@@ -51,6 +52,22 @@ export default function Intro() {
     const cover = document.getElementById("tfc-cover");
     if (cover) cover.style.display = "none";
   }, [playing]);
+
+  // The decision is kept in memory for the life of this page, and this module
+  // outlives it: coming back through the site's own links doesn't reload it.
+  // Forget it once the page has really gone, so the next visit asks
+  // sessionStorage again, which by then says the sequence has been seen. (React
+  // in development unmounts and remounts straight away; the count and the
+  // timeout keep that from counting as leaving.)
+  useEffect(() => {
+    mountedCount += 1;
+    return () => {
+      mountedCount -= 1;
+      setTimeout(() => {
+        if (mountedCount === 0) decision = null;
+      }, 0);
+    };
+  }, []);
 
   useEffect(() => {
     const replay = () => {

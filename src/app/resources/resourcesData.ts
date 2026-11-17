@@ -176,6 +176,17 @@ export const RESOURCE_CATEGORIES: ResourceCategory[] = [
         kind: "pdf",
         badge: "Devotional Guide",
       },
+      {
+        id: "how-to-meditate-on-the-word",
+        title: "How to Meditate on the Word",
+        description:
+          "The way for the word of GOD to profit us is to put it on our lips and meditate on it continuously. Large print.",
+        fileSize: "PDF",
+        href: "/downloads/how-to-meditate-on-the-word.pdf",
+        cover: "/downloads/covers/how-to-meditate-on-the-word.jpg",
+        kind: "pdf",
+        badge: "Study Guide",
+      },
     ],
   },
 

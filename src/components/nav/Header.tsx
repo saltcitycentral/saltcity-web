@@ -18,7 +18,11 @@ const MAIN_LINKS = [
 export default function Header() {
   const pathname = usePathname();
 
-  const [menuOpen, setMenuOpen] = useState(false);
+  // The menu belongs to the page it was opened on. Following one of its links
+  // leaves it down until the new page has arrived, then it lifts away by
+  // itself, so a tap is never answered by the old page sitting there.
+  const [menuOpenOn, setMenuOpenOn] = useState<string | null>(null);
+  const menuOpen = menuOpenOn !== null && menuOpenOn === pathname;
   const [scrolled, setScrolled] = useState(false);
   const [overlayWanted, setOverlayWanted] = useState(false);
 
@@ -117,7 +121,7 @@ useEffect(() => {
             <div className="flex items-center gap-6">
               <button
                 type="button"
-                onClick={() => setMenuOpen(true)}
+                onClick={() => setMenuOpenOn(pathname)}
                 aria-label="Open menu"
                 className={[
                   "sc-menu-btn flex items-center gap-3.5 py-1 uppercase text-xs font-bold tracking-[0.2em] transition-colors",
@@ -138,7 +142,7 @@ useEffect(() => {
       {/* ✅ Spacer ONLY when NOT overlay */}
       {!overlayActive && <div className="h-[73px]" />}
 
-      <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
+      <MenuOverlay open={menuOpen} onClose={() => setMenuOpenOn(null)} />
     </>
   );
 }

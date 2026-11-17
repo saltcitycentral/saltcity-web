@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Container from "@/components/ui/Container";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 type Props = {
   open: boolean;
@@ -109,6 +110,16 @@ export default function MenuOverlay({ open, onClose }: Props) {
   // Mount first, then open on the next frame so the transition has a start.
   const [mounted, setMounted] = useState(false);
   const [active, setActive] = useState(false);
+  // The link that was followed, while its page is on the way.
+  const [going, setGoing] = useState<string | null>(null);
+  const pathname = usePathname();
+
+  // Another page: keep the menu down with that link marked; the header lifts
+  // the menu once the page has arrived. This page or another site: close now.
+  const follow = (href: string) => {
+    if (isExternal(href) || href === pathname) onClose();
+    else setGoing(href);
+  };
 
   useEffect(() => {
     if (!open) {
@@ -117,6 +128,7 @@ export default function MenuOverlay({ open, onClose }: Props) {
     }
     let inner = 0;
     const outer = requestAnimationFrame(() => {
+      setGoing(null);
       setMounted(true);
       inner = requestAnimationFrame(() => setActive(true));
     });
@@ -155,7 +167,7 @@ export default function MenuOverlay({ open, onClose }: Props) {
         {/* Top bar, in the header's place */}
         <Container>
           <div className="flex items-center justify-between py-5">
-            <Link href="/" className="flex items-center" onClick={onClose}>
+            <Link href="/" className="flex items-center" onClick={() => follow("/")}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/logo-white.svg" alt="SaltCity" className="h-8 w-auto" />
             </Link>
@@ -177,17 +189,20 @@ export default function MenuOverlay({ open, onClose }: Props) {
             <div className="grid gap-14 pb-16 pt-8 lg:grid-cols-[1.25fr_0.75fr] lg:gap-20 lg:pt-12">
               {/* The pages, set large */}
               <nav aria-label="Pages">
-                <ul className="sc-menu-list">
+                <ul className={["sc-menu-list", going ? "is-going" : ""].join(" ")}>
                   {TOP_ITEMS.map((x, i) => {
                     const ext = isExternal(x.href);
                     return (
                       <li key={x.title}>
                         <Link
                           href={x.href}
-                          onClick={onClose}
+                          onClick={() => follow(x.href)}
                           target={ext ? "_blank" : undefined}
                           rel={ext ? "noopener noreferrer" : undefined}
-                          className="sc-menu-link sc-menu-rise py-[0.18em] text-[clamp(1.9rem,4.6vw,3.9rem)] font-black leading-[1.02] tracking-tight"
+                          aria-busy={going === x.href ? true : undefined}
+                          className={`sc-menu-link sc-menu-rise py-[0.18em] text-[clamp(1.9rem,4.6vw,3.9rem)] font-black leading-[1.02] tracking-tight ${
+                            going === x.href ? "is-target" : ""
+                          }`}
                         >
                           <span style={{ ["--i" as string]: i }}>
                             {x.title}
@@ -234,7 +249,7 @@ export default function MenuOverlay({ open, onClose }: Props) {
                   <ul className="mt-4 flex flex-wrap gap-x-7 gap-y-2">
                     {QUICK_LINKS.map((x) => (
                       <li key={x.title}>
-                        <Link href={x.href} onClick={onClose} className="sc-link text-sm text-white">
+                        <Link href={x.href} onClick={() => follow(x.href)} className="sc-link text-sm text-white">
                           {x.title}
                         </Link>
                       </li>
