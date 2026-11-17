@@ -1,5 +1,3 @@
-"use client"; // Add this at the top
-
 import type { ReactNode } from "react";
 import GivingNavBar from "./GivingNavBar";
 
