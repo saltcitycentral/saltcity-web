@@ -74,7 +74,7 @@ export default function PastEditions({ editions, telegram }: { editions: PastEdi
                   alt={p.alt}
                   fill
                   sizes="(max-width: 1024px) 50vw, 380px"
-                  quality={68}
+                  quality={75}
                   className="object-cover"
                   style={{ objectPosition: p.position ?? "50% 50%" }}
                 />
