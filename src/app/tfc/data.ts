@@ -3,9 +3,9 @@
  * photos, the six "what to expect" cards, past editions and the FAQs.
  */
 
-/** First session: Tuesday 8 December 2026, 9:00 AM WAT. Last day: Sunday 13th. */
+/** First session: Tuesday 8 December 2026, 9:00 AM WAT. Last: the Sunday 13th thanksgiving, 9:00 AM. */
 export const START = "2026-12-08T09:00:00+01:00";
-export const END = "2026-12-13T21:00:00+01:00";
+export const END = "2026-12-13T14:00:00+01:00";
 
 export const VENUE_NAME = "Centre of Discipleship";
 export const VENUE_ADDRESS = "20 Okumagba Avenue, Warri";
@@ -16,8 +16,8 @@ export const MAP_URL =
 export const CALENDAR_URL =
   "https://calendar.google.com/calendar/render?action=TEMPLATE" +
   "&text=The+Faith+Convention+2026+%E2%80%94+MULTIPLY" +
-  "&dates=20261208T080000Z/20261213T200000Z" +
-  "&details=Mornings+9%3A00+AM+and+evenings+4%3A30+PM.+School+of+Ministry+Saturday+9%3A00+AM." +
+  "&dates=20261208T080000Z/20261213T130000Z" +
+  "&details=Tuesday+to+Saturday%3A+mornings+9%3A00+AM+and+evenings+4%3A30+PM.+Sunday%3A+TFC+Thanksgiving+9%3A00+AM." +
   "&location=Centre+of+Discipleship%2C+20+Okumagba+Avenue%2C+Warri%2C+Delta+State";
 
 /**
@@ -128,57 +128,48 @@ export type ExpectCard = {
 export const EXPECT: ExpectCard[] = [
   {
     key: "sons",
-    when: "Tuesday night",
-    title: "The blessing of sons",
-    body: "The convention opens in-house. The sons of SaltCity gather to receive a father's blessing from our senior pastor.",
-    image: img("expect-sons"),
+    when: "Tuesday Night",
+    title: "The Blessing Of Sons",
+    body: "The convention kicks off with an in-house gathering of sons raised in SaltCity, coming together to receive a Father’s blessing from our Senior PASTOR.",
+    image: img("expect-blessing"),
+    alt: "The congregation with hands raised on the first day of the convention",
+    position: "50% 45%",
+  },
+  {
+    key: "family",
+    when: "Through The Week",
+    title: "Family Life",
+    body: "Specific days have been set aside for each demographic group in our church, with teachings, ministrations, and activities thoughtfully tailored to their unique needs.",
+    list: ["Single men", "Single women", "Married men", "Married women", "Teens and children"],
+    image: img("expect-familylife"),
     alt: "Members gathered close around one another in prayer",
     position: "50% 40%",
   },
   {
-    key: "family",
-    when: "Through the week",
-    title: "Family life",
-    body: "Each has a day set apart for them. Everyone is blessed every day, but on your day the meeting is aimed at you.",
-    list: ["Single men", "Single women", "Married men", "Married women"],
-    image: img("expect-family"),
-    alt: "Members seated together, clapping during a session",
-    position: "50% 30%",
-  },
-  {
-    key: "children",
-    when: "All week",
-    title: "Children's church",
-    body: "Our children are not left behind. They are taught and blessed in their own church while the convention holds.",
-    image: img("expect-children"),
-    alt: "A father carrying his child at the convention",
-    position: "50% 35%",
-  },
-  {
     key: "ministry",
     when: "Saturday, 9:00 AM",
-    title: "School of Ministry",
-    body: "For those with a call to ministry, or already running a para-ministry: how to serve in the church and carry a ministry without dropping either.",
+    title: "School Of Ministry",
+    body: "Saturday morning session is for believers who lead a ministry, or serve in another person’s ministry, to equip them to become exemplary in their speech, faith, and overall conduct.",
     image: img("expect-ministry"),
     alt: "Members taking notes during a teaching session",
     position: "50% 60%",
   },
   {
     key: "joy",
-    when: "Saturday evening",
+    when: "Saturday Evening",
     title: "Joy Night",
-    body: "Saturday evening belongs to joy. Music, dancing and the whole house rejoicing.",
+    body: "Saturday evening is a joy meeting. Expect an atmosphere filled with loud music, dancing and rejoicing as we celebrate answered prayers, and prophetically displace the spirit of heaviness, depression and discouragement.",
     image: img("expect-joy"),
     alt: "Members celebrating with horns and trumpets",
     position: "50% 40%",
   },
   {
     key: "thanksgiving",
-    when: "Sunday",
+    when: "Sunday, 9:00 AM",
     title: "TFC Thanksgiving",
-    body: "The convention closes with its own thanksgiving service, separate from our end-of-year Thanksgiving.",
-    image: img("expect-thanksgiving"),
-    alt: "Two women in traditional attire dancing at thanksgiving",
+    body: "As a right response to Grace received, The Faith Convention comes to a close with its own thanksgiving service.",
+    image: img("expect-thanks"),
+    alt: "Members dancing in thanksgiving",
     position: "50% 30%",
   },
 ];
@@ -253,7 +244,15 @@ export const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "What time are the sessions?",
-    a: "Mornings at 9:00 AM and evenings at 4:30 PM, from Tuesday 8 to Sunday 13 December. The School of Ministry holds on Saturday at 9:00 AM.",
+    a: "From Tuesday 8 to Saturday 12 December, mornings at 9:00 AM and evenings at 4:30 PM. On Sunday there is one session, the TFC Thanksgiving at 9:00 AM.",
+  },
+  {
+    q: "Is there a morning session on Tuesday?",
+    a: "Yes. Tuesday has two sessions: one at 9:00 AM and another at 4:30 PM.",
+  },
+  {
+    q: "Is there an evening session on Sunday?",
+    a: "No. There is only one session on Sunday, at 9:00 AM, which is our TFC Thanksgiving.",
   },
   {
     q: "Will my children be catered for?",
@@ -261,7 +260,7 @@ export const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "I can't be in Warri. How do I take part?",
-    a: "Join the online community on WhatsApp. Someone from the church hosts it through the week, answers questions and keeps everyone together. The sessions are also on our YouTube channel.",
+    a: "Join the convention's online community on WhatsApp for livestream links, updates and further inquiries. The sessions are also on our YouTube channel.",
   },
   {
     q: "How can I partner with the convention?",

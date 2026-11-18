@@ -140,22 +140,24 @@ export default function FaithConventionPage() {
             <div className="max-w-[36rem]">
               <div className="tfc-label">What it is</div>
               <h2 className="mt-5 text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl">
-                Prophetic Family
-                <br />
-                Inheritance.
+                Our Prophetic Entrance Into The New Year
               </h2>
 
               <div className="mt-7 space-y-5 text-lg leading-relaxed text-white/75">
                 <p>
-                  Israel kept three feasts in the year, and the third, the ingathering, came at
-                  the end of it. The whole house went up together, brought in what the year had
-                  produced and gave thanks over it. December is that feast for us.
+                  The Faith Convention is SaltCity&apos;s family inheritance-sharing meeting and our
+                  prophetic gateway into the New Year.
                 </p>
                 <p>
-                  SaltCity&apos;s own name for the week carries the rest: a Prophetic Family
-                  Inheritance sharing meeting. An inheritance is what already belongs to the
-                  house, so the six days are given to sharing it out among the family, under
-                  teaching, with instructions to carry home.
+                  It is a special gathering where all expressions of SaltCity Central come together
+                  physically to feast on the Word of GOD, and to give and receive from the gifts,
+                  graces, and unique supplies within our family.
+                </p>
+                <p>
+                  This year&apos;s theme, &ldquo;MULTIPLY,&rdquo; is at the heart of our gathering. We
+                  will be receiving the wisdom, understanding, and power of GOD to multiply as a
+                  church, in our families, in our businesses, and in every other sphere of life where
+                  GOD&apos;s Word applies.
                 </p>
               </div>
 
@@ -183,14 +185,15 @@ export default function FaithConventionPage() {
             <div>
               <div className="tfc-label">What to expect</div>
               <h2 className="mt-5 text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl">
-                Six days, and a place
+                Six days of camping
                 <br />
-                in them for everyone.
+                around the Word of GOD
               </h2>
             </div>
-            <p className="max-w-[22rem] text-white/60">
-              Teaching every morning at 9:00 AM and every evening at 4:30 PM. Inside the week,
-              these.
+            <p className="max-w-[24rem] text-white/60">
+              From Tuesday, 8th December, through Saturday, we will gather for morning sessions at
+              9am and evening sessions at 4:30pm, culminating in a special Thanksgiving Service on
+              Sunday.
             </p>
           </div>
 
@@ -201,8 +204,8 @@ export default function FaithConventionPage() {
                   src={card.image}
                   alt={card.alt}
                   fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
-                  quality={70}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 760px"
+                  quality={78}
                   className="object-cover"
                   style={{ objectPosition: card.position ?? "50% 50%" }}
                 />
@@ -234,9 +237,9 @@ export default function FaithConventionPage() {
       {/* ── How to take part ── */}
       <section id="take-part" className="scroll-mt-16 border-t border-white/10 py-20 md:py-28">
         <Container>
-          <div className="tfc-label">How to take part</div>
+          <div className="tfc-label">How to participate</div>
           <h2 className="mt-5 text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl">
-            All roads lead to Okumagba Avenue.
+            All roads lead to 20 Okumagba Avenue.
           </h2>
 
           <div className="mt-12 grid gap-4 lg:grid-cols-2">
@@ -246,18 +249,18 @@ export default function FaithConventionPage() {
                 alt={JOIN.ground.alt}
                 fill
                 sizes="(max-width: 1024px) 100vw, 600px"
-                quality={70}
+                quality={78}
                 className="object-cover"
               />
               <div className="absolute inset-0 z-[1] bg-gradient-to-t from-black/90 via-black/45 to-black/10" />
               <div className="relative z-[2] p-7 sm:p-9">
                 <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#F7B92F]">
-                  In Warri
+                  Physically
                 </div>
-                <h3 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">Come to the house</h3>
+                <h3 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">Fellowship With Us</h3>
                 <p className="mt-4 max-w-[30rem] leading-relaxed text-white/85">
-                  Every SaltCity church is gathering in one place: the {VENUE_NAME},{" "}
-                  {VENUE_ADDRESS}. Bring someone with you.
+                  If you are in Warri or its environs, you can join us physically at The{" "}
+                  {VENUE_NAME}, {VENUE_ADDRESS}.
                 </p>
                 <div className="mt-7 flex flex-wrap gap-4">
                   <Btn href={CALENDAR_URL} external>
@@ -276,7 +279,7 @@ export default function FaithConventionPage() {
                 alt={JOIN.online.alt}
                 fill
                 sizes="(max-width: 1024px) 100vw, 600px"
-                quality={70}
+                quality={78}
                 className="object-cover"
                 style={{ objectPosition: "50% 30%" }}
               />
@@ -286,12 +289,11 @@ export default function FaithConventionPage() {
                   Online
                 </div>
                 <h3 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">
-                  Join from where you are
+                  Join From Where You Are
                 </h3>
                 <p className="mt-4 max-w-[30rem] leading-relaxed text-white/85">
-                  If you cannot be in Warri, join the convention&apos;s online community on WhatsApp.
-                  Someone from the church hosts it through the week, answers questions and keeps
-                  everyone together.
+                  If you are located outside Warri, you can join the convention&apos;s online community
+                  on WhatsApp, for livestream links, updates, and further inquiries.
                 </p>
                 <div className="mt-7 flex flex-wrap gap-4">
                   <Btn href={COMMUNITY_URL} external>
@@ -317,7 +319,7 @@ export default function FaithConventionPage() {
                 alt={PARTNER_IMAGE.alt}
                 fill
                 sizes="(max-width: 1024px) 90vw, 420px"
-                quality={72}
+                quality={78}
                 className="object-cover"
                 style={{ objectPosition: "50% 20%" }}
               />
@@ -328,13 +330,13 @@ export default function FaithConventionPage() {
                 Give
               </div>
               <h2 className="mt-5 text-4xl font-black leading-[1.02] tracking-tight sm:text-6xl">
-                Partner with
+                Partner
                 <br />
-                the convention.
+                With Us
               </h2>
               <p className="mt-6 max-w-[34rem] text-lg leading-relaxed text-[#170504]/80">
-                The Faith Convention is carried by the giving of the family. To partner with this
-                year&apos;s convention, give into the partnership account below.
+                Partner with us to create a befitting experience for everyone that will be a part of
+                The Convention.
               </p>
 
               <div className="mt-9 border-t border-[#170504]/20 pt-7">
@@ -362,7 +364,7 @@ export default function FaithConventionPage() {
         <Container>
           <div className="tfc-label">Past conventions</div>
           <h2 className="mt-5 text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl">
-            What the week has been.
+            Have A Feel Of Previous TFCs
           </h2>
           <div className="mt-12">
             <PastEditions editions={PAST} telegram={TELEGRAM_URL} />
