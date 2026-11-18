@@ -46,7 +46,7 @@ export default function PastEditions({ editions, telegram }: { editions: PastEdi
             <h3 className="text-4xl font-black leading-none tracking-tight sm:text-6xl">
               {edition.theme || `TFC ${edition.year}`}
             </h3>
-            <p className="mt-4 text-lg leading-relaxed text-white/70">{edition.note}</p>
+            <p className="mt-4 text-lg leading-[1.45] text-white/70">{edition.note}</p>
           </div>
 
           <div className="flex flex-wrap gap-4">

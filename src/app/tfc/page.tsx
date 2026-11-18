@@ -143,7 +143,7 @@ export default function FaithConventionPage() {
                 Our Prophetic Entrance Into The New Year
               </h2>
 
-              <div className="mt-7 space-y-5 text-lg leading-relaxed text-white/75">
+              <div className="mt-7 space-y-5 text-lg leading-[1.45] text-white/75">
                 <p>
                   The Faith Convention is SaltCity&apos;s family inheritance-sharing meeting and our
                   prophetic gateway into the New Year.
@@ -190,7 +190,7 @@ export default function FaithConventionPage() {
                 around the Word of GOD
               </h2>
             </div>
-            <p className="max-w-[24rem] text-white/60">
+            <p className="max-w-[24rem] leading-[1.45] text-white/60">
               From Tuesday, 8th December, through Saturday, we will gather for morning sessions at
               9am and evening sessions at 4:30pm, culminating in a special Thanksgiving Service on
               Sunday.
@@ -224,7 +224,7 @@ export default function FaithConventionPage() {
                       {card.list && (
                         <p className="pt-3 text-sm font-bold text-white">{card.list.join(" · ")}</p>
                       )}
-                      <p className="max-w-[34rem] pt-3 leading-relaxed text-white/85">{card.body}</p>
+                      <p className="max-w-[34rem] pt-3 leading-[1.45] text-white/85">{card.body}</p>
                     </div>
                   </div>
                 </div>
@@ -258,7 +258,7 @@ export default function FaithConventionPage() {
                   Physically
                 </div>
                 <h3 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">Fellowship With Us</h3>
-                <p className="mt-4 max-w-[30rem] leading-relaxed text-white/85">
+                <p className="mt-4 max-w-[30rem] leading-[1.45] text-white/85">
                   If you are in Warri or its environs, you can join us physically at The{" "}
                   {VENUE_NAME}, {VENUE_ADDRESS}.
                 </p>
@@ -291,7 +291,7 @@ export default function FaithConventionPage() {
                 <h3 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">
                   Join From Where You Are
                 </h3>
-                <p className="mt-4 max-w-[30rem] leading-relaxed text-white/85">
+                <p className="mt-4 max-w-[30rem] leading-[1.45] text-white/85">
                   If you are located outside Warri, you can join the convention&apos;s online community
                   on WhatsApp, for livestream links, updates, and further inquiries.
                 </p>
@@ -334,7 +334,7 @@ export default function FaithConventionPage() {
                 <br />
                 With Us
               </h2>
-              <p className="mt-6 max-w-[34rem] text-lg leading-relaxed text-[#170504]/80">
+              <p className="mt-6 max-w-[34rem] text-lg leading-[1.45] text-[#170504]/80">
                 Partner with us to create a befitting experience for everyone that will be a part of
                 The Convention.
               </p>
@@ -393,7 +393,7 @@ export default function FaithConventionPage() {
                       className="relative h-4 w-4 shrink-0 before:absolute before:left-0 before:top-1/2 before:h-0.5 before:w-4 before:-translate-y-1/2 before:bg-[#F7B92F] after:absolute after:left-1/2 after:top-0 after:h-4 after:w-0.5 after:-translate-x-1/2 after:bg-[#F7B92F] after:transition-transform group-open:after:rotate-90"
                     />
                   </summary>
-                  <p className="max-w-[40rem] pb-6 leading-relaxed text-white/70">{f.a}</p>
+                  <p className="max-w-[40rem] pb-6 leading-[1.45] text-white/70">{f.a}</p>
                 </details>
               ))}
             </div>
